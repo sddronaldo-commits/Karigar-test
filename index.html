@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Karigar</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; min-height: 100vh; padding: 20px; }
+        .container { max-width: 680px; margin: 0 auto; }
+        header { text-align: center; padding: 28px 0 18px; }
+        header h1 { font-size: 2rem; color: #1a202c; }
+        header p { color: #718096; margin-top: 6px; }
+
+        .tabs { display: flex; background: white; border-radius: 12px; padding: 6px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; color: #718096; transition: all 0.2s; }
+        .tab-btn.active { background: #4f46e5; color: white; font-weight: 600; }
+
+        .card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+        /* Steps */
+        .steps { display: flex; justify-content: space-between; margin-bottom: 28px; position: relative; }
+        .steps::before { content: ''; position: absolute; top: 15px; left: 13%; right: 13%; height: 2px; background: #e2e8f0; z-index: 0; }
+        .step { display: flex; flex-direction: column; align-items: center; gap: 5px; z-index: 1; }
+        .step-circle { width: 30px; height: 30px; border-radius: 50%; background: #e2e8f0; color: #718096; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; }
+        .step.active .step-circle { background: #4f46e5; color: white; }
+        .step.done .step-circle { background: #10b981; color: white; }
+        .step-label { font-size: 0.72rem; color: #718096; text-align: center; }
+        .step.active .step-label { color: #4f46e5; font-weight: 600; }
+
+        /* Calendar */
+        .section-title { font-size: 1.05rem; font-weight: 700; color: #1a202c; margin-bottom: 14px; }
+        .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .cal-header h3 { font-size: 1rem; color: #1a202c; }
+        .cal-nav { background: none; border: 1px solid #e2e8f0; border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 1rem; color: #4f46e5; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+        .cal-day-name { text-align: center; font-size: 0.72rem; color: #718096; font-weight: 600; padding: 4px 0; }
+        .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; border: 2px solid transparent; }
+        .cal-day:hover:not(.disabled):not(.empty) { background: #eef2ff; border-color: #4f46e5; }
+        .cal-day.selected { background: #4f46e5; color: white; border-color: #4f46e5; }
+        .cal-day.today { font-weight: 700; color: #4f46e5; }
+        .cal-day.disabled, .cal-day.empty { color: #cbd5e0; cursor: default; pointer-events: none; }
+
+        /* Time slots */
+        .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-slot { padding: 12px 8px; border: 2px solid #e2e8f0; border-radius: 10px; text-align: center; cursor: pointer; font-size: 0.88rem; transition: all 0.15s; color: #4a5568; }
+        .time-slot:hover { border-color: #4f46e5; background: #eef2ff; }
+        .time-slot.selected { background: #4f46e5; color: white; border-color: #4f46e5; }
+
+        /* Form */
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 0.85rem; font-weight: 600; color: #4a5568; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 11px 14px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 0.93rem; outline: none; transition: border 0.2s; font-family: inherit; }
+        input:focus, select:focus { border-color: #4f46e5; }
+
+        /* Buttons */
+        .btn { padding: 12px 22px; border: none; border-radius: 10px; font-size: 0.93rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .btn-primary { background: #4f46e5; color: white; width: 100%; }
+        .btn-primary:hover:not(:disabled) { background: #4338ca; }
+        .btn-primary:disabled { background: #a5b4fc; cursor: not-allowed; }
+        .btn-secondary { background: #f7fafc; color: #4a5568; border: 2px solid #e2e8f0; }
+        .btn-secondary:hover { background: #edf2f7; }
+        .btn-row { display: flex; gap: 10px; margin-top: 22px; }
+
+        /* Summary */
+        .summary { background: #f7fafc; border-radius: 12px; padding: 18px; margin-bottom: 18px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 7px 0; font-size: 0.88rem; border-bottom: 1px solid #e2e8f0; }
+        .summary-row:last-child { border: none; }
+        .summary-row .lbl { color: #718096; }
+        .summary-row .val { font-weight: 600; color: #1a202c; }
+
+        /* Success */
+        .success-box { text-align: center; padding: 16px 0; }
+        .success-icon { font-size: 3.5rem; margin-bottom: 14px; }
+        .success-box h2 { font-size: 1.4rem; color: #1a202c; margin-bottom: 8px; }
+        .success-box p { color: #718096; margin-bottom: 4px; font-size: 0.9rem; }
+        .booking-id { display: inline-block; background: #eef2ff; color: #4f46e5; padding: 8px 18px; border-radius: 8px; font-weight: 700; margin: 12px 0; font-size: 0.93rem; letter-spacing: 1px; }
+
+        /* Status */
+        .status-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-approved { background: #d1fae5; color: #065f46; }
+        .status-declined { background: #fee2e2; color: #991b1b; }
+        .status-card { background: #f7fafc; border-radius: 12px; padding: 18px; margin-top: 14px; border: 1px solid #e2e8f0; }
+
+        /* Alerts */
+        .alert { padding: 11px 15px; border-radius: 10px; margin-bottom: 14px; font-size: 0.88rem; }
+        .alert-error { background: #fee2e2; color: #991b1b; }
+        .alert-info { background: #e0f2fe; color: #0c4a6e; }
+
+        /* Spinner */
+        .spinner { border: 3px solid #e2e8f0; border-top: 3px solid #4f46e5; border-radius: 50%; width: 26px; height: 26px; animation: spin 0.8s linear infinite; margin: 16px auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 480px) {
+            .card { padding: 18px; }
+            .time-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🔧 Book a Karigar</h1>
+        <p>Schedule your home service quickly and easily</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('book', this)">📅 Book a Service</button>
+        <button class="tab-btn" onclick="switchTab('status', this)">🔍 Check My Booking</button>
+    </div>
+
+    <!-- ── BOOKING TAB ─────────────────────────── -->
+    <div id="tab-book" class="card">
+
+        <!-- Step indicators -->
+        <div class="steps">
+            <div class="step active" id="si-1"><div class="step-circle">1</div><span class="step-label">Date</span></div>
+            <div class="step" id="si-2"><div class="step-circle">2</div><span class="step-label">Time</span></div>
+            <div class="step" id="si-3"><div class="step-circle">3</div><span class="step-label">Details</span></div>
+            <div class="step" id="si-4"><div class="step-circle">4</div><span class="step-label">Confirm</span></div>
+        </div>
+
+        <!-- Step 1: Date -->
+        <div id="step-1">
+            <div class="section-title">Choose a Date</div>
+            <div class="cal-header">
+                <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+                <h3 id="cal-label"></h3>
+                <button class="cal-nav" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+            <p style="font-size:0.78rem;color:#a0aec0;margin-top:10px">* Sundays are unavailable</p>
+            <div class="btn-row">
+                <button class="btn btn-primary" id="btn-next-1" onclick="goStep(2)" disabled>Next: Pick a Time →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Time -->
+        <div id="step-2" class="hidden">
+            <div class="section-title">Choose a Time Slot</div>
+            <p style="font-size:0.85rem;color:#718096;margin-bottom:14px">Available slots for <strong id="date-label"></strong></p>
+            <div class="time-grid" id="time-grid"></div>
+            <div class="btn-row">
+                <button class="btn btn-secondary" style="flex:0 0 auto;width:100px" onclick="goStep(1)">← Back</button>
+                <button class="btn btn-primary" id="btn-next-2" onclick="goStep(3)" disabled>Next: Your Details →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Details -->
+        <div id="step-3" class="hidden">
+            <div class="section-title">Your Details</div>
+            <div id="form-err" class="alert alert-error hidden"></div>
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input id="f-name" type="text" placeholder="e.g. Ramesh Kumar" />
+            </div>
+            <div class="form-group">
+                <label>Phone Number *</label>
+                <input id="f-phone" type="tel" placeholder="10-digit mobile number" maxlength="10" />
+            </div>
+            <div class="form-group">
+                <label>Email Address *</label>
+                <input id="f-email" type="email" placeholder="you@example.com" />
+            </div>
+            <div class="form-group">
+                <label>Type of Work / Service *</label>
+                <select id="f-service">
+                    <option value="">— Select a service —</option>
+                    <option>Plumbing</option>
+                    <option>Electrical</option>
+                    <option>Carpentry</option>
+                    <option>Painting</option>
+                    <option>AC Repair</option>
+                    <option>Tiling / Masonry</option>
+                    <option>Welding</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-secondary" style="flex:0 0 auto;width:100px" onclick="goStep(2)">← Back</button>
+                <button class="btn btn-primary" onclick="goStep(4)">Review Booking →</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Confirm -->
+        <div id="step-4" class="hidden">
+            <div class="section-title">Review & Confirm</div>
+            <div class="summary" id="summary"></div>
+            <div id="submit-err" class="alert alert-error hidden"></div>
+            <div class="btn-row">
+                <button class="btn btn-secondary" style="flex:0 0 auto;width:100px" onclick="goStep(3)">← Edit</button>
+                <button class="btn btn-primary" id="btn-submit" onclick="submitBooking()">✅ Confirm Booking</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Done -->
+        <div id="step-5" class="hidden">
+            <div class="success-box">
+                <div class="success-icon">🎉</div>
+                <h2>Booking Request Sent!</h2>
+                <p>Your request is pending approval from our team.</p>
+                <p>You'll receive an email once it's confirmed.</p>
+                <div class="booking-id" id="bid-display"></div>
+                <p style="font-size:0.78rem;color:#a0aec0">Save this ID to check your booking status</p>
+                <div style="margin-top:20px">
+                    <button class="btn btn-primary" style="max-width:200px" onclick="resetForm()">📅 Book Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── STATUS TAB ──────────────────────────── -->
+    <div id="tab-status" class="card hidden">
+        <div class="section-title">Check Your Booking</div>
+        <p style="color:#718096;font-size:0.88rem;margin-bottom:18px">Enter the email you used when booking, or your Booking ID.</p>
+        <div class="form-group">
+            <label>Email Address or Booking ID</label>
+            <input id="status-q" type="text" placeholder="e.g. you@email.com or ABC12345" />
+        </div>
+        <button class="btn btn-primary" onclick="checkStatus()">🔍 Check Status</button>
+        <div id="status-out"></div>
+    </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────
+//  ⚠️  REPLACE THIS with your deployed Apps Script URL
+// ─────────────────────────────────────────────────
+const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+// ── State ─────────────────────────────────────────
+let curStep = 1;
+let selDate = null;
+let selTime = null;
+let calY, calM;
+
+const TIMES = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM',
+                '1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+
+const today = new Date(); today.setHours(0,0,0,0);
+calY = today.getFullYear();
+calM = today.getMonth();
+renderCal();
+
+// ── Tabs ──────────────────────────────────────────
+function switchTab(tab, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-book').classList.toggle('hidden', tab !== 'book');
+    document.getElementById('tab-status').classList.toggle('hidden', tab !== 'status');
+}
+
+// ── Calendar ──────────────────────────────────────
+function renderCal() {
+    document.getElementById('cal-label').textContent =
+        new Date(calY, calM, 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+
+    const g = document.getElementById('cal-grid');
+    g.innerHTML = '';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+        const el = document.createElement('div');
+        el.className = 'cal-day-name'; el.textContent = d; g.appendChild(el);
+    });
+
+    const firstDay = new Date(calY, calM, 1).getDay();
+    const dim = new Date(calY, calM + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const el = document.createElement('div'); el.className = 'cal-day empty'; g.appendChild(el);
+    }
+    for (let d = 1; d <= dim; d++) {
+        const date = new Date(calY, calM, d);
+        const el = document.createElement('div');
+        el.className = 'cal-day';
+        el.textContent = d;
+        const past = date < today;
+        const sun = date.getDay() === 0;
+        if (past || sun) { el.classList.add('disabled'); if (sun) el.title = 'Closed'; }
+        else {
+            if (date.toDateString() === today.toDateString()) el.classList.add('today');
+            if (selDate && date.toDateString() === selDate.toDateString()) el.classList.add('selected');
+            el.addEventListener('click', () => pickDate(date, el));
+        }
+        g.appendChild(el);
+    }
+}
+
+function pickDate(date, el) {
+    selDate = date; selTime = null;
+    document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('btn-next-1').disabled = false;
+}
+
+function changeMonth(dir) {
+    calM += dir;
+    if (calM > 11) { calM = 0; calY++; }
+    if (calM < 0)  { calM = 11; calY--; }
+    renderCal();
+}
+
+// ── Time slots ────────────────────────────────────
+function renderTimes() {
+    const g = document.getElementById('time-grid'); g.innerHTML = '';
+    TIMES.forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'time-slot' + (selTime === t ? ' selected' : '');
+        el.textContent = t;
+        el.addEventListener('click', () => {
+            selTime = t;
+            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('btn-next-2').disabled = false;
+        });
+        g.appendChild(el);
+    });
+}
+
+// ── Steps ─────────────────────────────────────────
+function goStep(n) {
+    if (n === 4) {
+        const name  = v('f-name'), phone = v('f-phone'),
+              email = v('f-email'), svc  = v('f-service');
+        const err = document.getElementById('form-err');
+        if (!name || !phone || !email || !svc) {
+            showErr(err, 'Please fill in all fields.'); return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showErr(err, 'Enter a valid email address.'); return;
+        }
+        if (!/^\d{10}$/.test(phone)) {
+            showErr(err, 'Phone must be exactly 10 digits.'); return;
+        }
+        err.classList.add('hidden');
+        buildSummary();
+    }
+
+    document.getElementById('step-' + curStep).classList.add('hidden');
+    document.getElementById('step-' + n).classList.remove('hidden');
+
+    [1,2,3,4].forEach(i => {
+        const s = document.getElementById('si-' + i);
+        if (!s) return;
+        s.classList.remove('active', 'done');
+        if (i < n) s.classList.add('done');
+        if (i === n) s.classList.add('active');
+    });
+
+    if (n === 2) {
+        document.getElementById('date-label').textContent =
+            selDate.toLocaleDateString('en-IN', {weekday:'long', day:'numeric', month:'long'});
+        renderTimes();
+    }
+    curStep = n;
+}
+
+function buildSummary() {
+    document.getElementById('summary').innerHTML = `
+        <div class="summary-row"><span class="lbl">📅 Date</span><span class="val">${selDate.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</span></div>
+        <div class="summary-row"><span class="lbl">🕐 Time</span><span class="val">${selTime}</span></div>
+        <div class="summary-row"><span class="lbl">🔧 Service</span><span class="val">${v('f-service')}</span></div>
+        <div class="summary-row"><span class="lbl">👤 Name</span><span class="val">${v('f-name')}</span></div>
+        <div class="summary-row"><span class="lbl">📞 Phone</span><span class="val">${v('f-phone')}</span></div>
+        <div class="summary-row"><span class="lbl">📧 Email</span><span class="val">${v('f-email')}</span></div>
+    `;
+}
+
+async function submitBooking() {
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true; btn.textContent = '⏳ Submitting...';
+    const err = document.getElementById('submit-err');
+
+    const payload = {
+        action: 'book',
+        name:    v('f-name'),
+        phone:   v('f-phone'),
+        email:   v('f-email'),
+        service: v('f-service'),
+        date:    selDate.toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}),
+        time:    selTime
+    };
+
+    try {
+        const res  = await fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (data.success) {
+            document.getElementById('step-4').classList.add('hidden');
+            document.getElementById('step-5').classList.remove('hidden');
+            document.getElementById('bid-display').textContent =
+                'Booking ID: ' + data.id.substring(0,8).toUpperCase();
+        } else throw new Error(data.error || 'Unknown error');
+    } catch(e) {
+        showErr(err, '⚠️ Submission failed: ' + e.message);
+        btn.disabled = false; btn.textContent = '✅ Confirm Booking';
+    }
+}
+
+function resetForm() {
+    selDate = null; selTime = null; curStep = 1;
+    ['f-name','f-phone','f-email'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('f-service').value = '';
+    document.getElementById('btn-next-1').disabled = true;
+    document.getElementById('step-5').classList.add('hidden');
+    document.getElementById('step-1').classList.remove('hidden');
+    [1,2,3,4].forEach(i => {
+        const s = document.getElementById('si-'+i);
+        if (s) { s.classList.remove('active','done'); }
+    });
+    document.getElementById('si-1').classList.add('active');
+    renderCal();
+}
+
+// ── Status checker ────────────────────────────────
+async function checkStatus() {
+    const q = document.getElementById('status-q').value.trim();
+    const out = document.getElementById('status-out');
+    if (!q) return;
+
+    out.innerHTML = '<div class="spinner"></div>';
+
+    try {
+        const res  = await fetch(`${SCRIPT_URL}?action=check&query=${encodeURIComponent(q)}`);
+        const data = await res.json();
+
+        if (data.success && data.bookings && data.bookings.length > 0) {
+            out.innerHTML = data.bookings.map(b => {
+                const cls = 'status-' + b.status.toLowerCase();
+                const msg = b.status === 'Approved'
+                    ? '<div style="margin-top:12px;padding:10px;background:#d1fae5;border-radius:8px;color:#065f46;font-weight:600">✅ Your booking is confirmed! The karigar will arrive at your scheduled time.</div>'
+                    : b.status === 'Declined'
+                    ? '<div style="margin-top:12px;padding:10px;background:#fee2e2;border-radius:8px;color:#991b1b;font-weight:600">❌ Booking declined. Please book a different slot.</div>'
+                    : '<div style="margin-top:12px;padding:10px;background:#fef3c7;border-radius:8px;color:#92400e;font-weight:600">⏳ Awaiting approval — you\'ll be emailed once confirmed.</div>';
+                return `<div class="status-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                        <strong style="font-size:0.95rem">${b.service}</strong>
+                        <span class="status-badge ${cls}">${b.status}</span>
+                    </div>
+                    <div class="summary-row"><span class="lbl">📅 Date</span><span class="val">${b.date}</span></div>
+                    <div class="summary-row"><span class="lbl">🕐 Time</span><span class="val">${b.time}</span></div>
+                    <div class="summary-row" style="border:none"><span class="lbl">👤 Name</span><span class="val">${b.name}</span></div>
+                    ${msg}
+                </div>`;
+            }).join('');
+        } else {
+            out.innerHTML = '<div class="alert alert-info" style="margin-top:16px">No bookings found for this email or ID. Please double-check.</div>';
+        }
+    } catch(e) {
+        out.innerHTML = '<div class="alert alert-error" style="margin-top:16px">Could not fetch status. Please try again.</div>';
+    }
+}
+
+// ── Helpers ───────────────────────────────────────
+function v(id) { return document.getElementById(id).value.trim(); }
+function showErr(el, msg) { el.textContent = msg; el.classList.remove('hidden'); }
+</script>
+</body>
+</html>
