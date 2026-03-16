@@ -62,7 +62,7 @@ body{font-family:'Segoe UI',sans-serif;background:#f3f4f8;min-height:100vh;paddi
 .ev-open{width:6px;height:6px;border-radius:50%;background:#10b981;margin:2px auto 0}
 .gc-day.gc-selected .ev-open{background:rgba(255,255,255,.6)}
 .gc-day.gc-selected .ev-pill{opacity:.9}
-.gcal-load{text-align:center;padding:8px;font-size:.73rem;color:#94a3b8;background:#fafafa;border-top:1px solid #f0f0f0}
+.gcal-load{padding:10px 16px;font-size:.78rem;background:#fafafa;border-top:1px solid #f0f0f0}
 .day-panel{border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid #e2e8f0}
 .dp-head{background:#1e293b;color:white;padding:13px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
 .dp-head span{opacity:.6;font-size:.75rem;font-weight:400}
@@ -79,6 +79,16 @@ body{font-family:'Segoe UI',sans-serif;background:#f3f4f8;min-height:100vh;paddi
 .db-approved{background:#16a34a;color:white}
 .db-pending{background:#3b82f6;color:white}
 .dp-empty{color:#475569;font-style:italic;padding:14px 16px;font-size:.84rem}
+/* Diagnostic box */
+.diag-box{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:12px;font-size:.78rem}
+.diag-box h4{color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.diag-out{color:#e2e8f0;font-family:monospace;word-break:break-all;white-space:pre-wrap;max-height:180px;overflow-y:auto;line-height:1.5}
+.diag-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.dbtn{padding:6px 14px;border:none;border-radius:8px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.dbtn-blue{background:#3b82f6;color:white}
+.dbtn-blue:hover{background:#2563eb}
+.dbtn-gray{background:#334155;color:#94a3b8}
+.dbtn-gray:hover{background:#475569;color:white}
 .tp-wrap{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:8px}
 .tp-head{background:#f8fafc;padding:11px 16px;border-bottom:1px solid #e2e8f0;font-size:.82rem;color:#718096;font-weight:600}
 .tp-body{padding:18px 16px}
@@ -169,14 +179,10 @@ input:focus,select:focus{border-color:#4f46e5}
   <p>A flagship initiative by Lend A Hand India · Pune, Maharashtra<br>
      The "Disney Land of Skills" — hands-on vocational education</p>
   <div class="hero-chips">
-    <div class="hchip">⚡ Electrical</div>
-    <div class="hchip">🪵 Carpentry</div>
-    <div class="hchip">🔧 Plumbing</div>
-    <div class="hchip">🎨 Painting</div>
-    <div class="hchip">🌱 Landscaping</div>
-    <div class="hchip">🚗 Auto</div>
-    <div class="hchip">💻 IT</div>
-    <div class="hchip">🍞 Baking</div>
+    <div class="hchip">⚡ Electrical</div><div class="hchip">🪵 Carpentry</div>
+    <div class="hchip">🔧 Plumbing</div><div class="hchip">🎨 Painting</div>
+    <div class="hchip">🌱 Landscaping</div><div class="hchip">🚗 Auto</div>
+    <div class="hchip">💻 IT</div><div class="hchip">🍞 Baking</div>
   </div>
 </div>
 
@@ -186,6 +192,7 @@ input:focus,select:focus{border-color:#4f46e5}
   <button class="tab-btn" onclick="switchTab('status',this)">🔍 Check My Booking</button>
 </div>
 
+<!-- ══ BOOKING ══ -->
 <div id="tab-book" class="card">
   <div class="steps">
     <div class="step active" id="si-1"><div class="sc">1</div><span class="sl">Type</span></div>
@@ -220,6 +227,17 @@ input:focus,select:focus{border-color:#4f46e5}
   <div id="step-2" class="hidden">
     <div class="ttl">Choose a Date</div>
     <div class="sub" id="dur-remind"></div>
+
+    <!-- ── DIAGNOSTIC BOX ── shown always so user can test connection ── -->
+    <div class="diag-box">
+      <h4>🔧 API Connection Test</h4>
+      <div class="diag-row">
+        <button class="dbtn dbtn-blue" onclick="testConn()">▶ Test Connection</button>
+        <button class="dbtn dbtn-gray" onclick="document.getElementById('diag-out').textContent='';document.getElementById('diag-box').style.display='none'">✕ Hide</button>
+      </div>
+      <div class="diag-out" id="diag-out">Press "Test Connection" to see exactly what your Apps Script returns.</div>
+    </div>
+
     <div class="gcal-wrap">
       <div class="gcal-head">
         <button class="cnav" onclick="changeMonth(-1)">‹</button>
@@ -233,13 +251,16 @@ input:focus,select:focus{border-color:#4f46e5}
       <div id="gcal-load" class="gcal-load hidden"></div>
       <div class="gcal-days" id="gcal-grid"></div>
     </div>
+
     <div id="day-panel" class="day-panel hidden"></div>
+
     <div class="legend-row">
       <div class="leg"><div style="width:8px;height:8px;border-radius:50%;background:#10b981"></div>Open</div>
       <div class="leg"><span class="leg-ev" style="background:#16a34a">Name</span>Approved</div>
       <div class="leg"><span class="leg-ev" style="background:#3b82f6">Name</span>Pending</div>
     </div>
     <p style="font-size:.71rem;color:#a0aec0;margin-bottom:12px">Tap a date to see all bookings &nbsp;•&nbsp; Sundays unavailable</p>
+
     <div class="btn-row">
       <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(1)">← Back</button>
       <button class="btn btn-p" id="btn-n2" onclick="goStep(3)" disabled>Next: Set Time →</button>
@@ -371,6 +392,7 @@ input:focus,select:focus{border-color:#4f46e5}
   </div>
 </div>
 
+<!-- ══ STATUS ══ -->
 <div id="tab-status" class="card hidden">
   <div class="ttl">Check Booking Status</div>
   <p style="color:#718096;font-size:.85rem;margin-bottom:15px">Enter your email or Booking ID.</p>
@@ -387,44 +409,73 @@ input:focus,select:focus{border-color:#4f46e5}
 </div>
 
 <script>
-// ── YOUR SCRIPT URL (already filled in) ─────────────
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
+// ── YOUR SCRIPT URL ──────────────────────────────────
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
 
 // ── State ─────────────────────────────────────────────
-let curStep=1, selDur=null, selDate=null, calY, calM, calBk={};
-let sH=9, sM=0, sAP='AM', eH=5, eM=0, eAP='PM';
-const today=new Date(); today.setHours(0,0,0,0);
+var curStep=1, selDur=null, selDate=null, calY, calM, calBk={};
+var sH=9, sM=0, sAP='AM', eH=5, eM=0, eAP='PM';
+var today=new Date(); today.setHours(0,0,0,0);
 calY=today.getFullYear(); calM=today.getMonth();
-const DUR_LBL={full:'Full Day',half:'Half Day',hourly:'Hourly'};
-const DUR_DEF={
+var DUR_LBL={full:'Full Day',half:'Half Day',hourly:'Hourly'};
+var DUR_DEF={
   full:{sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},
   half:{sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},
   hourly:{sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'}
 };
-const PRESETS={
-  full:[{l:'9 AM–5 PM',sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},{l:'8 AM–4 PM',sH:8,sM:0,sAP:'AM',eH:4,eM:0,eAP:'PM'},{l:'10 AM–6 PM',sH:10,sM:0,sAP:'AM',eH:6,eM:0,eAP:'PM'}],
-  half:[{l:'9 AM–1 PM',sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},{l:'2 PM–6 PM',sH:2,sM:0,sAP:'PM',eH:6,eM:0,eAP:'PM'},{l:'8 AM–12 PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}],
-  hourly:[{l:'9–10 AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11 AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11 AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3 PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4 PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5 PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
+var PRESETS={
+  full:[{l:'9AM–5PM',sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},{l:'8AM–4PM',sH:8,sM:0,sAP:'AM',eH:4,eM:0,eAP:'PM'},{l:'10AM–6PM',sH:10,sM:0,sAP:'AM',eH:6,eM:0,eAP:'PM'}],
+  half:[{l:'9AM–1PM',sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},{l:'2PM–6PM',sH:2,sM:0,sAP:'PM',eH:6,eM:0,eAP:'PM'},{l:'8AM–12PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}],
+  hourly:[{l:'9–10AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
 };
 
-// ── Safe fetch — always returns parsed JSON or null ───
-async function safeFetch(url, opts) {
+// ── Diagnostic: test connection and show raw response ──
+async function testConn() {
+  var out = document.getElementById('diag-out');
+  out.textContent = '⏳ Fetching: ' + SCRIPT_URL + '?action=calBookings&month=' + (calM+1) + '&year=' + calY + '\n\n';
   try {
-    const res  = await fetch(url, opts || {});
-    const text = await res.text();
-    try { return JSON.parse(text); }
-    catch(e) {
-      console.error('Non-JSON response from Apps Script:', text.substring(0,400));
-      return null;
+    var res  = await fetch(SCRIPT_URL + '?action=calBookings&month=' + (calM+1) + '&year=' + calY);
+    var text = await res.text();
+    out.textContent += '── HTTP Status: ' + res.status + ' ──\n\n';
+    out.textContent += '── Raw Response (first 800 chars) ──\n' + text.substring(0, 800) + '\n\n';
+    try {
+      var parsed = JSON.parse(text);
+      out.textContent += '── Parsed JSON ──\n' + JSON.stringify(parsed, null, 2);
+      if (parsed.success) {
+        var keys = Object.keys(parsed.bookings || {});
+        out.textContent += '\n\n✅ SUCCESS! Found bookings for ' + keys.length + ' date(s): ' + keys.join(', ');
+        if (keys.length > 0) {
+          // apply directly to calendar
+          calBk = parsed.bookings;
+          renderCal();
+          out.textContent += '\n\n🎉 Calendar updated! Bookings should now be visible above.';
+        } else {
+          out.textContent += '\n\n⚠️ No bookings returned for month ' + (calM+1) + '/' + calY + '. Check that your sheet has rows with dates in this month.';
+        }
+      } else {
+        out.textContent += '\n\n❌ API returned success:false. Error: ' + parsed.error;
+      }
+    } catch(pe) {
+      out.textContent += '── ❌ NOT valid JSON — Apps Script is crashing and returning HTML ──\n';
+      out.textContent += 'This means Code.gs has an error. Check Apps Script logs (Executions tab).';
     }
-  } catch(e) {
-    console.error('Fetch error:', e.message);
-    return null;
+  } catch(fe) {
+    out.textContent += '❌ FETCH FAILED (likely CORS or network): ' + fe.message + '\n\nMake sure your Apps Script is deployed with:\n- Execute as: Me\n- Who has access: Anyone';
   }
 }
 
+// ── Safe fetch helper ─────────────────────────────────
+async function safeFetch(url, opts) {
+  try {
+    var res  = await fetch(url, opts || {});
+    var text = await res.text();
+    try { return JSON.parse(text); }
+    catch(e) { return null; }
+  } catch(e) { return null; }
+}
+
 function switchTab(tab,btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   document.getElementById('tab-book').classList.toggle('hidden',tab!=='book');
   document.getElementById('tab-status').classList.toggle('hidden',tab!=='status');
@@ -432,15 +483,15 @@ function switchTab(tab,btn){
 
 function pickDur(type,el){
   selDur=type; selDate=null;
-  document.querySelectorAll('.dur-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.dur-card').forEach(function(c){c.classList.remove('selected');});
   el.classList.add('selected');
   document.getElementById('btn-n1').disabled=false;
 }
 
 function goStep(n){
   if(n===5){
-    const err=document.getElementById('form-err');
-    const nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),sv=v('f-svc');
+    var err=document.getElementById('form-err');
+    var nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),sv=v('f-svc');
     if(!nm||!ph||!em||!sv){showErr(err,'Please fill in all fields.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showErr(err,'Enter a valid email.');return;}
     if(!/^\d{10}$/.test(ph)){showErr(err,'Phone must be 10 digits.');return;}
@@ -454,11 +505,11 @@ function goStep(n){
   }
   document.getElementById('step-'+curStep).classList.add('hidden');
   document.getElementById('step-'+n).classList.remove('hidden');
-  [1,2,3,4,5].forEach(i=>{
-    const s=document.getElementById('si-'+i); if(!s)return;
+  [1,2,3,4,5].forEach(function(i){
+    var s=document.getElementById('si-'+i); if(!s)return;
     s.classList.remove('active','done');
-    if(i<n)s.classList.add('done');
-    if(i===n)s.classList.add('active');
+    if(i<n) s.classList.add('done');
+    if(i===n) s.classList.add('active');
   });
   curStep=n;
   if(n===2){
@@ -471,65 +522,66 @@ function goStep(n){
 // ── Calendar ─────────────────────────────────────────
 function renderCal(){
   document.getElementById('cal-lbl').textContent=new Date(calY,calM,1).toLocaleString('default',{month:'long',year:'numeric'});
-  const g=document.getElementById('gcal-grid');
+  var g=document.getElementById('gcal-grid');
   g.innerHTML='';
-  const first=new Date(calY,calM,1).getDay();
-  const dim=new Date(calY,calM+1,0).getDate();
-  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='gc-day gc-empty';g.appendChild(e);}
-  for(let d=1;d<=dim;d++){
-    const date=new Date(calY,calM,d);
-    const key=toKey(date);
-    const el=document.createElement('div'); el.className='gc-day';
-    const num=document.createElement('div'); num.className='gc-num'; num.textContent=d; el.appendChild(num);
-    const past=date<today, sun=date.getDay()===0;
-    if(past||sun){
-      el.classList.add('gc-disabled');
-      if(sun) el.title='Closed on Sundays';
-    } else {
-      if(date.toDateString()===today.toDateString()) el.classList.add('gc-today');
-      if(selDate&&date.toDateString()===selDate.toDateString()) el.classList.add('gc-selected');
-      const dayBk=calBk[key]||[];
-      const evList=document.createElement('div'); evList.className='ev-list';
-      if(dayBk.length>0){
-        dayBk.slice(0,3).forEach(b=>{
-          const pill=document.createElement('div');
-          pill.className='ev-pill '+(b.status==='Approved'?'ev-approved':'ev-pending');
-          pill.textContent=b.name.split(' ')[0]+(b.time?' · '+b.time:'');
-          pill.title=b.name+' | '+b.time+' → '+(b.endTime||'?')+' | '+b.status;
-          evList.appendChild(pill);
-        });
-        if(dayBk.length>3){
-          const more=document.createElement('div'); more.className='ev-more';
-          more.textContent='+'+(dayBk.length-3)+' more'; evList.appendChild(more);
-        }
+  var first=new Date(calY,calM,1).getDay();
+  var dim=new Date(calY,calM+1,0).getDate();
+  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='gc-day gc-empty';g.appendChild(e);}
+  for(var d=1;d<=dim;d++){
+    (function(d){
+      var date=new Date(calY,calM,d);
+      var key=toKey(date);
+      var el=document.createElement('div'); el.className='gc-day';
+      var num=document.createElement('div'); num.className='gc-num'; num.textContent=d; el.appendChild(num);
+      var past=date<today, sun=date.getDay()===0;
+      if(past||sun){
+        el.classList.add('gc-disabled');
+        if(sun) el.title='Closed on Sundays';
       } else {
-        const dot=document.createElement('div'); dot.className='ev-open'; evList.appendChild(dot);
+        if(date.toDateString()===today.toDateString()) el.classList.add('gc-today');
+        if(selDate&&date.toDateString()===selDate.toDateString()) el.classList.add('gc-selected');
+        var dayBk=calBk[key]||[];
+        var evList=document.createElement('div'); evList.className='ev-list';
+        if(dayBk.length>0){
+          dayBk.slice(0,3).forEach(function(b){
+            var pill=document.createElement('div');
+            pill.className='ev-pill '+(b.status==='Approved'?'ev-approved':'ev-pending');
+            pill.textContent=b.name.split(' ')[0]+(b.time?' · '+b.time:'');
+            pill.title=b.name+' | '+b.time+' → '+(b.endTime||'?')+' | '+b.status;
+            evList.appendChild(pill);
+          });
+          if(dayBk.length>3){
+            var more=document.createElement('div'); more.className='ev-more';
+            more.textContent='+'+(dayBk.length-3)+' more'; evList.appendChild(more);
+          }
+        } else {
+          var dot=document.createElement('div'); dot.className='ev-open'; evList.appendChild(dot);
+        }
+        el.appendChild(evList);
+        el.addEventListener('click',function(){
+          selDate=date;
+          document.querySelectorAll('.gc-day').forEach(function(x){x.classList.remove('gc-selected');});
+          el.classList.add('gc-selected');
+          document.getElementById('btn-n2').disabled=false;
+          showDayPanel(key,date);
+        });
       }
-      el.appendChild(evList);
-      el.addEventListener('click',()=>{
-        selDate=date;
-        document.querySelectorAll('.gc-day').forEach(x=>x.classList.remove('gc-selected'));
-        el.classList.add('gc-selected');
-        document.getElementById('btn-n2').disabled=false;
-        showDayPanel(key,date);
-      });
-    }
-    g.appendChild(el);
+      g.appendChild(el);
+    })(d);
   }
 }
 
 function showDayPanel(key,date){
-  const p=document.getElementById('day-panel');
-  const bks=calBk[key]||[];
-  const ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  let h='<div class="dp-head"><span>📅 '+ds+'</span><span>'+(bks.length>0?bks.length+' booking'+(bks.length>1?'s':''):'Fully open')+'</span></div><div class="dp-body">';
+  var p=document.getElementById('day-panel');
+  var bks=calBk[key]||[];
+  var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var h='<div class="dp-head"><span>📅 '+ds+'</span><span>'+(bks.length>0?bks.length+' booking'+(bks.length>1?'s':''):'Fully open')+'</span></div><div class="dp-body">';
   if(bks.length===0){
     h+='<div class="dp-empty">No bookings yet — this day is fully open!</div>';
   } else {
-    bks.forEach(b=>{
-      const app=b.status==='Approved';
-      h+='<div class="dp-event">'
-        +'<div class="dp-bar '+(app?'bar-approved':'bar-pending')+'"></div>'
+    bks.forEach(function(b){
+      var app=b.status==='Approved';
+      h+='<div class="dp-event"><div class="dp-bar '+(app?'bar-approved':'bar-pending')+'"></div>'
         +'<div class="dp-info"><div class="dp-name">👤 '+b.name+'</div>'
         +'<div class="dp-meta">🕐 '+b.time+' → '+(b.endTime||'?')+' &nbsp;·&nbsp; '+(b.duration||'')+'</div></div>'
         +'<span class="dp-badge '+(app?'db-approved':'db-pending')+'">'+b.status+'</span></div>';
@@ -540,12 +592,17 @@ function showDayPanel(key,date){
 }
 
 async function loadCalBk(){
-  const loadEl=document.getElementById('gcal-load');
+  var loadEl=document.getElementById('gcal-load');
   loadEl.textContent='⏳ Loading bookings…'; loadEl.classList.remove('hidden');
-  const data=await safeFetch(SCRIPT_URL+'?action=calBookings&month='+(calM+1)+'&year='+calY);
-  if(data&&data.success){ calBk=data.bookings||{}; renderCal(); }
-  else if(!data){ loadEl.textContent='⚠️ Could not load bookings. Check your Apps Script deployment.'; return; }
-  loadEl.classList.add('hidden');
+  var data=await safeFetch(SCRIPT_URL+'?action=calBookings&month='+(calM+1)+'&year='+calY);
+  if(data&&data.success){
+    calBk=data.bookings||{}; renderCal();
+    var count=Object.keys(calBk).length;
+    loadEl.textContent = count>0 ? '✅ Loaded bookings for '+count+' date(s)' : 'ℹ️ No bookings found for this month';
+    setTimeout(function(){loadEl.classList.add('hidden');},3000);
+  } else {
+    loadEl.textContent='⚠️ Could not load bookings — press "Test Connection" above to diagnose';
+  }
 }
 
 function changeMonth(dir){
@@ -557,7 +614,7 @@ function changeMonth(dir){
 
 // ── Time picker ───────────────────────────────────────
 function setupTime(){
-  const df=DUR_DEF[selDur];
+  var df=DUR_DEF[selDur];
   sH=df.sH;sM=df.sM;sAP=df.sAP;eH=df.eH;eM=df.eM;eAP=df.eAP;
   syncAP(); updateTime(); buildPresets(); checkConflict();
   document.getElementById('time-sub').textContent=DUR_LBL[selDur]+' · '+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
@@ -568,12 +625,12 @@ function adj(p,d){
   else if(p==='sm') sM=(sM+d*15+60)%60;
   else if(p==='eh') eH=((eH-1+d+12)%12)+1;
   else if(p==='em') eM=(eM+d*15+60)%60;
-  document.querySelectorAll('.pr-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
   updateTime(); checkConflict();
 }
 function setAP(side,val){
   if(side==='s') sAP=val; else eAP=val;
-  document.querySelectorAll('.pr-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
   syncAP(); updateTime(); checkConflict();
 }
 function syncAP(){
@@ -589,37 +646,38 @@ function updateTime(){
   document.getElementById('e-m').textContent=String(eM).padStart(2,'0');
   document.getElementById('r-start').textContent=fmtT(sH,sM,sAP);
   document.getElementById('r-end').textContent=fmtT(eH,eM,eAP);
-  const diff=toMins(eH,eM,eAP)-toMins(sH,sM,sAP);
-  const dur=document.getElementById('r-dur');
-  const err=document.getElementById('time-err');
+  var diff=toMins(eH,eM,eAP)-toMins(sH,sM,sAP);
+  var dur=document.getElementById('r-dur');
   if(diff<=0){
     dur.textContent='⚠️'; dur.style.background='#ef4444';
-    err.classList.add('show'); document.getElementById('btn-n3').disabled=true;
+    document.getElementById('time-err').classList.add('show');
+    document.getElementById('btn-n3').disabled=true;
   } else {
-    const h=Math.floor(diff/60),m=diff%60;
+    var h=Math.floor(diff/60),m=diff%60;
     dur.textContent=h>0?(h+'h'+(m>0?' '+m+'m':'')):(m+'m');
     dur.style.background='#6366f1';
-    err.classList.remove('show'); document.getElementById('btn-n3').disabled=false;
+    document.getElementById('time-err').classList.remove('show');
+    document.getElementById('btn-n3').disabled=false;
   }
 }
 function buildPresets(){
-  const list=PRESETS[selDur]||[];
-  const w=document.getElementById('presets');
+  var list=PRESETS[selDur]||[];
+  var w=document.getElementById('presets');
   if(!list.length){w.innerHTML='';return;}
   w.innerHTML='<div class="pr-lbl">Quick ranges:</div><div class="pr-row">'+
-    list.map((p,i)=>'<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>').join('')+'</div>';
+    list.map(function(p,i){return '<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>';}).join('')+'</div>';
 }
 function applyPreset(i){
-  const p=PRESETS[selDur][i];
+  var p=PRESETS[selDur][i];
   sH=p.sH;sM=p.sM;sAP=p.sAP;eH=p.eH;eM=p.eM;eAP=p.eAP;
   syncAP(); updateTime(); checkConflict();
-  document.querySelectorAll('.pr-btn').forEach((b,j)=>b.classList.toggle('on',j===i));
+  document.querySelectorAll('.pr-btn').forEach(function(b,j){b.classList.toggle('on',j===i);});
 }
 function checkConflict(){
   if(!selDate)return;
-  const approved=(calBk[toKey(selDate)]||[]).filter(b=>b.status==='Approved');
-  const myS=toMins(sH,sM,sAP),myE=toMins(eH,eM,eAP);
-  const c=approved.some(b=>{const bs=parseT(b.time),be=parseT(b.endTime);return bs!==null&&be!==null&&myS<be&&myE>bs;});
+  var approved=(calBk[toKey(selDate)]||[]).filter(function(b){return b.status==='Approved';});
+  var myS=toMins(sH,sM,sAP),myE=toMins(eH,eM,eAP);
+  var c=approved.some(function(b){var bs=parseT(b.time),be=parseT(b.endTime);return bs!==null&&be!==null&&myS<be&&myE>bs;});
   document.getElementById('conflict').classList.toggle('show',c);
 }
 
@@ -636,55 +694,52 @@ function buildSummary(){
 }
 
 async function submitBooking(){
-  const btn=document.getElementById('btn-sub');
+  var btn=document.getElementById('btn-sub');
   btn.disabled=true; btn.textContent='⏳ Submitting…';
-  const err=document.getElementById('sub-err');
-  const payload={
+  var err=document.getElementById('sub-err');
+  var payload={
     action:'book', duration:DUR_LBL[selDur],
     name:v('f-name'), phone:v('f-phone'), email:v('f-email'), service:v('f-svc'),
     date:selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
-    dateKey:toKey(selDate),
-    time:fmtT(sH,sM,sAP), endTime:fmtT(eH,eM,eAP)
+    dateKey:toKey(selDate), time:fmtT(sH,sM,sAP), endTime:fmtT(eH,eM,eAP)
   };
-  const data=await safeFetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
+  var data=await safeFetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
   if(data&&data.success){
     document.getElementById('step-5').classList.add('hidden');
     document.getElementById('step-6').classList.remove('hidden');
     document.getElementById('bid').textContent='ID: '+data.id.substring(0,8).toUpperCase();
   } else {
-    const msg=data?data.error:'No response from server — check your Apps Script deployment.';
-    showErr(err,'⚠️ Failed: '+msg);
+    showErr(err,'⚠️ Failed: '+(data?data.error:'No response — check deployment'));
     btn.disabled=false; btn.textContent='✅ Confirm Session';
   }
 }
 
 function resetForm(){
   selDur=null;selDate=null;curStep=1;calBk={};
-  ['f-name','f-phone','f-email'].forEach(id=>document.getElementById(id).value='');
+  ['f-name','f-phone','f-email'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('f-svc').value='';
-  document.querySelectorAll('.dur-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.dur-card').forEach(function(c){c.classList.remove('selected');});
   document.getElementById('btn-n1').disabled=true;
-  for(let i=1;i<=6;i++){const e=document.getElementById('step-'+i);if(e)e.classList.add('hidden');}
+  for(var i=1;i<=6;i++){var e=document.getElementById('step-'+i);if(e)e.classList.add('hidden');}
   document.getElementById('step-1').classList.remove('hidden');
-  [1,2,3,4,5].forEach(i=>{const s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
+  [1,2,3,4,5].forEach(function(i){var s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
   document.getElementById('si-1').classList.add('active');
   document.getElementById('day-panel').classList.add('hidden');
 }
 
 async function checkStatus(){
-  const q=document.getElementById('sq').value.trim();
-  const out=document.getElementById('st-out');
+  var q=document.getElementById('sq').value.trim();
+  var out=document.getElementById('st-out');
   if(!q)return;
   out.innerHTML='<div class="spin"></div>';
-  const data=await safeFetch(SCRIPT_URL+'?action=check&query='+encodeURIComponent(q));
+  var data=await safeFetch(SCRIPT_URL+'?action=check&query='+encodeURIComponent(q));
   if(!data){
-    out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server. Check your Apps Script deployment.</div>';
-    return;
+    out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server.</div>'; return;
   }
   if(data.success&&data.bookings&&data.bookings.length>0){
-    out.innerHTML=data.bookings.map(b=>{
-      const mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
-      const mt=b.status==='Approved'?'✅ Confirmed! The Karigar will be ready at your start time.'
+    out.innerHTML=data.bookings.map(function(b){
+      var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
+      var mt=b.status==='Approved'?'✅ Confirmed! The Karigar will be ready at your start time.'
         :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
         :'⏳ Pending — you\'ll be emailed once confirmed.';
       return '<div class="stcard"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><strong>'+b.service+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
@@ -695,7 +750,7 @@ async function checkStatus(){
         +'<div class="stmsg '+mc+'">'+mt+'</div></div>';
     }).join('');
   } else {
-    out.innerHTML='<div class="alert ai" style="margin-top:12px">No bookings found. Double-check your email or ID.</div>';
+    out.innerHTML='<div class="alert ai" style="margin-top:12px">No bookings found.</div>';
   }
 }
 
