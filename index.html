@@ -3,187 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Karigar</title>
+<title>Book a Session – Karigar, School of Applied Learning</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;min-height:100vh;padding:20px}
-.container{max-width:740px;margin:0 auto}
+body{font-family:'Segoe UI',sans-serif;background:#f4f6fb;min-height:100vh;padding:0 0 40px}
 
-header{text-align:center;padding:28px 0 18px}
-header h1{font-size:2rem;color:#1a202c}
-header p{color:#718096;margin-top:6px}
+/* ── Hero Header ── */
+.hero{background:linear-gradient(135deg,#1a1464 0%,#4f46e5 60%,#7c3aed 100%);padding:28px 20px 24px;text-align:center;color:white}
+.hero-logo{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:7px 18px;margin-bottom:14px;font-size:.82rem;font-weight:600;letter-spacing:.3px}
+.hero h1{font-size:1.75rem;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.hero h1 span{color:#a5b4fc}
+.hero p{font-size:.88rem;opacity:.8;max-width:520px;margin:0 auto 14px}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:.72rem;font-weight:600;letter-spacing:.2px}
 
-.tabs{display:flex;background:white;border-radius:12px;padding:6px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
-.tab-btn{flex:1;padding:10px;border:none;background:none;border-radius:8px;cursor:pointer;font-size:0.93rem;color:#718096;transition:all .2s;font-family:inherit}
-.tab-btn.active{background:#4f46e5;color:white;font-weight:700}
+.container{max-width:720px;margin:0 auto;padding:22px 16px 0}
 
-.card{background:white;border-radius:16px;padding:28px;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+/* Tabs */
+.tabs{display:flex;background:white;border-radius:12px;padding:5px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tab-btn{flex:1;padding:10px;border:none;background:none;border-radius:9px;cursor:pointer;font-size:.9rem;color:#718096;transition:all .2s;font-family:inherit;font-weight:600}
+.tab-btn.active{background:#4f46e5;color:white}
+
+.card{background:white;border-radius:16px;padding:26px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
 
 /* Steps */
-.steps{display:flex;justify-content:space-between;margin-bottom:28px;position:relative}
+.steps{display:flex;justify-content:space-between;margin-bottom:26px;position:relative}
 .steps::before{content:'';position:absolute;top:15px;left:10%;right:10%;height:2px;background:#e2e8f0;z-index:0}
 .step{display:flex;flex-direction:column;align-items:center;gap:5px;z-index:1}
-.step-circle{width:30px;height:30px;border-radius:50%;background:#e2e8f0;color:#718096;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;transition:all .3s}
+.step-circle{width:30px;height:30px;border-radius:50%;background:#e2e8f0;color:#718096;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;transition:all .3s}
 .step.active .step-circle{background:#4f46e5;color:white}
 .step.done .step-circle{background:#10b981;color:white}
-.step-label{font-size:.68rem;color:#a0aec0;text-align:center}
+.step-label{font-size:.67rem;color:#a0aec0;text-align:center}
 .step.active .step-label{color:#4f46e5;font-weight:700}
 .step.done .step-label{color:#10b981}
 
-.section-title{font-size:1.05rem;font-weight:700;color:#1a202c;margin-bottom:5px}
-.section-sub{font-size:.84rem;color:#718096;margin-bottom:18px}
+.sec-title{font-size:1.05rem;font-weight:700;color:#1a202c;margin-bottom:4px}
+.sec-sub{font-size:.83rem;color:#718096;margin-bottom:16px}
 
 /* Duration cards */
-.dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
-.dur-card{border:2.5px solid #e2e8f0;border-radius:14px;padding:18px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.dur-card{border:2.5px solid #e2e8f0;border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .dur-card:hover{border-color:#a5b4fc;background:#f5f3ff}
 .dur-card.selected{border-color:#4f46e5;background:#eef2ff}
-.dur-icon{font-size:2rem;margin-bottom:8px}
-.dur-title{font-weight:700;color:#1a202c;font-size:.95rem}
+.dur-icon{font-size:1.9rem;margin-bottom:7px}
+.dur-title{font-weight:700;color:#1a202c;font-size:.93rem}
 .dur-card.selected .dur-title{color:#4f46e5}
-.dur-desc{font-size:.73rem;color:#718096;margin-top:4px;line-height:1.4}
+.dur-hrs{display:inline-block;background:#f0fdf4;color:#16a34a;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;margin:4px 0}
+.dur-card.selected .dur-hrs{background:#e0f2fe;color:#0369a1}
+.dur-desc{font-size:.71rem;color:#718096;margin-top:3px;line-height:1.4}
 
 /* ── Calendar ── */
-.cal-wrap{border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:14px}
-.cal-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#f7fafc;border-bottom:1.5px solid #e2e8f0}
-.cal-header h3{font-size:1rem;font-weight:700;color:#1a202c}
-.cal-nav{background:none;border:1.5px solid #e2e8f0;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:1rem;color:#4f46e5;transition:all .15s;background:white}
+.cal-wrap{border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:12px;background:white}
+.cal-top{display:flex;justify-content:space-between;align-items:center;padding:13px 16px;background:#f7fafc;border-bottom:1.5px solid #e2e8f0}
+.cal-top h3{font-size:.97rem;font-weight:700;color:#1a202c}
+.cal-nav{background:white;border:1.5px solid #e2e8f0;border-radius:8px;width:31px;height:31px;cursor:pointer;font-size:1rem;color:#4f46e5;transition:all .15s}
 .cal-nav:hover{background:#eef2ff}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:10px}
-.cal-day-name{text-align:center;font-size:.68rem;font-weight:700;color:#a0aec0;padding:4px 0 10px}
-.cal-day{display:flex;flex-direction:column;align-items:center;border-radius:10px;cursor:pointer;transition:all .15s;border:2px solid transparent;padding:4px 2px;min-height:62px;position:relative;margin:2px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:8px 10px 12px}
+.cal-day-name{text-align:center;font-size:.65rem;font-weight:700;color:#a0aec0;padding:3px 0 8px}
+.cal-day{display:flex;flex-direction:column;align-items:center;border-radius:10px;cursor:pointer;transition:all .15s;border:2px solid transparent;padding:4px 2px 5px;min-height:64px;margin:2px;overflow:hidden}
 .cal-day:hover:not(.disabled):not(.empty){background:#eef2ff;border-color:#a5b4fc}
 .cal-day.selected{background:#4f46e5;border-color:#4f46e5}
 .cal-day.selected .day-num{color:white;font-weight:800}
 .cal-day.today .day-num{font-weight:800;color:#4f46e5}
 .cal-day.selected.today .day-num{color:white}
 .cal-day.disabled,.cal-day.empty{cursor:default;pointer-events:none}
-.cal-day.disabled .day-num{color:#cbd5e0}
-.day-num{font-size:.88rem;color:#1a202c;line-height:1;margin-bottom:3px}
-.cal-day.selected .booking-chip{background:rgba(255,255,255,.22);color:white}
+.cal-day.disabled .day-num{color:#d1d5db}
+.day-num{font-size:.88rem;color:#1a202c;line-height:1;margin-bottom:3px;margin-top:1px}
 
 /* Booking chips on calendar */
-.chips-wrap{display:flex;flex-direction:column;gap:2px;width:100%}
-.booking-chip{font-size:.58rem;font-weight:700;padding:1px 4px;border-radius:4px;background:#fef3c7;color:#92400e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;max-width:100%}
-.booking-chip.chip-approved{background:#d1fae5;color:#065f46}
-.booking-chip.chip-pending{background:#e0f2fe;color:#0c4a6e}
+.chips-col{display:flex;flex-direction:column;gap:2px;width:100%}
+.bk-chip{font-size:.58rem;font-weight:700;padding:1px 4px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;max-width:100%;line-height:1.4}
+.chip-approved{background:#d1fae5;color:#065f46}
+.chip-pending{background:#dbeafe;color:#1e40af}
+.cal-day.selected .bk-chip{opacity:.9}
 
-/* Day detail popover */
-.day-detail{background:#1e293b;color:white;border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:.85rem}
-.day-detail h4{font-size:.9rem;font-weight:700;margin-bottom:10px;color:#e2e8f0}
-.detail-booking{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #334155}
-.detail-booking:last-child{border:none}
-.detail-name{font-weight:600;color:white}
-.detail-info{color:#94a3b8;font-size:.78rem;margin-top:2px}
-.detail-badge{font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:8px;white-space:nowrap}
-.badge-approved{background:#10b981;color:white}
-.badge-pending{background:#f59e0b;color:white}
-.no-bookings{color:#94a3b8;font-style:italic;padding:6px 0}
+/* Open dot */
+.open-dot{width:6px;height:6px;border-radius:50%;background:#10b981;margin-top:2px}
+.cal-day.selected .open-dot{background:rgba(255,255,255,.65)}
 
-/* Avail dot on date */
-.avail-dot{width:6px;height:6px;border-radius:50%;background:#10b981;margin-top:2px}
-.avail-dot.few{background:#f59e0b}
-.avail-dot.full{background:#ef4444}
-.cal-day.selected .avail-dot{background:rgba(255,255,255,.6)}
+/* Day detail panel */
+.day-panel{background:#1e293b;color:white;border-radius:12px;padding:15px 17px;margin-bottom:12px;font-size:.85rem;border-left:4px solid #4f46e5}
+.day-panel h4{font-size:.9rem;font-weight:700;color:#e2e8f0;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.dp-booking{display:grid;grid-template-columns:1fr auto;align-items:start;padding:8px 0;border-bottom:1px solid #334155;gap:10px}
+.dp-booking:last-child{border:none;padding-bottom:0}
+.dp-name{font-weight:700;color:#f1f5f9;font-size:.88rem}
+.dp-meta{color:#94a3b8;font-size:.76rem;margin-top:2px;line-height:1.5}
+.dp-badge{font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:8px;white-space:nowrap;align-self:center}
+.dpb-approved{background:#10b981;color:white}
+.dpb-pending{background:#f59e0b;color:white}
+.dp-empty{color:#64748b;font-style:italic;padding:4px 0}
+
+/* Legend row */
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:.74rem;color:#718096;margin-bottom:8px;align-items:center}
+.leg{display:flex;align-items:center;gap:5px}
+.leg-dot{width:8px;height:8px;border-radius:50%;background:#10b981}
+.leg-chip{font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:3px}
 
 /* ── Time Picker ── */
-.time-picker-wrap{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:6px}
-.time-picker-head{background:#f7fafc;padding:12px 16px;font-size:.85rem;color:#718096;border-bottom:1px solid #e2e8f0}
-.time-picker-body{padding:20px}
-.time-input-row{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap}
-.time-spinners{display:flex;align-items:center;gap:8px}
-.spin-block{display:flex;flex-direction:column;align-items:center;gap:4px}
-.spin-btn{width:36px;height:36px;border:1.5px solid #e2e8f0;border-radius:8px;background:white;cursor:pointer;font-size:1rem;color:#4f46e5;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.spin-btn:hover{background:#eef2ff;border-color:#a5b4fc}
-.spin-val{font-size:1.6rem;font-weight:800;color:#1a202c;min-width:54px;text-align:center;border:2px solid #e2e8f0;border-radius:10px;padding:8px 4px;background:#f7fafc}
-.spin-colon{font-size:1.8rem;font-weight:700;color:#4f46e5;padding-bottom:4px}
-.ampm-btns{display:flex;flex-direction:column;gap:6px}
-.ampm-btn{padding:8px 16px;border:2px solid #e2e8f0;border-radius:8px;background:white;cursor:pointer;font-weight:700;font-size:.88rem;color:#718096;transition:all .15s;font-family:inherit}
-.ampm-btn.active{background:#4f46e5;color:white;border-color:#4f46e5}
-.time-display{text-align:center;margin-top:14px;padding:10px;background:#eef2ff;border-radius:10px}
-.time-display span{font-size:1.1rem;font-weight:800;color:#4f46e5}
+.time-section{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:8px}
+.time-sec-head{background:#f7fafc;padding:11px 16px;font-size:.82rem;color:#718096;border-bottom:1px solid #e2e8f0;font-weight:600}
+.time-sec-body{padding:20px 16px}
 
-/* Duration presets for time */
-.time-presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.preset-btn{padding:6px 14px;border:1.5px solid #e2e8f0;border-radius:20px;background:white;cursor:pointer;font-size:.8rem;color:#4a5568;transition:all .15s;font-family:inherit}
-.preset-btn:hover{border-color:#4f46e5;background:#eef2ff;color:#4f46e5}
-.preset-btn.active{background:#4f46e5;color:white;border-color:#4f46e5}
+/* Spinners */
+.spinner-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+.spin-group{display:flex;flex-direction:column;align-items:center;gap:5px}
+.spin-lbl{font-size:.68rem;font-weight:700;color:#a0aec0;text-transform:uppercase;letter-spacing:.5px}
+.sp-btn{width:34px;height:34px;border:1.5px solid #e2e8f0;border-radius:8px;background:white;cursor:pointer;font-size:.95rem;color:#4f46e5;transition:all .15s;display:flex;align-items:center;justify-content:center;font-weight:700}
+.sp-btn:hover{background:#eef2ff;border-color:#a5b4fc}
+.sp-val{font-size:1.65rem;font-weight:800;color:#1a202c;min-width:56px;text-align:center;background:#f7fafc;border:2px solid #e2e8f0;border-radius:10px;padding:8px 4px;line-height:1}
+.sp-colon{font-size:1.8rem;font-weight:700;color:#4f46e5;padding-bottom:2px;margin:0 2px}
+.ampm-col{display:flex;flex-direction:column;gap:6px}
+.ap-btn{padding:8px 15px;border:2px solid #e2e8f0;border-radius:8px;background:white;cursor:pointer;font-weight:700;font-size:.86rem;color:#718096;transition:all .15s;font-family:inherit}
+.ap-btn.active{background:#4f46e5;color:white;border-color:#4f46e5}
 
-/* Conflict warning */
-.conflict-warn{background:#fef3c7;border:1.5px solid #f59e0b;border-radius:10px;padding:10px 14px;font-size:.83rem;color:#92400e;margin-top:10px;display:none}
-.conflict-warn.visible{display:block}
+/* Time range display */
+.time-range-box{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;background:#f0f4ff;border-radius:12px;padding:12px 16px;flex-wrap:wrap}
+.tr-block{text-align:center}
+.tr-lbl{font-size:.68rem;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.tr-val{font-size:1.15rem;font-weight:800;color:#1a202c}
+.tr-arrow{font-size:1.2rem;color:#6366f1;font-weight:700}
+.tr-dur{background:#6366f1;color:white;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700}
+
+/* Presets */
+.presets-wrap{margin-top:14px}
+.presets-lbl{font-size:.78rem;font-weight:700;color:#718096;margin-bottom:8px}
+.presets-row{display:flex;flex-wrap:wrap;gap:7px}
+.pre-btn{padding:6px 13px;border:1.5px solid #e2e8f0;border-radius:20px;background:white;cursor:pointer;font-size:.78rem;color:#4a5568;transition:all .15s;font-family:inherit;font-weight:600}
+.pre-btn:hover{border-color:#4f46e5;background:#eef2ff;color:#4f46e5}
+.pre-btn.active{background:#4f46e5;color:white;border-color:#4f46e5}
+
+/* Conflict */
+.conflict-box{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:10px;padding:10px 13px;font-size:.81rem;color:#92400e;margin-top:10px;display:none}
+.conflict-box.show{display:block}
 
 /* Form */
-.form-group{margin-bottom:16px}
-label{display:block;font-size:.85rem;font-weight:600;color:#4a5568;margin-bottom:5px}
-input,select{width:100%;padding:11px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:.93rem;outline:none;transition:border .2s;font-family:inherit;color:#1a202c;background:white}
+.form-group{margin-bottom:15px}
+label{display:block;font-size:.83rem;font-weight:600;color:#4a5568;margin-bottom:5px}
+input,select{width:100%;padding:11px 13px;border:2px solid #e2e8f0;border-radius:10px;font-size:.91rem;outline:none;transition:border .2s;font-family:inherit;color:#1a202c;background:white}
 input:focus,select:focus{border-color:#4f46e5}
 
 /* Buttons */
-.btn{padding:12px 22px;border:none;border-radius:10px;font-size:.93rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn{padding:12px 20px;border:none;border-radius:10px;font-size:.91rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
 .btn-primary{background:#4f46e5;color:white;width:100%}
 .btn-primary:hover:not(:disabled){background:#4338ca}
 .btn-primary:disabled{background:#a5b4fc;cursor:not-allowed}
-.btn-secondary{background:#f7fafc;color:#4a5568;border:2px solid #e2e8f0}
-.btn-secondary:hover{background:#edf2f7}
-.btn-row{display:flex;gap:10px;margin-top:22px}
+.btn-sec{background:#f7fafc;color:#4a5568;border:2px solid #e2e8f0}
+.btn-sec:hover{background:#edf2f7}
+.btn-row{display:flex;gap:10px;margin-top:20px}
 
 /* Summary */
-.summary{background:#f7fafc;border-radius:12px;padding:18px;margin-bottom:18px}
-.sum-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:.9rem;border-bottom:1px solid #edf2f7}
+.summary{background:#f7fafc;border-radius:12px;padding:16px;margin-bottom:16px}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:.88rem;border-bottom:1px solid #edf2f7}
 .sum-row:last-child{border:none}
-.sum-row .lbl{color:#718096}
-.sum-row .val{font-weight:600;color:#1a202c;text-align:right}
-.dur-pill{background:#eef2ff;color:#4f46e5;padding:3px 12px;border-radius:20px;font-size:.82rem;font-weight:700}
+.sum-lbl{color:#718096}
+.sum-val{font-weight:700;color:#1a202c;text-align:right}
+.dur-pill{background:#eef2ff;color:#4f46e5;padding:2px 11px;border-radius:20px;font-size:.8rem;font-weight:700}
+.time-pill{background:#f0fdf4;color:#15803d;padding:2px 11px;border-radius:20px;font-size:.8rem;font-weight:700}
 
 /* Success */
-.success-box{text-align:center;padding:16px 0}
-.success-icon{font-size:3.5rem;margin-bottom:14px}
-.success-box h2{font-size:1.4rem;color:#1a202c;margin-bottom:8px}
-.success-box p{color:#718096;margin-bottom:4px;font-size:.9rem}
-.booking-id{display:inline-block;background:#eef2ff;color:#4f46e5;padding:8px 18px;border-radius:8px;font-weight:700;margin:12px 0;font-size:.93rem;letter-spacing:1px}
+.success-box{text-align:center;padding:14px 0}
+.suc-icon{font-size:3.5rem;margin-bottom:12px}
+.success-box h2{font-size:1.35rem;color:#1a202c;margin-bottom:7px}
+.success-box p{color:#718096;font-size:.88rem;margin-bottom:3px}
+.bk-id{display:inline-block;background:#eef2ff;color:#4f46e5;padding:7px 18px;border-radius:8px;font-weight:700;margin:11px 0;font-size:.91rem;letter-spacing:1.5px}
 
 /* Status */
-.status-badge{display:inline-block;padding:4px 14px;border-radius:20px;font-weight:700;font-size:.82rem}
-.status-Pending{background:#fef3c7;color:#92400e}
-.status-Approved{background:#d1fae5;color:#065f46}
-.status-Declined{background:#fee2e2;color:#991b1b}
-.status-card{background:#f7fafc;border-radius:12px;padding:18px;margin-top:14px;border:1px solid #e2e8f0}
-.status-msg{margin-top:12px;padding:10px 14px;border-radius:8px;font-weight:600;font-size:.88rem}
-.msg-approved{background:#d1fae5;color:#065f46}
-.msg-declined{background:#fee2e2;color:#991b1b}
-.msg-pending{background:#fef3c7;color:#92400e}
+.st-badge{display:inline-block;padding:3px 13px;border-radius:20px;font-weight:700;font-size:.8rem}
+.st-Pending{background:#fef3c7;color:#92400e}
+.st-Approved{background:#d1fae5;color:#065f46}
+.st-Declined{background:#fee2e2;color:#991b1b}
+.st-card{background:#f7fafc;border-radius:12px;padding:16px;margin-top:12px;border:1px solid #e2e8f0}
+.st-msg{margin-top:11px;padding:10px 13px;border-radius:8px;font-weight:600;font-size:.86rem}
+.sm-approved{background:#d1fae5;color:#065f46}
+.sm-declined{background:#fee2e2;color:#991b1b}
+.sm-pending{background:#fef3c7;color:#92400e}
 
-/* Alerts / misc */
-.alert{padding:11px 15px;border-radius:10px;margin-bottom:14px;font-size:.88rem}
+/* Misc */
+.alert{padding:11px 14px;border-radius:10px;margin-bottom:13px;font-size:.86rem}
 .alert-error{background:#fee2e2;color:#991b1b}
 .alert-info{background:#e0f2fe;color:#0c4a6e}
-.spinner{border:3px solid #e2e8f0;border-top:3px solid #4f46e5;border-radius:50%;width:26px;height:26px;animation:spin .8s linear infinite;margin:16px auto}
+.spinner{border:3px solid #e2e8f0;border-top:3px solid #4f46e5;border-radius:50%;width:24px;height:24px;animation:spin .8s linear infinite;margin:14px auto}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
-.cal-loading-msg{text-align:center;padding:10px;font-size:.78rem;color:#a0aec0}
+.cal-load-bar{text-align:center;padding:8px;font-size:.75rem;color:#a0aec0;background:#fafafa;border-top:1px solid #e2e8f0}
 
-@media(max-width:520px){
+@media(max-width:500px){
   .dur-grid{grid-template-columns:1fr}
-  .card{padding:18px 14px}
-  .spin-val{font-size:1.3rem;min-width:44px}
+  .hero h1{font-size:1.4rem}
+  .card{padding:18px 13px}
+  .time-range-box{gap:8px;padding:10px 12px}
 }
 </style>
 </head>
 <body>
+
+<!-- ══════ HERO ══════ -->
+<div class="hero">
+  <div class="hero-logo">🛠️ &nbsp;Karigar – School of Applied Learning</div>
+  <h1>Book a <span>Skill Session</span></h1>
+  <p>State-of-the-art Skills Hub by Lend A Hand India · Pune, Maharashtra<br>
+     Schedule your hands-on learning session with a Master Karigar</p>
+  <div class="hero-chips">
+    <div class="chip">⚡ Electrical</div>
+    <div class="chip">🪵 Carpentry</div>
+    <div class="chip">🔧 Plumbing</div>
+    <div class="chip">🎨 Painting</div>
+    <div class="chip">🌱 Landscaping</div>
+    <div class="chip">🚗 Auto Maintenance</div>
+    <div class="chip">💻 IT</div>
+    <div class="chip">🍞 Baking</div>
+  </div>
+</div>
+
 <div class="container">
 
-<header>
-  <h1>🔧 Book a Karigar</h1>
-  <p>Schedule your home service quickly and easily</p>
-</header>
-
 <div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Service</button>
+  <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Session</button>
   <button class="tab-btn" onclick="switchTab('status',this)">🔍 Check My Booking</button>
 </div>
 
-<!-- ══════════ BOOKING TAB ══════════ -->
+<!-- ══════ BOOKING ══════ -->
 <div id="tab-book" class="card">
 
   <div class="steps">
@@ -194,127 +233,131 @@ input:focus,select:focus{border-color:#4f46e5}
     <div class="step"        id="si-5"><div class="step-circle">5</div><span class="step-label">Confirm</span></div>
   </div>
 
-  <!-- ── Step 1: Duration ── -->
+  <!-- Step 1: Duration -->
   <div id="step-1">
-    <div class="section-title">How long do you need the karigar?</div>
-    <div class="section-sub">Choose the booking type that best fits your work</div>
+    <div class="sec-title">How long do you need the Karigar?</div>
+    <div class="sec-sub">Choose the session type that suits your project or learning goal</div>
     <div class="dur-grid">
       <div class="dur-card" onclick="pickDuration('full',this)">
         <div class="dur-icon">📅</div>
         <div class="dur-title">Full Day</div>
-        <div class="dur-desc">You pick a start time<br>Karigar stays ~8 hrs</div>
+        <div class="dur-hrs">8 hours</div>
+        <div class="dur-desc">You pick a start time<br>Best for big projects</div>
       </div>
       <div class="dur-card" onclick="pickDuration('half',this)">
         <div class="dur-icon">🌗</div>
         <div class="dur-title">Half Day</div>
-        <div class="dur-desc">You pick a start time<br>Karigar stays ~4 hrs</div>
+        <div class="dur-hrs">4 hours</div>
+        <div class="dur-desc">You pick a start time<br>Mid-size work</div>
       </div>
       <div class="dur-card" onclick="pickDuration('hourly',this)">
         <div class="dur-icon">⏰</div>
         <div class="dur-title">Hourly</div>
-        <div class="dur-desc">You pick exact time<br>Quick fixes & repairs</div>
+        <div class="dur-hrs">1 hour</div>
+        <div class="dur-desc">Pick an exact time<br>Quick fixes & demos</div>
       </div>
     </div>
-    <button class="btn btn-primary" id="btn-next-1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
+    <button class="btn btn-primary" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
   </div>
 
-  <!-- ── Step 2: Date ── -->
+  <!-- Step 2: Date -->
   <div id="step-2" class="hidden">
-    <div class="section-title">Choose a Date</div>
-    <div class="section-sub" id="dur-reminder"></div>
+    <div class="sec-title">Choose a Date</div>
+    <div class="sec-sub" id="dur-remind"></div>
 
     <div class="cal-wrap">
-      <div class="cal-header">
+      <div class="cal-top">
         <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
         <h3 id="cal-label"></h3>
         <button class="cal-nav" onclick="changeMonth(1)">›</button>
       </div>
-      <div id="cal-loading-msg" class="cal-loading-msg hidden">⏳ Loading bookings…</div>
+      <div id="cal-load-bar" class="cal-load-bar hidden">⏳ Loading bookings for this month…</div>
       <div class="cal-grid" id="cal-grid"></div>
     </div>
 
-    <!-- Day detail panel (shows when date is clicked) -->
-    <div id="day-detail" class="day-detail hidden"></div>
+    <!-- Day detail panel -->
+    <div id="day-panel" class="day-panel hidden"></div>
 
-    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px">
-      <div style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:#718096">
-        <div style="width:10px;height:10px;border-radius:50%;background:#10b981"></div>Open
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:#718096">
-        <span style="background:#d1fae5;color:#065f46;font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:4px">Name</span>Approved booking
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;font-size:.75rem;color:#718096">
-        <span style="background:#e0f2fe;color:#0c4a6e;font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:4px">Name</span>Pending
-      </div>
+    <div class="legend-row">
+      <div class="leg"><div class="leg-dot"></div>Open</div>
+      <div class="leg"><span class="leg-chip chip-approved">Ramesh</span>Approved</div>
+      <div class="leg"><span class="leg-chip chip-pending">Priya</span>Pending</div>
     </div>
-    <p style="font-size:.74rem;color:#a0aec0;margin-bottom:14px">* Tap a date to see who has booked it &nbsp;•&nbsp; Sundays unavailable</p>
+    <p style="font-size:.72rem;color:#a0aec0;margin-bottom:13px">Tap a date to see its bookings &nbsp;•&nbsp; Sundays unavailable</p>
 
     <div class="btn-row">
-      <button class="btn btn-secondary" style="flex:0 0 auto;width:90px" onclick="goStep(1)">← Back</button>
-      <button class="btn btn-primary" id="btn-next-2" onclick="goStep(3)" disabled>Next: Pick a Time →</button>
+      <button class="btn btn-sec" style="flex:0 0 auto;width:88px" onclick="goStep(1)">← Back</button>
+      <button class="btn btn-primary" id="btn-n2" onclick="goStep(3)" disabled>Next: Pick a Time →</button>
     </div>
   </div>
 
-  <!-- ── Step 3: Time ── -->
+  <!-- Step 3: Time -->
   <div id="step-3" class="hidden">
-    <div class="section-title">Choose Your Time</div>
-    <div class="section-sub" id="time-step-sub"></div>
+    <div class="sec-title">Choose Your Time</div>
+    <div class="sec-sub" id="time-sub"></div>
 
-    <div class="time-picker-wrap">
-      <div class="time-picker-head" id="time-picker-head">
-        Select a time using the controls below, or tap a quick preset
-      </div>
-      <div class="time-picker-body">
+    <div class="time-section">
+      <div class="time-sec-head" id="ts-head">Set your start time — end time is calculated automatically</div>
+      <div class="time-sec-body">
 
-        <!-- Spinners -->
-        <div class="time-input-row">
-          <div class="time-spinners">
-            <!-- Hour -->
-            <div class="spin-block">
-              <button class="spin-btn" onclick="adjustTime('h',1)">▲</button>
-              <div class="spin-val" id="spin-h">09</div>
-              <button class="spin-btn" onclick="adjustTime('h',-1)">▼</button>
-            </div>
-            <div class="spin-colon">:</div>
-            <!-- Minute -->
-            <div class="spin-block">
-              <button class="spin-btn" onclick="adjustTime('m',1)">▲</button>
-              <div class="spin-val" id="spin-m">00</div>
-              <button class="spin-btn" onclick="adjustTime('m',-1)">▼</button>
-            </div>
+        <div class="spinner-row">
+          <!-- Hour -->
+          <div class="spin-group">
+            <div class="spin-lbl">Hour</div>
+            <button class="sp-btn" onclick="adj('h',1)">▲</button>
+            <div class="sp-val" id="sp-h">09</div>
+            <button class="sp-btn" onclick="adj('h',-1)">▼</button>
+          </div>
+          <div class="sp-colon">:</div>
+          <!-- Minute -->
+          <div class="spin-group">
+            <div class="spin-lbl">Minute</div>
+            <button class="sp-btn" onclick="adj('m',1)">▲</button>
+            <div class="sp-val" id="sp-m">00</div>
+            <button class="sp-btn" onclick="adj('m',-1)">▼</button>
           </div>
           <!-- AM/PM -->
-          <div class="ampm-btns">
-            <button class="ampm-btn active" id="ampm-am" onclick="setAmPm('AM')">AM</button>
-            <button class="ampm-btn"        id="ampm-pm" onclick="setAmPm('PM')">PM</button>
+          <div class="ampm-col">
+            <button class="ap-btn active" id="ap-am" onclick="setAP('AM')">AM</button>
+            <button class="ap-btn"        id="ap-pm" onclick="setAP('PM')">PM</button>
           </div>
         </div>
 
-        <div class="time-display">
-          Selected: <span id="time-display-val">9:00 AM</span>
+        <!-- Start → End display -->
+        <div class="time-range-box">
+          <div class="tr-block">
+            <div class="tr-lbl">Start Time</div>
+            <div class="tr-val" id="tr-start">9:00 AM</div>
+          </div>
+          <div class="tr-arrow">→</div>
+          <div class="tr-block">
+            <div class="tr-lbl">End Time</div>
+            <div class="tr-val" id="tr-end">5:00 PM</div>
+          </div>
+          <div class="tr-dur" id="tr-dur">8 hrs</div>
         </div>
 
         <!-- Quick presets -->
-        <div id="preset-area"></div>
+        <div class="presets-wrap" id="presets-wrap"></div>
 
         <!-- Conflict warning -->
-        <div class="conflict-warn" id="conflict-warn">
-          ⚠️ Someone already has an approved booking close to this time. You can still book — the owner will review availability.
+        <div class="conflict-box" id="conflict-box">
+          ⚠️ There is an approved booking nearby on this day. You can still request this slot — the owner will review carefully before approving.
         </div>
 
       </div>
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-secondary" style="flex:0 0 auto;width:90px" onclick="goStep(2)">← Back</button>
+      <button class="btn btn-sec" style="flex:0 0 auto;width:88px" onclick="goStep(2)">← Back</button>
       <button class="btn btn-primary" onclick="goStep(4)">Next: Your Details →</button>
     </div>
   </div>
 
-  <!-- ── Step 4: Details ── -->
+  <!-- Step 4: Details -->
   <div id="step-4" class="hidden">
-    <div class="section-title">Your Details</div>
-    <div class="section-sub">We'll contact you on these details</div>
+    <div class="sec-title">Your Details</div>
+    <div class="sec-sub">We'll use these to contact you about your session</div>
     <div id="form-err" class="alert alert-error hidden"></div>
     <div class="form-group">
       <label>Full Name *</label>
@@ -329,60 +372,64 @@ input:focus,select:focus{border-color:#4f46e5}
       <input id="f-email" type="email" placeholder="you@example.com" />
     </div>
     <div class="form-group">
-      <label>Type of Work / Service *</label>
+      <label>Type of Work / Skill Area *</label>
       <select id="f-service">
-        <option value="">— Select a service —</option>
+        <option value="">— Select a skill area —</option>
         <option>Plumbing</option>
-        <option>Electrical</option>
+        <option>Electrical Repairs</option>
         <option>Carpentry</option>
         <option>Painting</option>
         <option>AC Repair</option>
         <option>Tiling / Masonry</option>
-        <option>Welding</option>
+        <option>Welding / Fabrication</option>
+        <option>Baking / Food Processing</option>
+        <option>Gardening / Landscaping</option>
+        <option>Auto Maintenance</option>
+        <option>IT / Computer Skills</option>
         <option>Other</option>
       </select>
     </div>
     <div class="btn-row">
-      <button class="btn btn-secondary" style="flex:0 0 auto;width:90px" onclick="goStep(3)">← Back</button>
+      <button class="btn btn-sec" style="flex:0 0 auto;width:88px" onclick="goStep(3)">← Back</button>
       <button class="btn btn-primary" onclick="goStep(5)">Review Booking →</button>
     </div>
   </div>
 
-  <!-- ── Step 5: Confirm ── -->
+  <!-- Step 5: Confirm -->
   <div id="step-5" class="hidden">
-    <div class="section-title">Review & Confirm</div>
+    <div class="sec-title">Review & Confirm</div>
     <div class="summary" id="summary"></div>
-    <div id="submit-err" class="alert alert-error hidden"></div>
+    <div id="sub-err" class="alert alert-error hidden"></div>
     <div class="btn-row">
-      <button class="btn btn-secondary" style="flex:0 0 auto;width:90px" onclick="goStep(4)">← Edit</button>
-      <button class="btn btn-primary" id="btn-submit" onclick="submitBooking()">✅ Confirm Booking</button>
+      <button class="btn btn-sec" style="flex:0 0 auto;width:88px" onclick="goStep(4)">← Edit</button>
+      <button class="btn btn-primary" id="btn-submit" onclick="submitBooking()">✅ Confirm Session Booking</button>
     </div>
   </div>
 
-  <!-- ── Step 6: Done ── -->
+  <!-- Step 6: Done -->
   <div id="step-6" class="hidden">
     <div class="success-box">
-      <div class="success-icon">🎉</div>
-      <h2>Booking Request Sent!</h2>
-      <p>Your request is pending approval from our team.</p>
+      <div class="suc-icon">🎉</div>
+      <h2>Booking Request Submitted!</h2>
+      <p>Your session is awaiting approval from the Karigar team.</p>
       <p>You'll receive an email once it's confirmed.</p>
-      <div class="booking-id" id="bid-display"></div>
-      <p style="font-size:.78rem;color:#a0aec0">Save this ID to check your booking status</p>
-      <div style="margin-top:20px">
-        <button class="btn btn-primary" style="max-width:200px" onclick="resetForm()">📅 Book Again</button>
+      <div class="bk-id" id="bk-id-display"></div>
+      <p style="font-size:.76rem;color:#a0aec0">Save this ID to track your booking status</p>
+      <div style="margin-top:18px">
+        <button class="btn btn-primary" style="max-width:200px" onclick="resetForm()">📅 Book Another Session</button>
       </div>
     </div>
   </div>
 
-</div>
+</div><!-- /tab-book -->
 
-<!-- ══════════ STATUS TAB ══════════ -->
+<!-- ══════ STATUS ══════ -->
 <div id="tab-status" class="card hidden">
-  <div class="section-title">Check Your Booking</div>
-  <p style="color:#718096;font-size:.88rem;margin-bottom:18px">Enter the email you used when booking, or your Booking ID.</p>
+  <div class="sec-title">Check Your Booking Status</div>
+  <p style="color:#718096;font-size:.86rem;margin-bottom:16px">Enter the email you booked with, or your Booking ID.</p>
   <div class="form-group">
     <label>Email Address or Booking ID</label>
-    <input id="status-q" type="text" placeholder="e.g. you@email.com or ABC12345"
+    <input id="sq" type="text" placeholder="e.g. you@email.com or ABC12345"
            onkeyup="if(event.key==='Enter')checkStatus()" />
   </div>
   <button class="btn btn-primary" onclick="checkStatus()">🔍 Check Status</button>
@@ -391,66 +438,69 @@ input:focus,select:focus{border-color:#4f46e5}
 
 </div><!-- /container -->
 
+<!-- Footer -->
+<div style="text-align:center;margin-top:28px;font-size:.74rem;color:#a0aec0;padding:0 16px">
+  Karigar – School of Applied Learning &nbsp;·&nbsp; An initiative by <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
+</div>
+
 <script>
-// ─────────────────────────────────────────────
+// ──────────────────────────────────────────────
 //  ⚠️  Replace with your deployed Apps Script URL
-// ─────────────────────────────────────────────
+// ──────────────────────────────────────────────
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
 
-// ── State ──────────────────────────────────────
+// ── State ───────────────────────────────────────
 let curStep     = 1;
-let selDuration = null;
+let selDuration = null;   // 'full' | 'half' | 'hourly'
 let selDate     = null;
 let calY, calM;
-// { 'YYYY-MM-DD': [ { name, time, duration, status } ] }
+// { 'YYYY-MM-DD': [{name,time,endTime,duration,status}] }
 let calBookings = {};
 
-// Time picker state
-let tHour = 9, tMin = 0, tAmPm = 'AM';
+// Time picker
+let tH = 9, tM = 0, tAP = 'AM';
 
 const today = new Date(); today.setHours(0,0,0,0);
 calY = today.getFullYear();
 calM = today.getMonth();
 
-const DUR_LABEL = { full:'Full Day', half:'Half Day', hourly:'Hourly' };
+const DUR_LABEL = { full:'Full Day (8 hrs)', half:'Half Day (4 hrs)', hourly:'Hourly (1 hr)' };
+const DUR_HRS   = { full:8, half:4, hourly:1 };
 
-// Presets per duration type
 const PRESETS = {
-  full:   ['8:00 AM','9:00 AM','10:00 AM'],
-  half:   ['8:00 AM','9:00 AM','10:00 AM','1:00 PM','2:00 PM'],
-  hourly: ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM']
+  full:   ['7:00 AM','8:00 AM','9:00 AM','10:00 AM'],
+  half:   ['7:00 AM','8:00 AM','9:00 AM','10:00 AM','1:00 PM','2:00 PM'],
+  hourly: ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM',
+           '1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM']
 };
 
-// ── Tabs ──────────────────────────────────────
+// ── Tabs ────────────────────────────────────────
 function switchTab(tab, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('tab-book').classList.toggle('hidden', tab !== 'book');
-  document.getElementById('tab-status').classList.toggle('hidden', tab !== 'status');
+  document.getElementById('tab-book').classList.toggle('hidden', tab!=='book');
+  document.getElementById('tab-status').classList.toggle('hidden', tab!=='status');
 }
 
-// ── Duration ──────────────────────────────────
+// ── Duration ────────────────────────────────────
 function pickDuration(type, el) {
-  selDuration = type;
-  selDate = null;
+  selDuration = type; selDate = null;
   document.querySelectorAll('.dur-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-  document.getElementById('btn-next-1').disabled = false;
+  document.getElementById('btn-n1').disabled = false;
 }
 
-// ── Steps ─────────────────────────────────────
+// ── Steps ───────────────────────────────────────
 function goStep(n) {
   if (n === 5) {
     const err = document.getElementById('form-err');
-    const name = v('f-name'), phone = v('f-phone'),
-          email = v('f-email'), svc = v('f-service');
-    if (!name || !phone || !email || !svc) { showErr(err,'Please fill in all fields.'); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr(err,'Enter a valid email address.'); return; }
-    if (!/^\d{10}$/.test(phone)) { showErr(err,'Phone must be exactly 10 digits.'); return; }
+    const nm = v('f-name'), ph = v('f-phone'), em = v('f-email'), sv = v('f-service');
+    if (!nm||!ph||!em||!sv) { showErr(err,'Please fill in all fields.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showErr(err,'Enter a valid email address.'); return; }
+    if (!/^\d{10}$/.test(ph)) { showErr(err,'Phone must be exactly 10 digits.'); return; }
     err.classList.add('hidden');
     buildSummary();
   }
-
   document.getElementById('step-'+curStep).classList.add('hidden');
   document.getElementById('step-'+n).classList.remove('hidden');
   [1,2,3,4,5].forEach(i => {
@@ -460,245 +510,270 @@ function goStep(n) {
     if (i === n) s.classList.add('active');
   });
   curStep = n;
-
   if (n === 2) {
-    document.getElementById('dur-reminder').textContent =
-      'Selected: ' + DUR_LABEL[selDuration] + ' — tap any date to see its bookings';
-    renderCal();
-    loadCalBookings();
+    const lbl = { full:'Full Day (8 hrs)', half:'Half Day (4 hrs)', hourly:'Hourly (1 hr)' };
+    document.getElementById('dur-remind').textContent =
+      'Selected: ' + lbl[selDuration] + ' — tap any date to see its bookings';
+    renderCal(); loadCalBookings();
   }
-  if (n === 3) {
-    setupTimePicker();
-  }
+  if (n === 3) setupTimePicker();
 }
 
-// ── Calendar ──────────────────────────────────
+// ── Calendar render ──────────────────────────────
 function renderCal() {
   document.getElementById('cal-label').textContent =
-    new Date(calY, calM, 1).toLocaleString('default',{month:'long',year:'numeric'});
+    new Date(calY,calM,1).toLocaleString('default',{month:'long',year:'numeric'});
 
   const g = document.getElementById('cal-grid');
   g.innerHTML = '';
-  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
-    const h = document.createElement('div'); h.className='cal-day-name'; h.textContent=d; g.appendChild(h);
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{
+    const el=document.createElement('div'); el.className='cal-day-name'; el.textContent=d; g.appendChild(el);
   });
 
-  const firstDay = new Date(calY, calM, 1).getDay();
-  const dim      = new Date(calY, calM+1, 0).getDate();
-  for (let i = 0; i < firstDay; i++) {
-    const el = document.createElement('div'); el.className='cal-day empty'; g.appendChild(el);
-  }
-  for (let d = 1; d <= dim; d++) {
-    const date    = new Date(calY, calM, d);
+  const first = new Date(calY,calM,1).getDay();
+  const dim   = new Date(calY,calM+1,0).getDate();
+  for (let i=0;i<first;i++) { const e=document.createElement('div'); e.className='cal-day empty'; g.appendChild(e); }
+
+  for (let d=1;d<=dim;d++) {
+    const date    = new Date(calY,calM,d);
     const dateKey = toKey(date);
     const el      = document.createElement('div'); el.className='cal-day';
 
-    const numEl = document.createElement('div'); numEl.className='day-num'; numEl.textContent=d;
-    el.appendChild(numEl);
+    const num = document.createElement('div'); num.className='day-num'; num.textContent=d; el.appendChild(num);
 
-    const past = date < today;
-    const sun  = date.getDay() === 0;
-
-    if (past || sun) {
+    if (date < today || date.getDay()===0) {
       el.classList.add('disabled');
+      if (date.getDay()===0) el.title='Closed on Sundays';
     } else {
-      if (date.toDateString() === today.toDateString()) el.classList.add('today');
-      if (selDate && date.toDateString() === selDate.toDateString()) el.classList.add('selected');
+      if (date.toDateString()===today.toDateString()) el.classList.add('today');
+      if (selDate && date.toDateString()===selDate.toDateString()) el.classList.add('selected');
 
-      // Render booking chips
-      const dayBookings = calBookings[dateKey] || [];
-      if (dayBookings.length > 0) {
-        const chipsWrap = document.createElement('div'); chipsWrap.className='chips-wrap';
-        const show = dayBookings.slice(0,2);
-        show.forEach(b => {
+      // ── Booking chips ──
+      const dayBks = calBookings[dateKey] || [];
+      if (dayBks.length > 0) {
+        const col = document.createElement('div'); col.className='chips-col';
+        dayBks.slice(0,2).forEach(b => {
           const chip = document.createElement('div');
-          chip.className = 'booking-chip ' + (b.status==='Approved' ? 'chip-approved' : 'chip-pending');
-          chip.textContent = b.name.split(' ')[0]; // first name only
-          chipsWrap.appendChild(chip);
+          chip.className = 'bk-chip ' + (b.status==='Approved' ? 'chip-approved' : 'chip-pending');
+          chip.textContent = b.name.split(' ')[0];
+          col.appendChild(chip);
         });
-        if (dayBookings.length > 2) {
+        if (dayBks.length>2) {
           const more = document.createElement('div');
-          more.className='booking-chip chip-pending';
-          more.textContent = '+' + (dayBookings.length-2) + ' more';
-          chipsWrap.appendChild(more);
+          more.className='bk-chip chip-pending';
+          more.textContent='+' + (dayBks.length-2);
+          col.appendChild(more);
         }
-        el.appendChild(chipsWrap);
+        el.appendChild(col);
       } else {
-        // green dot = open day
-        const dot = document.createElement('div'); dot.className='avail-dot'; el.appendChild(dot);
+        const dot = document.createElement('div'); dot.className='open-dot'; el.appendChild(dot);
       }
 
       el.addEventListener('click', () => {
         selDate = date;
-        document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('selected'));
+        document.querySelectorAll('.cal-day').forEach(x=>x.classList.remove('selected'));
         el.classList.add('selected');
-        document.getElementById('btn-next-2').disabled = false;
-        showDayDetail(dateKey, date);
+        document.getElementById('btn-n2').disabled = false;
+        showDayPanel(dateKey, date);
       });
     }
     g.appendChild(el);
   }
 }
 
-function showDayDetail(dateKey, date) {
-  const panel  = document.getElementById('day-detail');
-  const dayBookings = calBookings[dateKey] || [];
+// ── Day detail panel ─────────────────────────────
+function showDayPanel(dateKey, date) {
+  const panel   = document.getElementById('day-panel');
+  const dayBks  = calBookings[dateKey] || [];
   const dateStr = date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
 
-  if (dayBookings.length === 0) {
-    panel.innerHTML = `<h4>📅 ${dateStr}</h4><div class="no-bookings">No bookings yet — this day is fully open!</div>`;
+  let html = `<h4>📅 ${dateStr}`;
+  if (dayBks.length > 0) html += ` <span style="font-weight:400;opacity:.65;font-size:.8rem">${dayBks.length} booking${dayBks.length>1?'s':''}</span>`;
+  html += '</h4>';
+
+  if (dayBks.length === 0) {
+    html += '<div class="dp-empty">No bookings yet — this day is fully open!</div>';
   } else {
-    const rows = dayBookings.map(b => `
-      <div class="detail-booking">
+    dayBks.forEach(b => {
+      const badgeCls = b.status==='Approved' ? 'dpb-approved' : 'dpb-pending';
+      html += `<div class="dp-booking">
         <div>
-          <div class="detail-name">👤 ${b.name}</div>
-          <div class="detail-info">🕐 ${b.time} &nbsp;•&nbsp; ${b.duration}</div>
+          <div class="dp-name">👤 ${b.name}</div>
+          <div class="dp-meta">
+            🕐 ${b.time} → ${b.endTime || '?'} &nbsp;·&nbsp; ${b.duration}
+          </div>
         </div>
-        <span class="detail-badge ${b.status==='Approved'?'badge-approved':'badge-pending'}">${b.status}</span>
-      </div>`).join('');
-    panel.innerHTML = `<h4>📅 ${dateStr} — ${dayBookings.length} booking${dayBookings.length>1?'s':''}</h4>${rows}`;
+        <span class="dp-badge ${badgeCls}">${b.status}</span>
+      </div>`;
+    });
   }
+  panel.innerHTML = html;
   panel.classList.remove('hidden');
 }
 
+// ── Load bookings from backend ────────────────────
 async function loadCalBookings() {
-  if (!SCRIPT_URL || SCRIPT_URL.includes('YOUR_GOOGLE')) return;
-  document.getElementById('cal-loading-msg').classList.remove('hidden');
+  if (!SCRIPT_URL || SCRIPT_URL.includes('YOUR_GOOGLE')) {
+    // ── DEMO MODE: inject sample bookings so calendar shows real behaviour ──
+    const demoKey1 = calY+'-'+String(calM+1).padStart(2,'0')+'-18';
+    const demoKey2 = calY+'-'+String(calM+1).padStart(2,'0')+'-22';
+    const demoKey3 = calY+'-'+String(calM+1).padStart(2,'0')+'-25';
+    calBookings = {
+      [demoKey1]: [
+        { name:'Ramesh Kumar',  time:'9:00 AM',  endTime:'5:00 PM', duration:'Full Day (8 hrs)',  status:'Approved' },
+        { name:'Priya Sharma',  time:'9:00 AM',  endTime:'1:00 PM', duration:'Half Day (4 hrs)',  status:'Pending'  }
+      ],
+      [demoKey2]: [
+        { name:'Suresh Patel',  time:'10:00 AM', endTime:'11:00 AM', duration:'Hourly (1 hr)',   status:'Approved' }
+      ],
+      [demoKey3]: [
+        { name:'Anjali Nair',   time:'2:00 PM',  endTime:'6:00 PM', duration:'Half Day (4 hrs)',  status:'Approved' },
+        { name:'Vikram Singh',  time:'9:00 AM',  endTime:'10:00 AM', duration:'Hourly (1 hr)',   status:'Pending'  },
+        { name:'Meena Das',     time:'11:00 AM', endTime:'12:00 PM', duration:'Hourly (1 hr)',   status:'Pending'  }
+      ]
+    };
+    renderCal();
+    return;
+  }
+  document.getElementById('cal-load-bar').classList.remove('hidden');
   try {
-    const url  = `${SCRIPT_URL}?action=calBookings&month=${calM+1}&year=${calY}`;
-    const res  = await fetch(url);
+    const res  = await fetch(`${SCRIPT_URL}?action=calBookings&month=${calM+1}&year=${calY}`);
     const data = await res.json();
     if (data.success) { calBookings = data.bookings || {}; renderCal(); }
   } catch(e) { /* skip */ }
-  document.getElementById('cal-loading-msg').classList.add('hidden');
+  document.getElementById('cal-load-bar').classList.add('hidden');
 }
 
 function changeMonth(dir) {
   calM += dir;
-  if (calM > 11) { calM=0; calY++; }
-  if (calM < 0)  { calM=11; calY--; }
-  document.getElementById('day-detail').classList.add('hidden');
+  if (calM>11){calM=0;calY++;} if(calM<0){calM=11;calY--;}
+  calBookings = {};
+  document.getElementById('day-panel').classList.add('hidden');
   renderCal(); loadCalBookings();
 }
 
-// ── Time Picker ────────────────────────────────
+// ── Time Picker ──────────────────────────────────
 function setupTimePicker() {
   const dateStr = selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
-  const labels  = { full:'Full Day (~8 hrs)', half:'Half Day (~4 hrs)', hourly:'Hourly (~1 hr)' };
-  document.getElementById('time-step-sub').textContent =
-    labels[selDuration] + ' · ' + dateStr;
-
-  document.getElementById('time-picker-head').textContent =
-    selDuration === 'full'   ? 'Pick a start time — karigar works ~8 hours from here' :
-    selDuration === 'half'   ? 'Pick a start time — karigar works ~4 hours from here' :
-                               'Pick the exact hour you need the karigar';
-
-  // Reset to 9:00 AM
-  tHour=9; tMin=0; tAmPm='AM';
-  updateTimeDisplay();
-  buildPresets();
-  checkConflict();
+  const hrsMap = {full:'8 hours', half:'4 hours', hourly:'1 hour'};
+  document.getElementById('time-sub').textContent =
+    hrsMap[selDuration] + ' session · ' + dateStr + ' · Set your start time below';
+  document.getElementById('ts-head').textContent =
+    selDuration==='full'   ? 'Pick a start time — Karigar works 8 hours from here' :
+    selDuration==='half'   ? 'Pick a start time — Karigar works 4 hours from here' :
+                             'Pick the exact 1-hour slot you need';
+  // Reset
+  tH=9; tM=0; tAP='AM';
+  document.getElementById('ap-am').classList.add('active');
+  document.getElementById('ap-pm').classList.remove('active');
+  updateTimeUI(); buildPresets(); checkConflict();
 }
 
-function adjustTime(part, dir) {
-  if (part === 'h') {
-    tHour = ((tHour - 1 + dir + 12) % 12) + 1;
-  } else {
-    tMin = (tMin + dir*15 + 60) % 60;
-  }
-  updateTimeDisplay();
-  checkConflict();
+function adj(part, dir) {
+  if (part==='h') tH = ((tH-1+dir+12)%12)+1;
+  else            tM = (tM + dir*15 + 60) % 60;
+  updateTimeUI(); checkConflict();
+  document.querySelectorAll('.pre-btn').forEach(b=>b.classList.remove('active'));
 }
 
-function setAmPm(val) {
-  tAmPm = val;
-  document.getElementById('ampm-am').classList.toggle('active', val==='AM');
-  document.getElementById('ampm-pm').classList.toggle('active', val==='PM');
-  updateTimeDisplay();
-  checkConflict();
+function setAP(val) {
+  tAP = val;
+  document.getElementById('ap-am').classList.toggle('active', val==='AM');
+  document.getElementById('ap-pm').classList.toggle('active', val==='PM');
+  updateTimeUI(); checkConflict();
+  document.querySelectorAll('.pre-btn').forEach(b=>b.classList.remove('active'));
 }
 
-function updateTimeDisplay() {
-  document.getElementById('spin-h').textContent = String(tHour).padStart(2,'0');
-  document.getElementById('spin-m').textContent = String(tMin).padStart(2,'0');
-  document.getElementById('time-display-val').textContent = getTimeString();
+function updateTimeUI() {
+  document.getElementById('sp-h').textContent = String(tH).padStart(2,'0');
+  document.getElementById('sp-m').textContent = String(tM).padStart(2,'0');
+  const start = getStartStr();
+  const end   = calcEndTime();
+  document.getElementById('tr-start').textContent = start;
+  document.getElementById('tr-end').textContent   = end;
+  document.getElementById('tr-dur').textContent   = DUR_HRS[selDuration] + ' hr' + (DUR_HRS[selDuration]>1?'s':'');
 }
 
-function getTimeString() {
-  const m = tMin === 0 ? '00' : String(tMin).padStart(2,'0');
-  return `${tHour}:${m} ${tAmPm}`;
+function getStartStr() {
+  const mm = tM===0 ? '00' : String(tM).padStart(2,'0');
+  return `${tH}:${mm} ${tAP}`;
+}
+
+function calcEndTime() {
+  // Convert to 24h minutes
+  let h24 = tH % 12; if (tAP==='PM') h24 += 12;
+  const startMins = h24*60 + tM;
+  const endMins   = startMins + DUR_HRS[selDuration]*60;
+  const eh = Math.floor(endMins/60) % 24;
+  const em = endMins % 60;
+  const eAP = eh < 12 ? 'AM' : 'PM';
+  const eh12 = eh%12 || 12;
+  const emStr = em===0 ? '00' : String(em).padStart(2,'0');
+  return `${eh12}:${emStr} ${eAP}`;
 }
 
 function buildPresets() {
-  const area = document.getElementById('preset-area');
   const list = PRESETS[selDuration] || [];
-  if (list.length === 0) { area.innerHTML=''; return; }
-  area.innerHTML = `<div style="margin-top:14px;font-size:.8rem;color:#718096;font-weight:600;margin-bottom:8px">Quick pick:</div>
-    <div class="time-presets">
-      ${list.map(t => `<button class="preset-btn" onclick="applyPreset('${t}')">${t}</button>`).join('')}
-    </div>`;
+  const wrap = document.getElementById('presets-wrap');
+  if (!list.length) { wrap.innerHTML=''; return; }
+  wrap.innerHTML = `<div class="presets-lbl">Quick pick a start time:</div>
+    <div class="presets-row">${list.map(t=>`<button class="pre-btn" onclick="applyPreset('${t}')">${t}</button>`).join('')}</div>`;
 }
 
-function applyPreset(timeStr) {
-  const parts = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if (!parts) return;
-  tHour  = parseInt(parts[1]);
-  tMin   = parseInt(parts[2]);
-  tAmPm  = parts[3].toUpperCase();
-  document.getElementById('ampm-am').classList.toggle('active', tAmPm==='AM');
-  document.getElementById('ampm-pm').classList.toggle('active', tAmPm==='PM');
-  updateTimeDisplay();
-  // Highlight active preset
-  document.querySelectorAll('.preset-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.trim() === timeStr);
-  });
-  checkConflict();
+function applyPreset(ts) {
+  const m = ts.match(/(\d+):(\d+)\s*(AM|PM)/i); if (!m) return;
+  tH=parseInt(m[1]); tM=parseInt(m[2]); tAP=m[3].toUpperCase();
+  document.getElementById('ap-am').classList.toggle('active', tAP==='AM');
+  document.getElementById('ap-pm').classList.toggle('active', tAP==='PM');
+  updateTimeUI(); checkConflict();
+  document.querySelectorAll('.pre-btn').forEach(b=>b.classList.toggle('active', b.textContent.trim()===ts));
 }
 
 function checkConflict() {
   if (!selDate) return;
-  const dateKey  = toKey(selDate);
-  const dayBks   = calBookings[dateKey] || [];
-  const approved = dayBks.filter(b => b.status === 'Approved');
-  const myMins   = toMins24(tHour, tMin, tAmPm);
-  let   conflict = false;
+  const dayBks  = calBookings[toKey(selDate)] || [];
+  const approved= dayBks.filter(b=>b.status==='Approved');
+  const myMins  = toMins(tH, tM, tAP);
+  const myEnd   = myMins + DUR_HRS[selDuration]*60;
+  let conflict  = false;
   approved.forEach(b => {
-    const bMins = parseTimeMins(b.time);
-    if (bMins !== null && Math.abs(myMins - bMins) < 60) conflict = true;
+    const bStart = parseTimeMins(b.time);
+    const bEnd   = bStart + DUR_HRS[durType(b.duration)]*60;
+    if (bStart!==null && myMins < bEnd && myEnd > bStart) conflict=true;
   });
-  document.getElementById('conflict-warn').classList.toggle('visible', conflict);
+  document.getElementById('conflict-box').classList.toggle('show', conflict);
 }
 
-function toMins24(h, m, ampm) {
-  let h24 = h % 12;
-  if (ampm === 'PM') h24 += 12;
-  return h24 * 60 + m;
+function durType(durLabel) {
+  if (durLabel&&durLabel.includes('8')) return 'full';
+  if (durLabel&&durLabel.includes('4')) return 'half';
+  return 'hourly';
+}
+function toMins(h,m,ap) { let h2=h%12; if(ap==='PM')h2+=12; return h2*60+m; }
+function parseTimeMins(ts) {
+  const m=(ts||'').match(/(\d+):(\d+)\s*(AM|PM)/i);
+  return m ? toMins(parseInt(m[1]),parseInt(m[2]),m[3].toUpperCase()) : null;
 }
 
-function parseTimeMins(timeStr) {
-  const m = (timeStr || '').match(/(\d+):(\d+)\s*(AM|PM)/i);
-  if (!m) return null;
-  return toMins24(parseInt(m[1]), parseInt(m[2]), m[3].toUpperCase());
-}
-
-// ── Summary ────────────────────────────────────
+// ── Summary ─────────────────────────────────────
 function buildSummary() {
   document.getElementById('summary').innerHTML = `
-    <div class="sum-row"><span class="lbl">⏱ Duration</span><span class="val"><span class="dur-pill">${DUR_LABEL[selDuration]}</span></span></div>
-    <div class="sum-row"><span class="lbl">📅 Date</span><span class="val">${selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long',year:'numeric'})}</span></div>
-    <div class="sum-row"><span class="lbl">🕐 Start Time</span><span class="val">${getTimeString()}</span></div>
-    <div class="sum-row"><span class="lbl">🔧 Service</span><span class="val">${v('f-service')}</span></div>
-    <div class="sum-row"><span class="lbl">👤 Name</span><span class="val">${v('f-name')}</span></div>
-    <div class="sum-row"><span class="lbl">📞 Phone</span><span class="val">${v('f-phone')}</span></div>
-    <div class="sum-row"><span class="lbl">📧 Email</span><span class="val">${v('f-email')}</span></div>
+    <div class="sum-row"><span class="sum-lbl">⏱ Duration</span><span class="sum-val"><span class="dur-pill">${DUR_LABEL[selDuration]}</span></span></div>
+    <div class="sum-row"><span class="sum-lbl">📅 Date</span><span class="sum-val">${selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long',year:'numeric'})}</span></div>
+    <div class="sum-row"><span class="sum-lbl">🕐 Start Time</span><span class="sum-val"><span class="time-pill">${getStartStr()}</span></span></div>
+    <div class="sum-row"><span class="sum-lbl">🕔 End Time</span><span class="sum-val"><span class="time-pill">${calcEndTime()}</span></span></div>
+    <div class="sum-row"><span class="sum-lbl">🔧 Skill Area</span><span class="sum-val">${v('f-service')}</span></div>
+    <div class="sum-row"><span class="sum-lbl">👤 Name</span><span class="sum-val">${v('f-name')}</span></div>
+    <div class="sum-row"><span class="sum-lbl">📞 Phone</span><span class="sum-val">${v('f-phone')}</span></div>
+    <div class="sum-row"><span class="sum-lbl">📧 Email</span><span class="sum-val">${v('f-email')}</span></div>
   `;
 }
 
-// ── Submit ─────────────────────────────────────
+// ── Submit ───────────────────────────────────────
 async function submitBooking() {
   const btn = document.getElementById('btn-submit');
-  btn.disabled=true; btn.textContent='⏳ Submitting...';
-  const err = document.getElementById('submit-err');
+  btn.disabled=true; btn.textContent='⏳ Submitting…';
+  const err = document.getElementById('sub-err');
   const payload = {
     action:   'book',
     duration: DUR_LABEL[selDuration],
@@ -708,78 +783,77 @@ async function submitBooking() {
     service:  v('f-service'),
     date:     selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
     dateKey:  toKey(selDate),
-    time:     getTimeString()
+    time:     getStartStr(),
+    endTime:  calcEndTime()
   };
   try {
-    const res  = await fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) });
+    const res  = await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
     const data = await res.json();
     if (data.success) {
       document.getElementById('step-5').classList.add('hidden');
       document.getElementById('step-6').classList.remove('hidden');
-      document.getElementById('bid-display').textContent = 'Booking ID: '+data.id.substring(0,8).toUpperCase();
+      document.getElementById('bk-id-display').textContent = 'ID: '+data.id.substring(0,8).toUpperCase();
     } else throw new Error(data.error||'Unknown error');
   } catch(e) {
     showErr(err,'⚠️ Submission failed: '+e.message);
-    btn.disabled=false; btn.textContent='✅ Confirm Booking';
+    btn.disabled=false; btn.textContent='✅ Confirm Session Booking';
   }
 }
 
-// ── Reset ──────────────────────────────────────
+// ── Reset ────────────────────────────────────────
 function resetForm() {
   selDuration=null; selDate=null; curStep=1; calBookings={};
-  ['f-name','f-phone','f-email'].forEach(id => document.getElementById(id).value='');
+  ['f-name','f-phone','f-email'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-service').value='';
-  document.querySelectorAll('.dur-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('btn-next-1').disabled=true;
-  for (let i=1;i<=6;i++) { const el=document.getElementById('step-'+i); if(el) el.classList.add('hidden'); }
+  document.querySelectorAll('.dur-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('btn-n1').disabled=true;
+  for(let i=1;i<=6;i++){const e=document.getElementById('step-'+i);if(e)e.classList.add('hidden');}
   document.getElementById('step-1').classList.remove('hidden');
-  [1,2,3,4,5].forEach(i => { const s=document.getElementById('si-'+i); if(s) s.classList.remove('active','done'); });
+  [1,2,3,4,5].forEach(i=>{const s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
   document.getElementById('si-1').classList.add('active');
-  document.getElementById('day-detail').classList.add('hidden');
+  document.getElementById('day-panel').classList.add('hidden');
 }
 
-// ── Status checker ─────────────────────────────
+// ── Status ───────────────────────────────────────
 async function checkStatus() {
-  const q   = document.getElementById('status-q').value.trim();
+  const q   = document.getElementById('sq').value.trim();
   const out = document.getElementById('status-out');
   if (!q) return;
-  out.innerHTML = '<div class="spinner"></div>';
+  out.innerHTML='<div class="spinner"></div>';
   try {
     const res  = await fetch(`${SCRIPT_URL}?action=check&query=${encodeURIComponent(q)}`);
     const data = await res.json();
-    if (data.success && data.bookings && data.bookings.length > 0) {
-      out.innerHTML = data.bookings.map(b => {
-        const cls      = 'status-'+b.status;
-        const msgClass = b.status==='Approved'?'msg-approved':b.status==='Declined'?'msg-declined':'msg-pending';
-        const msgText  = b.status==='Approved'
-          ? '✅ Booking confirmed! Karigar will arrive at the scheduled time.'
+    if (data.success && data.bookings && data.bookings.length>0) {
+      out.innerHTML = data.bookings.map(b=>{
+        const mc = b.status==='Approved'?'sm-approved':b.status==='Declined'?'sm-declined':'sm-pending';
+        const mt = b.status==='Approved'
+          ? '✅ Confirmed! The Karigar will arrive at your start time.'
           : b.status==='Declined'
-          ? '❌ Booking declined. Please book a different slot.'
-          : '⏳ Awaiting approval — you\'ll be emailed once confirmed.';
-        return `<div class="status-card">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <strong>${b.service}</strong><span class="status-badge ${cls}">${b.status}</span>
+          ? '❌ Not approved this time. Please book a different slot.'
+          : '⏳ Pending approval — you\'ll be emailed once confirmed.';
+        return `<div class="st-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:11px">
+            <strong>${b.service}</strong><span class="st-badge st-${b.status}">${b.status}</span>
           </div>
-          <div class="sum-row"><span class="lbl">⏱ Duration</span><span class="val">${b.duration||'—'}</span></div>
-          <div class="sum-row"><span class="lbl">📅 Date</span><span class="val">${b.date}</span></div>
-          <div class="sum-row" style="border:none"><span class="lbl">🕐 Start Time</span><span class="val">${b.time}</span></div>
-          <div class="status-msg ${msgClass}">${msgText}</div>
+          <div class="sum-row"><span class="sum-lbl">⏱ Duration</span><span class="sum-val">${b.duration||'—'}</span></div>
+          <div class="sum-row"><span class="sum-lbl">📅 Date</span><span class="sum-val">${b.date}</span></div>
+          <div class="sum-row"><span class="sum-lbl">🕐 Start</span><span class="sum-val">${b.time}</span></div>
+          <div class="sum-row" style="border:none"><span class="sum-lbl">🕔 End</span><span class="sum-val">${b.endTime||'—'}</span></div>
+          <div class="st-msg ${mc}">${mt}</div>
         </div>`;
       }).join('');
     } else {
-      out.innerHTML='<div class="alert alert-info" style="margin-top:16px">No bookings found. Please double-check your email or booking ID.</div>';
+      out.innerHTML='<div class="alert alert-info" style="margin-top:14px">No bookings found. Please double-check your email or booking ID.</div>';
     }
   } catch(e) {
-    out.innerHTML='<div class="alert alert-error" style="margin-top:16px">Could not fetch status. Please try again.</div>';
+    out.innerHTML='<div class="alert alert-error" style="margin-top:14px">Could not fetch status. Please try again.</div>';
   }
 }
 
-// ── Helpers ────────────────────────────────────
-function v(id) { return document.getElementById(id).value.trim(); }
-function showErr(el,msg) { el.textContent=msg; el.classList.remove('hidden'); }
-function toKey(date) {
-  return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0');
-}
+// ── Helpers ──────────────────────────────────────
+function v(id){return document.getElementById(id).value.trim();}
+function showErr(el,msg){el.textContent=msg;el.classList.remove('hidden');}
+function toKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 </script>
 </body>
 </html>
