@@ -38,31 +38,15 @@ body{font-family:'Segoe UI',sans-serif;background:#f3f4f8;min-height:100vh;paddi
 .dt{font-weight:700;color:#1a202c;font-size:.95rem}
 .dur-card.selected .dt{color:#4f46e5}
 .dd{font-size:.72rem;color:#718096;margin-top:3px;line-height:1.4}
-.gcal-wrap{border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:12px}
-.gcal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f8fafc;border-bottom:1.5px solid #e2e8f0}
-.gcal-head h3{font-size:.97rem;font-weight:700;color:#1a202c}
-.cnav{background:white;border:1.5px solid #e2e8f0;border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:1rem;color:#4f46e5}
-.cnav:hover{background:#eef2ff}
-.gcal-daynames{display:grid;grid-template-columns:repeat(7,1fr);background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:0 8px}
-.gcal-dn{text-align:center;font-size:.66rem;font-weight:700;color:#94a3b8;padding:7px 0;text-transform:uppercase}
-.gcal-days{display:grid;grid-template-columns:repeat(7,1fr);padding:4px 8px 8px;gap:2px}
-.gc-day{border-radius:10px;cursor:pointer;transition:all .15s;border:2px solid transparent;min-height:72px;padding:5px 4px;display:flex;flex-direction:column;overflow:hidden}
-.gc-day:hover:not(.gc-disabled):not(.gc-empty){background:#f1f5ff;border-color:#c7d2fe}
-.gc-day.gc-selected{background:#4f46e5;border-color:#4f46e5}
-.gc-day.gc-disabled,.gc-day.gc-empty{cursor:default;pointer-events:none}
-.gc-num{font-size:.82rem;font-weight:600;color:#374151;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-bottom:3px;align-self:flex-start}
-.gc-day.gc-today .gc-num{background:#4f46e5;color:white;font-weight:800}
-.gc-day.gc-selected .gc-num{background:rgba(255,255,255,.25);color:white}
-.gc-day.gc-disabled .gc-num{color:#d1d5db}
-.ev-list{display:flex;flex-direction:column;gap:2px;flex:1;overflow:hidden}
-.ev-pill{font-size:.58rem;font-weight:700;padding:2px 5px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}
-.ev-approved{background:#16a34a;color:white}
-.ev-pending{background:#3b82f6;color:white}
-.ev-more{font-size:.56rem;color:#6b7280;padding-left:3px;margin-top:1px}
-.ev-open{width:6px;height:6px;border-radius:50%;background:#10b981;margin:2px auto 0}
-.gc-day.gc-selected .ev-open{background:rgba(255,255,255,.6)}
-.gc-day.gc-selected .ev-pill{opacity:.9}
-.gcal-load{padding:10px 16px;font-size:.78rem;background:#fafafa;border-top:1px solid #f0f0f0}
+.diag-box{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:12px;font-size:.78rem}
+.diag-box h4{color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.diag-out{color:#e2e8f0;font-family:monospace;word-break:break-all;white-space:pre-wrap;max-height:180px;overflow-y:auto;line-height:1.5}
+.diag-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.dbtn{padding:6px 14px;border:none;border-radius:8px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.dbtn-blue{background:#3b82f6;color:white}
+.dbtn-blue:hover{background:#2563eb}
+.dbtn-gray{background:#334155;color:#94a3b8}
+.dbtn-gray:hover{background:#475569;color:white}
 .day-panel{border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid #e2e8f0}
 .dp-head{background:#1e293b;color:white;padding:13px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
 .dp-head span{opacity:.6;font-size:.75rem;font-weight:400}
@@ -79,16 +63,6 @@ body{font-family:'Segoe UI',sans-serif;background:#f3f4f8;min-height:100vh;paddi
 .db-approved{background:#16a34a;color:white}
 .db-pending{background:#3b82f6;color:white}
 .dp-empty{color:#475569;font-style:italic;padding:14px 16px;font-size:.84rem}
-/* Diagnostic box */
-.diag-box{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:12px;font-size:.78rem}
-.diag-box h4{color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.diag-out{color:#e2e8f0;font-family:monospace;word-break:break-all;white-space:pre-wrap;max-height:180px;overflow-y:auto;line-height:1.5}
-.diag-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.dbtn{padding:6px 14px;border:none;border-radius:8px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
-.dbtn-blue{background:#3b82f6;color:white}
-.dbtn-blue:hover{background:#2563eb}
-.dbtn-gray{background:#334155;color:#94a3b8}
-.dbtn-gray:hover{background:#475569;color:white}
 .tp-wrap{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:8px}
 .tp-head{background:#f8fafc;padding:11px 16px;border-bottom:1px solid #e2e8f0;font-size:.82rem;color:#718096;font-weight:600}
 .tp-body{padding:18px 16px}
@@ -163,6 +137,8 @@ input:focus,select:focus{border-color:#4f46e5}
 .legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:.73rem;color:#718096;margin-bottom:7px;align-items:center}
 .leg{display:flex;align-items:center;gap:5px}
 .leg-ev{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:3px;color:white}
+input[type="date"]{cursor:pointer}
+input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.7}
 @media(max-width:500px){
   .dur-grid{grid-template-columns:1fr}
   .card{padding:16px 12px}
@@ -223,43 +199,58 @@ input:focus,select:focus{border-color:#4f46e5}
     <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
   </div>
 
-  <!-- Step 2 -->
+  <!-- Step 2 — Google Calendar Embed + Date Picker -->
   <div id="step-2" class="hidden">
     <div class="ttl">Choose a Date</div>
     <div class="sub" id="dur-remind"></div>
 
-    <!-- ── DIAGNOSTIC BOX ── shown always so user can test connection ── -->
+    <!-- Diagnostic -->
     <div class="diag-box">
       <h4>🔧 API Connection Test</h4>
       <div class="diag-row">
         <button class="dbtn dbtn-blue" onclick="testConn()">▶ Test Connection</button>
-        <button class="dbtn dbtn-gray" onclick="document.getElementById('diag-out').textContent='';document.getElementById('diag-box').style.display='none'">✕ Hide</button>
+        <button class="dbtn dbtn-gray" onclick="document.getElementById('diag-out').textContent='';this.closest('.diag-box').style.display='none'">✕ Hide</button>
       </div>
-      <div class="diag-out" id="diag-out">Press "Test Connection" to see exactly what your Apps Script returns.</div>
+      <div class="diag-out" id="diag-out">Press "Test Connection" to verify your API.</div>
     </div>
 
-    <div class="gcal-wrap">
-      <div class="gcal-head">
-        <button class="cnav" onclick="changeMonth(-1)">‹</button>
-        <h3 id="cal-lbl"></h3>
-        <button class="cnav" onclick="changeMonth(1)">›</button>
+    <!-- Google Calendar Embed -->
+    <div style="border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:16px">
+      <div style="background:linear-gradient(90deg,#4f46e5,#7c3aed);padding:10px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:white;font-size:.82rem;font-weight:700">📅 Karigar Bookings Calendar</span>
+        <span style="color:rgba(255,255,255,.75);font-size:.72rem">Approved sessions shown here</span>
       </div>
-      <div class="gcal-daynames">
-        <div class="gcal-dn">Sun</div><div class="gcal-dn">Mon</div><div class="gcal-dn">Tue</div>
-        <div class="gcal-dn">Wed</div><div class="gcal-dn">Thu</div><div class="gcal-dn">Fri</div><div class="gcal-dn">Sat</div>
-      </div>
-      <div id="gcal-load" class="gcal-load hidden"></div>
-      <div class="gcal-days" id="gcal-grid"></div>
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=c_0ff83b5e21424ec23d3b21cc95ed5f9324c42a385aa421a7d433765951af3a4c%40group.calendar.google.com&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff"
+        style="border:none;width:100%;height:500px;display:block"
+        frameborder="0"
+        scrolling="no">
+      </iframe>
     </div>
 
+    <!-- Date Picker -->
+    <div style="background:#f0f4ff;border-radius:12px;padding:16px;margin-bottom:14px;border:1.5px solid #c7d2fe">
+      <div style="font-size:.85rem;font-weight:700;color:#4f46e5;margin-bottom:10px">
+        📌 Select your booking date
+      </div>
+      <input
+        type="date"
+        id="date-picker"
+        style="width:100%;padding:11px 14px;border:2px solid #c7d2fe;border-radius:10px;font-size:.95rem;font-family:inherit;color:#1a202c;background:white;outline:none"
+        onchange="onDatePick(this.value)"
+      />
+      <div id="date-err" style="color:#991b1b;background:#fee2e2;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;margin-top:8px;display:none"></div>
+      <div id="date-ok"  style="color:#065f46;background:#d1fae5;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;margin-top:8px;display:none"></div>
+    </div>
+
+    <!-- Pending bookings for selected date -->
     <div id="day-panel" class="day-panel hidden"></div>
 
-    <div class="legend-row">
-      <div class="leg"><div style="width:8px;height:8px;border-radius:50%;background:#10b981"></div>Open</div>
-      <div class="leg"><span class="leg-ev" style="background:#16a34a">Name</span>Approved</div>
-      <div class="leg"><span class="leg-ev" style="background:#3b82f6">Name</span>Pending</div>
+    <div class="legend-row" style="margin-top:4px">
+      <div class="leg"><span class="leg-ev" style="background:#16a34a">Name</span>Approved (Google Cal)</div>
+      <div class="leg"><span class="leg-ev" style="background:#3b82f6">Name</span>Pending (our system)</div>
     </div>
-    <p style="font-size:.71rem;color:#a0aec0;margin-bottom:12px">Tap a date to see all bookings &nbsp;•&nbsp; Sundays unavailable</p>
+    <p style="font-size:.71rem;color:#a0aec0;margin-bottom:12px">Sundays are unavailable &nbsp;•&nbsp; Approved sessions appear on the calendar above</p>
 
     <div class="btn-row">
       <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(1)">← Back</button>
@@ -409,10 +400,8 @@ input:focus,select:focus{border-color:#4f46e5}
 </div>
 
 <script>
-// ── YOUR SCRIPT URL ──────────────────────────────────
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
 
-// ── State ─────────────────────────────────────────────
 var curStep=1, selDur=null, selDate=null, calY, calM, calBk={};
 var sH=9, sM=0, sAP='AM', eH=5, eM=0, eAP='PM';
 var today=new Date(); today.setHours(0,0,0,0);
@@ -429,49 +418,32 @@ var PRESETS={
   hourly:[{l:'9–10AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
 };
 
-// ── Diagnostic: test connection and show raw response ──
 async function testConn() {
   var out = document.getElementById('diag-out');
-  out.textContent = '⏳ Fetching: ' + SCRIPT_URL + '?action=calBookings&month=' + (calM+1) + '&year=' + calY + '\n\n';
+  out.textContent = '⏳ Fetching…\n\n';
   try {
     var res  = await fetch(SCRIPT_URL + '?action=calBookings&month=' + (calM+1) + '&year=' + calY);
     var text = await res.text();
-    out.textContent += '── HTTP Status: ' + res.status + ' ──\n\n';
-    out.textContent += '── Raw Response (first 800 chars) ──\n' + text.substring(0, 800) + '\n\n';
+    out.textContent += '── HTTP ' + res.status + ' ──\n\n' + text.substring(0,800) + '\n\n';
     try {
       var parsed = JSON.parse(text);
-      out.textContent += '── Parsed JSON ──\n' + JSON.stringify(parsed, null, 2);
-      if (parsed.success) {
-        var keys = Object.keys(parsed.bookings || {});
-        out.textContent += '\n\n✅ SUCCESS! Found bookings for ' + keys.length + ' date(s): ' + keys.join(', ');
-        if (keys.length > 0) {
-          // apply directly to calendar
-          calBk = parsed.bookings;
-          renderCal();
-          out.textContent += '\n\n🎉 Calendar updated! Bookings should now be visible above.';
-        } else {
-          out.textContent += '\n\n⚠️ No bookings returned for month ' + (calM+1) + '/' + calY + '. Check that your sheet has rows with dates in this month.';
-        }
+      out.textContent += '── Parsed ──\n' + JSON.stringify(parsed,null,2);
+      if(parsed.success){
+        calBk=parsed.bookings||{};
+        out.textContent += '\n\n✅ SUCCESS! ' + Object.keys(calBk).length + ' date(s) with bookings.';
       } else {
-        out.textContent += '\n\n❌ API returned success:false. Error: ' + parsed.error;
+        out.textContent += '\n\n❌ ' + parsed.error;
       }
-    } catch(pe) {
-      out.textContent += '── ❌ NOT valid JSON — Apps Script is crashing and returning HTML ──\n';
-      out.textContent += 'This means Code.gs has an error. Check Apps Script logs (Executions tab).';
-    }
-  } catch(fe) {
-    out.textContent += '❌ FETCH FAILED (likely CORS or network): ' + fe.message + '\n\nMake sure your Apps Script is deployed with:\n- Execute as: Me\n- Who has access: Anyone';
-  }
+    } catch(pe){ out.textContent += '❌ NOT valid JSON — check Apps Script Executions log.'; }
+  } catch(fe){ out.textContent += '❌ FETCH FAILED: ' + fe.message; }
 }
 
-// ── Safe fetch helper ─────────────────────────────────
 async function safeFetch(url, opts) {
   try {
-    var res  = await fetch(url, opts || {});
-    var text = await res.text();
-    try { return JSON.parse(text); }
-    catch(e) { return null; }
-  } catch(e) { return null; }
+    var res=await fetch(url,opts||{});
+    var text=await res.text();
+    try{return JSON.parse(text);}catch(e){return null;}
+  } catch(e){return null;}
 }
 
 function switchTab(tab,btn){
@@ -513,61 +485,50 @@ function goStep(n){
   });
   curStep=n;
   if(n===2){
-    document.getElementById('dur-remind').textContent='Selected: '+DUR_LBL[selDur]+' — tap any date to see bookings';
-    renderCal(); loadCalBk();
+    document.getElementById('dur-remind').textContent='Selected: '+DUR_LBL[selDur]+' — view the calendar above, then pick your date below';
+    var dp=document.getElementById('date-picker');
+    dp.min=new Date().toISOString().split('T')[0];
+    dp.value='';
+    document.getElementById('date-ok').style.display='none';
+    document.getElementById('date-err').style.display='none';
+    document.getElementById('btn-n2').disabled=true;
+    document.getElementById('day-panel').classList.add('hidden');
+    selDate=null;
+    loadCalBk();
   }
   if(n===3) setupTime();
 }
 
-// ── Calendar ─────────────────────────────────────────
-function renderCal(){
-  document.getElementById('cal-lbl').textContent=new Date(calY,calM,1).toLocaleString('default',{month:'long',year:'numeric'});
-  var g=document.getElementById('gcal-grid');
-  g.innerHTML='';
-  var first=new Date(calY,calM,1).getDay();
-  var dim=new Date(calY,calM+1,0).getDate();
-  for(var i=0;i<first;i++){var e=document.createElement('div');e.className='gc-day gc-empty';g.appendChild(e);}
-  for(var d=1;d<=dim;d++){
-    (function(d){
-      var date=new Date(calY,calM,d);
-      var key=toKey(date);
-      var el=document.createElement('div'); el.className='gc-day';
-      var num=document.createElement('div'); num.className='gc-num'; num.textContent=d; el.appendChild(num);
-      var past=date<today, sun=date.getDay()===0;
-      if(past||sun){
-        el.classList.add('gc-disabled');
-        if(sun) el.title='Closed on Sundays';
-      } else {
-        if(date.toDateString()===today.toDateString()) el.classList.add('gc-today');
-        if(selDate&&date.toDateString()===selDate.toDateString()) el.classList.add('gc-selected');
-        var dayBk=calBk[key]||[];
-        var evList=document.createElement('div'); evList.className='ev-list';
-        if(dayBk.length>0){
-          dayBk.slice(0,3).forEach(function(b){
-            var pill=document.createElement('div');
-            pill.className='ev-pill '+(b.status==='Approved'?'ev-approved':'ev-pending');
-            pill.textContent=b.name.split(' ')[0]+(b.time?' · '+b.time:'');
-            pill.title=b.name+' | '+b.time+' → '+(b.endTime||'?')+' | '+b.status;
-            evList.appendChild(pill);
-          });
-          if(dayBk.length>3){
-            var more=document.createElement('div'); more.className='ev-more';
-            more.textContent='+'+(dayBk.length-3)+' more'; evList.appendChild(more);
-          }
-        } else {
-          var dot=document.createElement('div'); dot.className='ev-open'; evList.appendChild(dot);
-        }
-        el.appendChild(evList);
-        el.addEventListener('click',function(){
-          selDate=date;
-          document.querySelectorAll('.gc-day').forEach(function(x){x.classList.remove('gc-selected');});
-          el.classList.add('gc-selected');
-          document.getElementById('btn-n2').disabled=false;
-          showDayPanel(key,date);
-        });
-      }
-      g.appendChild(el);
-    })(d);
+function onDatePick(val){
+  var errEl=document.getElementById('date-err');
+  var okEl=document.getElementById('date-ok');
+  var btn=document.getElementById('btn-n2');
+  errEl.style.display='none'; okEl.style.display='none'; btn.disabled=true;
+  if(!val){selDate=null;return;}
+  var parts=val.split('-');
+  var picked=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+  if(picked.getDay()===0){
+    errEl.textContent='⚠️ Sundays are unavailable. Please pick another day.';
+    errEl.style.display='block'; selDate=null; return;
+  }
+  if(picked<today){
+    errEl.textContent='⚠️ Please pick a future date.';
+    errEl.style.display='block'; selDate=null; return;
+  }
+  selDate=picked;
+  var ds=picked.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  okEl.textContent='✅ '+ds+' selected';
+  okEl.style.display='block';
+  btn.disabled=false;
+  showDayPanel(toKey(picked),picked);
+  if(Object.keys(calBk).length===0) loadCalBk();
+}
+
+async function loadCalBk(){
+  var data=await safeFetch(SCRIPT_URL+'?action=calBookings&month='+(calM+1)+'&year='+calY);
+  if(data&&data.success){
+    calBk=data.bookings||{};
+    if(selDate) showDayPanel(toKey(selDate),selDate);
   }
 }
 
@@ -575,14 +536,14 @@ function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
   var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  var h='<div class="dp-head"><span>📅 '+ds+'</span><span>'+(bks.length>0?bks.length+' booking'+(bks.length>1?'s':''):'Fully open')+'</span></div><div class="dp-body">';
+  var h='<div class="dp-head"><span>📅 '+ds+'</span><span>'+(bks.length>0?bks.length+' booking(s) in system':'No pending bookings')+'</span></div><div class="dp-body">';
   if(bks.length===0){
-    h+='<div class="dp-empty">No bookings yet — this day is fully open!</div>';
+    h+='<div class="dp-empty">No bookings in our system for this day yet.</div>';
   } else {
     bks.forEach(function(b){
       var app=b.status==='Approved';
       h+='<div class="dp-event"><div class="dp-bar '+(app?'bar-approved':'bar-pending')+'"></div>'
-        +'<div class="dp-info"><div class="dp-name">👤 '+b.name+'</div>'
+        +'<div class="dp-info"><div class="dp-name">👤 '+(b.name||'—')+'</div>'
         +'<div class="dp-meta">🕐 '+b.time+' → '+(b.endTime||'?')+' &nbsp;·&nbsp; '+(b.duration||'')+'</div></div>'
         +'<span class="dp-badge '+(app?'db-approved':'db-pending')+'">'+b.status+'</span></div>';
     });
@@ -591,28 +552,6 @@ function showDayPanel(key,date){
   p.innerHTML=h; p.classList.remove('hidden');
 }
 
-async function loadCalBk(){
-  var loadEl=document.getElementById('gcal-load');
-  loadEl.textContent='⏳ Loading bookings…'; loadEl.classList.remove('hidden');
-  var data=await safeFetch(SCRIPT_URL+'?action=calBookings&month='+(calM+1)+'&year='+calY);
-  if(data&&data.success){
-    calBk=data.bookings||{}; renderCal();
-    var count=Object.keys(calBk).length;
-    loadEl.textContent = count>0 ? '✅ Loaded bookings for '+count+' date(s)' : 'ℹ️ No bookings found for this month';
-    setTimeout(function(){loadEl.classList.add('hidden');},3000);
-  } else {
-    loadEl.textContent='⚠️ Could not load bookings — press "Test Connection" above to diagnose';
-  }
-}
-
-function changeMonth(dir){
-  calM+=dir;
-  if(calM>11){calM=0;calY++;} if(calM<0){calM=11;calY--;}
-  calBk={}; document.getElementById('day-panel').classList.add('hidden');
-  renderCal(); loadCalBk();
-}
-
-// ── Time picker ───────────────────────────────────────
 function setupTime(){
   var df=DUR_DEF[selDur];
   sH=df.sH;sM=df.sM;sAP=df.sAP;eH=df.eH;eM=df.eM;eAP=df.eAP;
@@ -733,9 +672,7 @@ async function checkStatus(){
   if(!q)return;
   out.innerHTML='<div class="spin"></div>';
   var data=await safeFetch(SCRIPT_URL+'?action=check&query='+encodeURIComponent(q));
-  if(!data){
-    out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server.</div>'; return;
-  }
+  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server.</div>';return;}
   if(data.success&&data.bookings&&data.bookings.length>0){
     out.innerHTML=data.bookings.map(function(b){
       var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
