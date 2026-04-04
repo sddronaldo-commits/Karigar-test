@@ -159,6 +159,24 @@ label{display:block;font-size:.81rem;font-weight:700;color:#374151;margin-bottom
 input,select,textarea{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;font-size:.9rem;outline:none;transition:border .2s;font-family:inherit;color:var(--text);background:white}
 input:focus,select:focus,textarea:focus{border-color:var(--primary)}
 textarea{min-height:96px;resize:vertical}
+.checkbox-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.checkbox-pill{display:flex;align-items:center;gap:8px;padding:10px 12px;border:2px solid var(--border);border-radius:12px;background:white;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--text)}
+.checkbox-pill input{width:auto;flex:0 0 auto;margin:0;padding:0;border:none;accent-color:var(--primary)}
+.checkbox-pill:has(input:checked){border-color:var(--primary);background:var(--primary-light)}
+.field-help{font-size:.73rem;color:var(--muted);margin-top:6px}
+.date-tile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:10px;margin:14px 0 10px}
+.date-tile{border:2px solid var(--border);border-radius:14px;background:white;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
+.date-tile:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.date-tile small{display:block;font-size:.67rem;color:var(--muted);font-weight:700;margin-bottom:3px}
+.date-tile strong{display:block;font-size:1rem;color:var(--text);margin-bottom:4px}
+.date-tile span{display:block;font-size:.68rem;font-weight:700}
+.date-tile.available{background:#f0fdf4;border-color:#86efac}
+.date-tile.available span{color:#166534}
+.date-tile.pending{background:#fffbeb;border-color:#fcd34d}
+.date-tile.pending span{color:#92400e}
+.date-tile.booked{background:#fef2f2;border-color:#fca5a5}
+.date-tile.booked span{color:#991b1b}
+.date-tile.selected{box-shadow:0 0 0 3px var(--primary-light);border-color:var(--primary)}
 
 /* ─── BUTTONS ─── */
 .btn{padding:11px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
@@ -311,7 +329,7 @@ textarea{min-height:96px;resize:vertical}
       <div class="date-box">
         <div class="date-label">📌 Select your booking date</div>
         <input type="date" id="date-picker" class="date-input" onchange="onDatePick(this.value)"/>
-        <div class="date-note">⏳ Bookings can only be made up to <strong>10 days in advance</strong></div>
+        <div class="date-note">⏳ Bookings must be made at least <strong>10 full days in advance</strong>. Sundays are open.</div>
         <div id="date-err" class="msg msg-err hidden"></div>
         <div id="date-ok"  class="msg msg-ok  hidden"></div>
       </div>
@@ -322,7 +340,7 @@ textarea{min-height:96px;resize:vertical}
         <div class="leg"><div class="leg-dot" style="background:#16a34a"></div> Approved (on calendar)</div>
         <div class="leg"><div class="leg-dot" style="background:#3b82f6"></div> Pending (in system)</div>
       </div>
-      <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays are unavailable &nbsp;·&nbsp; Approved sessions appear on the calendar above</p>
+      <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays are open &nbsp;·&nbsp; Approved sessions appear on the calendar above</p>
 
       <div class="btn-row">
         <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(1)">← Back</button>
@@ -404,17 +422,17 @@ textarea{min-height:96px;resize:vertical}
         </select>
       </div>
       <div class="fg">
-        <label>Select Lab *</label>
-        <select id="f-lab">
-          <option value="">— Select lab / location —</option>
-          <option>EE LAB</option>
-          <option>AI LAB</option>
-          <option>Auto LAB</option>
-          <option>GNAT LAB</option>
-          <option>FPT LAB</option>
-          <option>1st Floor</option>
-          <option>2nd Floor</option>
-        </select>
+        <label>Select Lab * (choose one or more)</label>
+        <div class="checkbox-grid" id="f-labs">
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="EE LAB"/>EE LAB</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="AI LAB"/>AI LAB</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Auto LAB"/>Auto LAB</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="GNAT LAB"/>GNAT LAB</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="FPT LAB"/>FPT LAB</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="1st Floor"/>1st Floor</label>
+          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="2nd Floor"/>2nd Floor</label>
+        </div>
+        <div class="field-help">You can select multiple labs / locations.</div>
       </div>
       <div class="fg">
         <label>What is it about? *</label>
@@ -476,10 +494,14 @@ textarea{min-height:96px;resize:vertical}
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const PUBLIC_CALENDAR_EMBED_URL = 'https://calendar.google.com/calendar/embed?src=c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff';
 const PUBLIC_ICAL_URL = 'https://calendar.google.com/calendar/ical/c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com/public/basic.ics';
-const BACKEND_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec'; // Add your Apps Script web app URL here when the booking backend is ready.
+const BACKEND_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
 const CALENDAR_AUTO_REFRESH_MS = 60000;
 
 function SCRIPT_URL(){return BACKEND_SCRIPT_URL;}
+function minLeadDate(){var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()+10); return d;}
+function isDateBookable(d){var min=minLeadDate(); return d>=min;}
+function getSelectedLabs(){return Array.from(document.querySelectorAll('input[name="f-lab"]:checked')).map(function(el){return el.value;});}
+function clearSelectedLabs(){document.querySelectorAll('input[name="f-lab"]').forEach(function(el){el.checked=false;});}
 
 function buildCalEmbedUrl(){
   return PUBLIC_CALENDAR_EMBED_URL + '&_ts=' + Date.now();
@@ -494,6 +516,7 @@ function updateCalEmbed(){
 async function refreshCalendarData(){
   updateCalEmbed();
   if(SCRIPT_URL()) await loadCalBk();
+  renderDateTiles();
 }
 
 function startAutoRefresh(){
@@ -567,8 +590,8 @@ function pickDur(type,el){
 function goStep(n){
   if(n===5){
     var err=document.getElementById('form-err');
-    var nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),type=v('f-type'),lab=v('f-lab'),details=v('f-work-details');
-    if(!nm||!ph||!em||!type||!lab||!details){showEl(err,'Please fill in all required fields.');return;}
+    var nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),type=v('f-type'),details=v('f-work-details'),labs=getSelectedLabs();
+    if(!nm||!ph||!em||!type||!details||!labs.length){showEl(err,'Please fill in all required fields, including at least one lab.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showEl(err,'Enter a valid email address.');return;}
     if(!/^\d{10}$/.test(ph)){showEl(err,'Phone must be exactly 10 digits.');return;}
     err.classList.add('hidden');
@@ -597,16 +620,15 @@ function initStep2(){
   document.getElementById('dur-remind').textContent='Selected: '+DUR_LBL[selDur]+' · View the calendar above, then pick your date below';
   updateCalEmbed();
   var dp=document.getElementById('date-picker');
-  // Min = tomorrow, Max = today + 10 days
-  var minDate=new Date(); minDate.setDate(minDate.getDate()+1);
-  var maxDate=new Date(); maxDate.setDate(maxDate.getDate()+10);
+  var minDate=minLeadDate();
   dp.min=toKey(minDate);
-  dp.max=toKey(maxDate);
+  dp.removeAttribute('max');
   dp.value='';
   hide('date-ok'); hide('date-err');
   document.getElementById('btn-n2').disabled=true;
   document.getElementById('day-panel').classList.add('hidden');
   selDate=null;
+  renderDateTiles();
   loadCalBk();
 }
 
@@ -616,35 +638,58 @@ function onDatePick(val){
   var okEl=document.getElementById('date-ok');
   var btn=document.getElementById('btn-n2');
   hide('date-err'); hide('date-ok'); btn.disabled=true;
-  if(!val){selDate=null;return;}
+  if(!val){selDate=null; renderDateTiles(); return;}
   var parts=val.split('-');
   var picked=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
-  if(picked.getDay()===0){
-    showEl(errEl,'⚠️ Sundays are unavailable. Please pick another day.');
-    selDate=null; return;
-  }
-  if(picked<=today){
-    showEl(errEl,'⚠️ Please pick a future date.');
-    selDate=null; return;
-  }
-  var maxD=new Date(); maxD.setDate(maxD.getDate()+10); maxD.setHours(23,59,59);
-  if(picked>maxD){
-    showEl(errEl,'⚠️ Bookings can only be made up to 10 days in advance.');
-    selDate=null; return;
+  picked.setHours(0,0,0,0);
+  if(!isDateBookable(picked)){
+    showEl(errEl,'⚠️ Bookings must be made at least 10 full days in advance.');
+    selDate=null; renderDateTiles(); return;
   }
   selDate=picked;
   var ds=picked.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   showEl(okEl,'✅ '+ds+' selected');
   btn.disabled=false;
   showDayPanel(toKey(picked),picked);
+  renderDateTiles();
 }
 
 async function loadCalBk(){
-  if(!SCRIPT_URL()) return;
+  if(!SCRIPT_URL()){ renderDateTiles(); return; }
   var data=await apiGet('calBookings');
-  if(data&&data.success){ calBk=data.bookings||{}; if(selDate) showDayPanel(toKey(selDate),selDate); }
+  if(data&&data.success){
+    calBk=data.bookings||{};
+    if(selDate) showDayPanel(toKey(selDate),selDate);
+  }
+  renderDateTiles();
 }
 
+function renderDateTiles(){
+  var wrap=document.getElementById('date-tiles');
+  if(!wrap) return;
+  var start=minLeadDate();
+  var html='';
+  for(var i=0;i<21;i++){
+    var d=new Date(start); d.setDate(start.getDate()+i);
+    var key=toKey(d);
+    var entries=calBk[key]||[];
+    var hasApproved=entries.some(function(b){return b.status==='Approved';});
+    var hasPending=entries.some(function(b){return b.status==='Pending';});
+    var cls=hasApproved?'booked':(hasPending?'pending':'available');
+    var selected=selDate&&toKey(selDate)===key?' selected':'';
+    html+='<button type="button" class="date-tile '+cls+selected+'" onclick="pickTileDate(\''+key+'\')">'
+      +'<small>'+d.toLocaleDateString('en-IN',{weekday:'short'})+'</small>'
+      +'<strong>'+d.getDate()+'</strong>'
+      +'<span>'+(hasApproved?'Approved booked':(hasPending?'Pending request':'Available'))+'</span>'
+      +'</button>';
+  }
+  wrap.innerHTML=html;
+}
+function pickTileDate(key){
+  var dp=document.getElementById('date-picker');
+  if(dp) dp.value=key;
+  onDatePick(key);
+}
 function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
@@ -742,7 +787,7 @@ function buildSummary(){
     row('🕐 From','<span class="pill pill-t">'+fmtT(sH,sM,sAP)+'</span>')+
     row('🕔 To','<span class="pill pill-t">'+fmtT(eH,eM,eAP)+'</span>')+
     row('🗂 Type of Work',v('f-type'))+
-    row('🏫 Lab',v('f-lab'))+
+    row('🏫 Labs',escapeHtml(getSelectedLabs().join(', ')))+
     row('📝 Details',escapeHtml(v('f-work-details')))+
     row('👤 Name',v('f-name'))+
     row('📞 Phone',v('f-phone'))+
@@ -755,16 +800,15 @@ async function submitBooking(){
   var err=document.getElementById('sub-err');
   btn.disabled=true; btn.textContent='⏳ Submitting…';
   var typeOfWork=v('f-type');
-  var lab=v('f-lab');
+  var labs=getSelectedLabs();
   var workDetails=v('f-work-details');
-  var combinedService=typeOfWork+' | '+lab+' | '+workDetails;
   var payload={
     action:'book',
     duration:DUR_LBL[selDur],
     name:v('f-name'), phone:v('f-phone'), email:v('f-email'),
-    service:combinedService,
+    service:typeOfWork,
     typeOfWork:typeOfWork,
-    lab:lab,
+    labs:labs,
     workDetails:workDetails,
     date:selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
     dateKey:toKey(selDate),
@@ -798,8 +842,8 @@ async function checkStatus(){
         :'⏳ Pending review — you\'ll be notified once confirmed.';
       var canReschedule=(b.status==='Pending'||b.status==='Approved');
       return '<div class="stcard">'
-        +'<div class="stcard-head"><strong>'+b.service+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
-        +row('⏱ Type',b.duration||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
+        +'<div class="stcard-head"><strong>'+(b.typeOfWork||b.service||'—')+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
+        +row('⏱ Session Type',b.duration||'—')+row('🏷 Type of Work',b.typeOfWork||b.service||'—')+row('🏫 Labs',b.labs||'—')+row('📝 Details',b.workDetails||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
         +'<div class="stmsg '+mc+'">'+mt+'</div>'
         +(canReschedule?rescheduleBlock(b):'')
         +'</div>';
@@ -849,8 +893,8 @@ function onRescheduleStartChange(bookingId){
 function rescheduleBlock(booking){
   return '<div class="reschedule-box"><h4>🔄 Need a different time?</h4>'
     +'<div class="reschedule-form">'
-    +'<div class="fg"><label>New Date (max 10 days out)</label>'
-    +'<input type="date" class="rs-date" id="rs-date-'+booking.id+'" min="'+rsMinDate()+'" max="'+rsMaxDate()+'" style="border-color:#e8c97a"/></div>'
+    +'<div class="fg"><label>New Date (must be at least 10 full days from today)</label>'
+    +'<input type="date" class="rs-date" id="rs-date-'+booking.id+'" min="'+rsMinDate()+'" style="border-color:#e8c97a"/></div>'
     +'<div class="fg"><label>Start Time</label>'
     +'<select id="rs-start-'+booking.id+'" onchange="onRescheduleStartChange(\''+booking.id+'\')" style="border-color:#e8c97a">'+renderRescheduleTimeOptions('')+'</select></div>'
     +'<div class="fg"><label>End Time</label>'
@@ -874,7 +918,8 @@ async function submitReschedule(bookingId){
   }
   var parts=newDate.split('-');
   var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
-  if(d.getDay()===0){msgEl.innerHTML='<div class="msg msg-err">Sundays are unavailable.</div>';return;}
+  d.setHours(0,0,0,0);
+  if(!isDateBookable(d)){msgEl.innerHTML='<div class="msg msg-err">Bookings must be made at least 10 full days in advance.</div>';return;}
   msgEl.innerHTML='<div class="msg msg-warn">⏳ Submitting reschedule request…</div>';
   var data=await apiPost({action:'reschedule',bookingId:bookingId,newDateKey:newDate,
     newDate:d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
@@ -915,7 +960,7 @@ function resetForm(){
   selDur=null;selDate=null;curStep=1;calBk={};
   ['f-name','f-phone','f-email','f-work-details'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('f-type').value='';
-  document.getElementById('f-lab').value='';
+  clearSelectedLabs();
   document.querySelectorAll('.dur-card').forEach(function(c){c.classList.remove('selected');});
   document.getElementById('btn-n1').disabled=true;
   for(var i=1;i<=6;i++){var e=document.getElementById('step-'+i);if(e)e.classList.add('hidden');}
@@ -934,8 +979,8 @@ function toMins(h,m,ap){var h2=h%12;if(ap==='PM')h2+=12;return h2*60+m;}
 function parseT(ts){if(!ts)return null;var m=(ts+'').match(/(\d+):(\d+)\s*(AM|PM)/i);return m?toMins(parseInt(m[1]),parseInt(m[2]),m[3].toUpperCase()):null;}
 function hide(id){document.getElementById(id).classList.add('hidden');}
 function showEl(el,txt){el.textContent=txt;el.classList.remove('hidden');}
-function rsMinDate(){var d=new Date();d.setDate(d.getDate()+1);return toKey(d);}
-function rsMaxDate(){var d=new Date();d.setDate(d.getDate()+10);return toKey(d);}
+function rsMinDate(){return toKey(minLeadDate());}
+function rsMaxDate(){var d=new Date(minLeadDate());d.setDate(d.getDate()+365);return toKey(d);}
 function escapeHtml(str){
   return String(str||'').replace(/[&<>"']/g, function(ch){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
