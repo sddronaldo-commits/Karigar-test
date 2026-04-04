@@ -3,151 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Session – Karigar</title>
+<title>Book a Session – Karigar, School of Applied Learning</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:#f9f9f9;color:#4a4a4a;min-height:100vh;padding:0 0 50px}
-.hero{background:#ffffff;padding:40px 20px 30px;text-align:center;border-bottom:1px solid #eaeaea}
-.hero h1{font-size:1.8rem;font-weight:600;margin-bottom:16px;color:#333}
-.hero h1 span{color:#8ba5b8}
-.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.hchip{background:#f4f6f8;border:1px solid #eaeaea;border-radius:20px;padding:6px 14px;font-size:.75rem;font-weight:500;color:#666}
-.wrap{max-width:720px;margin:30px auto 0;padding:0 16px}
-.tabs{display:flex;background:white;border-radius:12px;padding:6px;margin-bottom:24px;box-shadow:0 2px 10px rgba(0,0,0,.03);border:1px solid #eaeaea}
-.tab-btn{flex:1;padding:10px;border:none;background:none;border-radius:8px;cursor:pointer;font-size:.9rem;color:#888;font-family:inherit;font-weight:500;transition:all .2s}
-.tab-btn.active{background:#8ba5b8;color:white}
-.card{background:white;border-radius:16px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,.04);border:1px solid #eaeaea}
-.steps{display:flex;justify-content:space-between;margin-bottom:30px;position:relative}
-.steps::before{content:'';position:absolute;top:15px;left:10%;right:10%;height:1px;background:#eaeaea;z-index:0}
-.step{display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1}
-.sc{width:32px;height:32px;border-radius:50%;background:#f4f6f8;border:1px solid #eaeaea;color:#888;display:flex;align-items:center;justify-content:center;font-weight:500;font-size:.8rem;transition:all .3s}
-.step.active .sc{background:#8ba5b8;color:white;border-color:#8ba5b8}
-.step.done .sc{background:#b2c5a2;color:white;border-color:#b2c5a2}
-.sl{font-size:.7rem;color:#999;text-align:center;text-transform:uppercase;letter-spacing:1px}
-.step.active .sl{color:#8ba5b8;font-weight:600}
-.step.done .sl{color:#b2c5a2}
-.ttl{font-size:1.2rem;font-weight:500;color:#333;margin-bottom:20px;text-align:center}
-.sub{font-size:.85rem;color:#888;margin-bottom:20px;text-align:center}
-.dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px}
-.dur-card{border:1px solid #eaeaea;border-radius:12px;padding:24px 10px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa}
-.dur-card:hover{border-color:#8ba5b8;background:#fdfdfd}
-.dur-card.selected{border-color:#8ba5b8;background:#f4f7f9;box-shadow:0 2px 8px rgba(139,165,184,0.15)}
-.dt{font-weight:500;color:#555;font-size:1rem}
-.dur-card.selected .dt{color:#8ba5b8}
-.day-panel{border-radius:12px;overflow:hidden;margin-bottom:16px;border:1px solid #eaeaea}
-.dp-head{background:#f9f9f9;color:#555;padding:14px 16px;font-size:.9rem;font-weight:500;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eaeaea}
-.dp-head span:last-child{font-size:.75rem;color:#888}
-.dp-body{background:#fff;padding:0}
-.dp-event{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #eaeaea}
+body{font-family:'Segoe UI',sans-serif;background:#f3f4f8;min-height:100vh;padding:0 0 50px}
+.hero{background:linear-gradient(135deg,#1a1464 0%,#4f46e5 55%,#7c3aed 100%);padding:26px 20px 22px;text-align:center;color:white}
+.hero-brand{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:30px;padding:6px 16px;margin-bottom:12px;font-size:.78rem;font-weight:700;letter-spacing:.3px}
+.hero h1{font-size:1.7rem;font-weight:800;margin-bottom:5px}
+.hero h1 span{color:#a5b4fc}
+.hero p{font-size:.84rem;opacity:.78;max-width:500px;margin:0 auto 12px}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}
+.hchip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 11px;font-size:.7rem;font-weight:600}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 0}
+.tabs{display:flex;background:white;border-radius:12px;padding:5px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.tab-btn{flex:1;padding:10px;border:none;background:none;border-radius:9px;cursor:pointer;font-size:.88rem;color:#718096;font-family:inherit;font-weight:600;transition:all .2s}
+.tab-btn.active{background:#4f46e5;color:white}
+.card{background:white;border-radius:16px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.steps{display:flex;justify-content:space-between;margin-bottom:24px;position:relative}
+.steps::before{content:'';position:absolute;top:15px;left:10%;right:10%;height:2px;background:#e2e8f0;z-index:0}
+.step{display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1}
+.sc{width:30px;height:30px;border-radius:50%;background:#e2e8f0;color:#718096;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;transition:all .3s}
+.step.active .sc{background:#4f46e5;color:white}
+.step.done .sc{background:#10b981;color:white}
+.sl{font-size:.66rem;color:#a0aec0;text-align:center}
+.step.active .sl{color:#4f46e5;font-weight:700}
+.step.done .sl{color:#10b981}
+.ttl{font-size:1.05rem;font-weight:700;color:#1a202c;margin-bottom:4px}
+.sub{font-size:.82rem;color:#718096;margin-bottom:16px}
+.dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.dur-card{border:2.5px solid #e2e8f0;border-radius:14px;padding:18px 10px;text-align:center;cursor:pointer;transition:all .2s}
+.dur-card:hover{border-color:#a5b4fc;background:#f5f3ff}
+.dur-card.selected{border-color:#4f46e5;background:#eef2ff}
+.di{font-size:2rem;margin-bottom:7px}
+.dt{font-weight:700;color:#1a202c;font-size:.95rem}
+.dur-card.selected .dt{color:#4f46e5}
+.dd{font-size:.72rem;color:#718096;margin-top:3px;line-height:1.4}
+.diag-box{background:#1e293b;border-radius:12px;padding:16px;margin-bottom:12px;font-size:.78rem}
+.diag-box h4{color:#94a3b8;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.diag-out{color:#e2e8f0;font-family:monospace;word-break:break-all;white-space:pre-wrap;max-height:180px;overflow-y:auto;line-height:1.5}
+.diag-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.dbtn{padding:6px 14px;border:none;border-radius:8px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s}
+.dbtn-blue{background:#3b82f6;color:white}
+.dbtn-blue:hover{background:#2563eb}
+.dbtn-gray{background:#334155;color:#94a3b8}
+.dbtn-gray:hover{background:#475569;color:white}
+.day-panel{border-radius:12px;overflow:hidden;margin-bottom:12px;border:1px solid #e2e8f0}
+.dp-head{background:#1e293b;color:white;padding:13px 16px;font-size:.88rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
+.dp-head span{opacity:.6;font-size:.75rem;font-weight:400}
+.dp-body{background:#0f172a;padding:2px 0 4px}
+.dp-event{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #1e293b}
 .dp-event:last-child{border:none}
-.dp-bar{width:3px;border-radius:4px;align-self:stretch;min-height:38px}
-.bar-approved{background:#b2c5a2}
-.bar-pending{background:#8ba5b8}
+.dp-bar{width:4px;border-radius:4px;align-self:stretch;min-height:38px}
+.bar-approved{background:#16a34a}
+.bar-pending{background:#3b82f6}
 .dp-info{min-width:0}
-.dp-name{color:#444;font-weight:500;font-size:.85rem}
-.dp-meta{color:#888;font-size:.75rem;margin-top:4px}
-.dp-badge{font-size:.7rem;font-weight:500;padding:4px 12px;border-radius:20px;white-space:nowrap}
-.db-approved{background:#eef4ea;color:#6b8258}
-.db-pending{background:#f0f4f8;color:#5a768c}
-.dp-empty{color:#999;padding:16px;font-size:.85rem;text-align:center}
-.tp-wrap{border:1px solid #eaeaea;border-radius:12px;overflow:hidden;margin-bottom:16px;background:#fafafa}
-.tp-body{padding:24px 16px}
-.tp-row{display:flex;gap:24px;justify-content:center;align-items:stretch;flex-wrap:wrap}
-.tp-block{flex:1;min-width:200px;max-width:260px;background:white;padding:20px;border-radius:12px;border:1px solid #eaeaea}
-.tp-lbl{font-size:.75rem;font-weight:600;color:#8ba5b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center}
-.tp-spinners{display:flex;align-items:center;justify-content:center;gap:12px}
-.sg{display:flex;flex-direction:column;align-items:center;gap:6px}
-.spb{width:36px;height:36px;border:1px solid #eaeaea;border-radius:8px;background:#f9f9f9;cursor:pointer;font-size:1rem;color:#8ba5b8;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.spb:hover{background:#f0f4f8;border-color:#8ba5b8}
-.spv{font-size:1.8rem;font-weight:400;color:#333;min-width:56px;text-align:center;padding:8px 4px;line-height:1}
-.sc2{font-size:1.8rem;font-weight:300;color:#ccc;margin:0;align-self:center}
-.ap-row{display:flex;gap:8px;margin-top:16px;justify-content:center}
-.apb{padding:6px 16px;border:1px solid #eaeaea;border-radius:8px;background:#f9f9f9;cursor:pointer;font-weight:500;font-size:.85rem;color:#888;transition:all .2s;font-family:inherit}
-.apb.on{background:#8ba5b8;color:white;border-color:#8ba5b8}
-.range-box{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px;background:white;border:1px solid #eaeaea;border-radius:12px;padding:16px;flex-wrap:wrap}
+.dp-name{color:#f1f5f9;font-weight:700;font-size:.88rem}
+.dp-meta{color:#64748b;font-size:.76rem;margin-top:2px}
+.dp-badge{font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
+.db-approved{background:#16a34a;color:white}
+.db-pending{background:#3b82f6;color:white}
+.dp-empty{color:#475569;font-style:italic;padding:14px 16px;font-size:.84rem}
+.tp-wrap{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:8px}
+.tp-head{background:#f8fafc;padding:11px 16px;border-bottom:1px solid #e2e8f0;font-size:.82rem;color:#718096;font-weight:600}
+.tp-body{padding:18px 16px}
+.tp-row{display:flex;gap:16px;justify-content:center;align-items:stretch;flex-wrap:wrap}
+.tp-block{flex:1;min-width:200px;max-width:260px}
+.tp-lbl{font-size:.72rem;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;text-align:center}
+.tp-spinners{display:flex;align-items:center;justify-content:center;gap:8px}
+.sg{display:flex;flex-direction:column;align-items:center;gap:4px}
+.sg-sub{font-size:.64rem;color:#a0aec0;font-weight:600;text-transform:uppercase;height:14px}
+.spb{width:32px;height:32px;border:1.5px solid #e2e8f0;border-radius:7px;background:white;cursor:pointer;font-size:.9rem;color:#4f46e5;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s}
+.spb:hover{background:#eef2ff;border-color:#a5b4fc}
+.spv{font-size:1.55rem;font-weight:800;color:#1a202c;min-width:52px;text-align:center;background:#f8fafc;border:2px solid #e2e8f0;border-radius:9px;padding:7px 4px;line-height:1}
+.sc2{font-size:1.6rem;font-weight:700;color:#4f46e5;margin:0 1px;align-self:center;padding-top:14px}
+.ap-row{display:flex;gap:5px;margin-top:4px;justify-content:center}
+.apb{padding:5px 13px;border:2px solid #e2e8f0;border-radius:7px;background:white;cursor:pointer;font-weight:700;font-size:.82rem;color:#718096;transition:all .15s;font-family:inherit}
+.apb.on{background:#4f46e5;color:white;border-color:#4f46e5}
+.tp-divider{width:1px;background:#e2e8f0;align-self:stretch;margin:0 4px}
+.range-box{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;background:#f0f4ff;border-radius:11px;padding:12px;flex-wrap:wrap}
 .rb{text-align:center}
-.rb-l{font-size:.7rem;font-weight:500;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.rb-v{font-size:1.1rem;font-weight:500;color:#444}
-.rb-arr{font-size:1.2rem;font-weight:300;color:#ccc}
-.rb-dur{background:#8ba5b8;color:white;border-radius:20px;padding:4px 14px;font-size:.8rem;font-weight:500}
-.rb-err{background:#fff1f0;color:#c45050;border-radius:8px;padding:10px 16px;font-size:.85rem;margin-top:16px;text-align:center;display:none;border:1px solid #fbe4e4}
+.rb-l{font-size:.65rem;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.rb-v{font-size:1.05rem;font-weight:800;color:#1a202c}
+.rb-arr{font-size:1.2rem;font-weight:700;color:#6366f1}
+.rb-dur{background:#6366f1;color:white;border-radius:20px;padding:3px 12px;font-size:.75rem;font-weight:700}
+.rb-err{background:#fee2e2;color:#991b1b;border-radius:10px;padding:8px 14px;font-size:.8rem;font-weight:600;margin-top:10px;display:none}
 .rb-err.show{display:block}
-.presets{margin-top:24px;text-align:center}
-.pr-lbl{font-size:.75rem;font-weight:500;color:#999;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
-.pr-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.pr-btn{padding:8px 16px;border:1px solid #eaeaea;border-radius:20px;background:white;cursor:pointer;font-size:.8rem;color:#666;transition:all .2s;font-family:inherit}
-.pr-btn:hover{border-color:#8ba5b8;color:#8ba5b8}
-.pr-btn.on{background:#8ba5b8;color:white;border-color:#8ba5b8}
-.conflict{background:#fdfaf0;border:1px solid #f2e6c4;border-radius:8px;padding:12px 16px;font-size:.85rem;color:#9c7823;margin-top:16px;text-align:center;display:none}
+.presets{margin-top:14px}
+.pr-lbl{font-size:.76rem;font-weight:700;color:#94a3b8;margin-bottom:8px}
+.pr-row{display:flex;flex-wrap:wrap;gap:6px}
+.pr-btn{padding:5px 12px;border:1.5px solid #e2e8f0;border-radius:20px;background:white;cursor:pointer;font-size:.76rem;font-weight:600;color:#4a5568;transition:all .15s;font-family:inherit}
+.pr-btn:hover{border-color:#4f46e5;color:#4f46e5;background:#eef2ff}
+.pr-btn.on{background:#4f46e5;color:white;border-color:#4f46e5}
+.conflict{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:9px;padding:9px 13px;font-size:.8rem;color:#92400e;margin-top:10px;display:none}
 .conflict.show{display:block}
-.fg{margin-bottom:20px}
-label{display:block;font-size:.85rem;font-weight:500;color:#666;margin-bottom:8px}
-input,select{width:100%;padding:12px 16px;border:1px solid #eaeaea;border-radius:10px;font-size:.95rem;outline:none;transition:border .2s;font-family:inherit;color:#444;background:#fafafa}
-input:focus,select:focus{border-color:#8ba5b8;background:white}
-.btn{padding:14px 24px;border:none;border-radius:10px;font-size:.95rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit}
-.btn-p{background:#8ba5b8;color:white;width:100%}
-.btn-p:hover:not(:disabled){background:#7a95a8}
-.btn-p:disabled{background:#d5dee5;cursor:not-allowed}
-.btn-s{background:#fff;color:#666;border:1px solid #eaeaea}
-.btn-s:hover{background:#f9f9f9}
-.btn-row{display:flex;gap:12px;margin-top:30px}
-.summ{background:#fafafa;border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid #eaeaea}
-.sr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:.9rem;border-bottom:1px solid #eaeaea}
-.sr:last-child{border:none;padding-bottom:0}
-.sr:first-child{padding-top:0}
-.sl2{color:#888}
-.sv{font-weight:500;color:#444;text-align:right}
-.pill{border-radius:20px;padding:4px 12px;font-size:.8rem;font-weight:500}
-.pill-p{background:#f0f4f8;color:#5a768c}
-.pill-t{background:#eef4ea;color:#6b8258}
-.sbox{text-align:center;padding:20px 0}
-.sbox h2{font-size:1.5rem;font-weight:500;color:#333;margin-bottom:12px;margin-top:20px}
-.sbox p{color:#888;font-size:.9rem;margin-bottom:8px}
-.bid{display:inline-block;background:#f0f4f8;color:#5a768c;padding:10px 24px;border-radius:10px;font-weight:500;margin:20px 0;font-size:1rem;letter-spacing:2px;border:1px solid #e0e8f0}
-.stb{display:inline-block;padding:4px 14px;border-radius:20px;font-weight:500;font-size:.8rem}
-.stb-Pending{background:#fdfaf0;color:#9c7823}
-.stb-Approved{background:#eef4ea;color:#6b8258}
-.stb-Declined{background:#fff1f0;color:#c45050}
-.stcard{background:#fff;border-radius:12px;padding:20px;margin-top:16px;border:1px solid #eaeaea}
-.stmsg{margin-top:16px;padding:12px 16px;border-radius:8px;font-size:.85rem;text-align:center}
-.sm-a{background:#eef4ea;color:#6b8258;border:1px solid #dcebcf}
-.sm-d{background:#fff1f0;color:#c45050;border:1px solid #fbe4e4}
-.sm-p{background:#fdfaf0;color:#9c7823;border:1px solid #f2e6c4}
-.alert{padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:.9rem;text-align:center}
-.ae{background:#fff1f0;color:#c45050;border:1px solid #fbe4e4}
-.ai{background:#f0f4f8;color:#5a768c;border:1px solid #e0e8f0}
-.spin{border:3px solid #f4f6f8;border-top:3px solid #8ba5b8;border-radius:50%;width:30px;height:30px;animation:sp .8s linear infinite;margin:20px auto}
+.fg{margin-bottom:14px}
+label{display:block;font-size:.82rem;font-weight:600;color:#4a5568;margin-bottom:5px}
+input,select{width:100%;padding:10px 13px;border:2px solid #e2e8f0;border-radius:10px;font-size:.9rem;outline:none;transition:border .2s;font-family:inherit;color:#1a202c;background:white}
+input:focus,select:focus{border-color:#4f46e5}
+.btn{padding:11px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+.btn-p{background:#4f46e5;color:white;width:100%}
+.btn-p:hover:not(:disabled){background:#4338ca}
+.btn-p:disabled{background:#a5b4fc;cursor:not-allowed}
+.btn-s{background:#f7fafc;color:#4a5568;border:2px solid #e2e8f0}
+.btn-s:hover{background:#edf2f7}
+.btn-row{display:flex;gap:10px;margin-top:20px}
+.summ{background:#f7fafc;border-radius:11px;padding:15px;margin-bottom:15px}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:.88rem;border-bottom:1px solid #edf2f7}
+.sr:last-child{border:none}
+.sl2{color:#718096}
+.sv{font-weight:700;color:#1a202c;text-align:right}
+.pill{border-radius:20px;padding:2px 11px;font-size:.78rem;font-weight:700}
+.pill-p{background:#eef2ff;color:#4f46e5}
+.pill-t{background:#f0fdf4;color:#15803d}
+.sbox{text-align:center;padding:14px 0}
+.sbox h2{font-size:1.35rem;color:#1a202c;margin-bottom:7px;margin-top:12px}
+.sbox p{color:#718096;font-size:.87rem;margin-bottom:3px}
+.bid{display:inline-block;background:#eef2ff;color:#4f46e5;padding:7px 16px;border-radius:8px;font-weight:700;margin:10px 0;font-size:.9rem;letter-spacing:1.5px}
+.stb{display:inline-block;padding:3px 12px;border-radius:20px;font-weight:700;font-size:.79rem}
+.stb-Pending{background:#fef3c7;color:#92400e}
+.stb-Approved{background:#d1fae5;color:#065f46}
+.stb-Declined{background:#fee2e2;color:#991b1b}
+.stcard{background:#f7fafc;border-radius:11px;padding:15px;margin-top:11px;border:1px solid #e2e8f0}
+.stmsg{margin-top:10px;padding:9px 13px;border-radius:8px;font-weight:600;font-size:.85rem}
+.sm-a{background:#d1fae5;color:#065f46}
+.sm-d{background:#fee2e2;color:#991b1b}
+.sm-p{background:#fef3c7;color:#92400e}
+.alert{padding:10px 14px;border-radius:9px;margin-bottom:12px;font-size:.85rem}
+.ae{background:#fee2e2;color:#991b1b}
+.ai{background:#e0f2fe;color:#0c4a6e}
+.spin{border:3px solid #e2e8f0;border-top:3px solid #4f46e5;border-radius:50%;width:24px;height:24px;animation:sp .8s linear infinite;margin:14px auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
-.legend-row{display:flex;gap:20px;justify-content:center;font-size:.8rem;color:#888;margin-bottom:16px;margin-top:8px}
-.leg{display:flex;align-items:center;gap:8px}
-.leg-ev{width:12px;height:12px;border-radius:50%}
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:.73rem;color:#718096;margin-bottom:7px;align-items:center}
+.leg{display:flex;align-items:center;gap:5px}
+.leg-ev{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:3px;color:white}
 input[type="date"]{cursor:pointer}
+input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.7}
 @media(max-width:500px){
-  .dur-grid{grid-template-columns:1fr;gap:12px}
-  .card{padding:24px 16px}
-  .tp-row{gap:16px}
+  .dur-grid{grid-template-columns:1fr}
+  .card{padding:16px 12px}
+  .tp-divider{display:none}
+  .tp-block{min-width:160px}
 }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <h1>Book a <span>Session</span></h1>
+  <div class="hero-brand">🛠️ &nbsp;Karigar – School of Applied Learning</div>
+  <h1>Book a <span>Skill Session</span></h1>
+  <p>A flagship initiative by Lend A Hand India · Pune, Maharashtra<br>
+     The "Disney Land of Skills" — hands-on vocational education</p>
   <div class="hero-chips">
-    <div class="hchip">Electrical</div><div class="hchip">Carpentry</div>
-    <div class="hchip">Plumbing</div><div class="hchip">Painting</div>
-    <div class="hchip">Landscaping</div><div class="hchip">Auto</div>
-    <div class="hchip">IT</div><div class="hchip">Baking</div>
+    <div class="hchip">⚡ Electrical</div><div class="hchip">🪵 Carpentry</div>
+    <div class="hchip">🔧 Plumbing</div><div class="hchip">🎨 Painting</div>
+    <div class="hchip">🌱 Landscaping</div><div class="hchip">🚗 Auto</div>
+    <div class="hchip">💻 IT</div><div class="hchip">🍞 Baking</div>
   </div>
 </div>
 
 <div class="wrap">
 <div class="tabs">
-  <button class="tab-btn active" onclick="switchTab('book',this)">Book a Session</button>
-  <button class="tab-btn" onclick="switchTab('status',this)">Check Booking</button>
+  <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Session</button>
+  <button class="tab-btn" onclick="switchTab('status',this)">🔍 Check My Booking</button>
 </div>
 
+<!-- ══ BOOKING ══ -->
 <div id="tab-book" class="card">
   <div class="steps">
     <div class="step active" id="si-1"><div class="sc">1</div><span class="sl">Type</span></div>
@@ -157,71 +178,106 @@ input[type="date"]{cursor:pointer}
     <div class="step"        id="si-5"><div class="sc">5</div><span class="sl">Confirm</span></div>
   </div>
 
+  <!-- Step 1 -->
   <div id="step-1">
-    <div class="ttl">Session Type</div>
+    <div class="ttl">What type of session do you need?</div>
+    <div class="sub">Choose the best fit for your project or learning goal</div>
     <div class="dur-grid">
       <div class="dur-card" onclick="pickDur('full',this)">
-        <div class="dt">Full Day</div>
+        <div class="di">📅</div><div class="dt">Full Day</div>
+        <div class="dd">Intensive work<br>Large projects</div>
       </div>
       <div class="dur-card" onclick="pickDur('half',this)">
-        <div class="dt">Half Day</div>
+        <div class="di">🌗</div><div class="dt">Half Day</div>
+        <div class="dd">Mid-size work<br>Learning sessions</div>
       </div>
       <div class="dur-card" onclick="pickDur('hourly',this)">
-        <div class="dt">Hourly</div>
+        <div class="di">⏰</div><div class="dt">Hourly</div>
+        <div class="dd">Quick fixes<br>Demos & repairs</div>
       </div>
     </div>
-    <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next</button>
+    <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
   </div>
 
+  <!-- Step 2 — Google Calendar Embed + Date Picker -->
   <div id="step-2" class="hidden">
-    <div class="ttl">Select Date</div>
+    <div class="ttl">Choose a Date</div>
     <div class="sub" id="dur-remind"></div>
-    <div id="diag-out" style="display:none;"></div>
 
-    <div style="border:1px solid #eaeaea;border-radius:12px;overflow:hidden;margin-bottom:20px;background:#fff">
+    <!-- Diagnostic -->
+    <div class="diag-box">
+      <h4>🔧 API Connection Test</h4>
+      <div class="diag-row">
+        <button class="dbtn dbtn-blue" onclick="testConn()">▶ Test Connection</button>
+        <button class="dbtn dbtn-gray" onclick="document.getElementById('diag-out').textContent='';this.closest('.diag-box').style.display='none'">✕ Hide</button>
+      </div>
+      <div class="diag-out" id="diag-out">Press "Test Connection" to verify your API.</div>
+    </div>
+
+    <!-- Google Calendar Embed -->
+    <div style="border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin-bottom:16px">
+      <div style="background:linear-gradient(90deg,#4f46e5,#7c3aed);padding:10px 16px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:white;font-size:.82rem;font-weight:700">📅 Karigar Bookings Calendar</span>
+        <span style="color:rgba(255,255,255,.75);font-size:.72rem">Approved sessions shown here</span>
+      </div>
       <iframe
         src="https://calendar.google.com/calendar/embed?src=c_0ff83b5e21424ec23d3b21cc95ed5f9324c42a385aa421a7d433765951af3a4c%40group.calendar.google.com&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff"
-        style="border:none;width:100%;height:400px;display:block"
+        style="border:none;width:100%;height:500px;display:block"
         frameborder="0"
         scrolling="no">
       </iframe>
     </div>
 
-    <div style="margin-bottom:24px">
-      <input type="date" id="date-picker" onchange="onDatePick(this.value)" />
-      <div id="date-err" style="color:#c45050;font-size:.85rem;margin-top:8px;text-align:center;display:none"></div>
-      <div id="date-ok"  style="color:#6b8258;font-size:.85rem;margin-top:8px;text-align:center;display:none"></div>
+    <!-- Date Picker -->
+    <div style="background:#f0f4ff;border-radius:12px;padding:16px;margin-bottom:14px;border:1.5px solid #c7d2fe">
+      <div style="font-size:.85rem;font-weight:700;color:#4f46e5;margin-bottom:10px">
+        📌 Select your booking date
+      </div>
+      <input
+        type="date"
+        id="date-picker"
+        style="width:100%;padding:11px 14px;border:2px solid #c7d2fe;border-radius:10px;font-size:.95rem;font-family:inherit;color:#1a202c;background:white;outline:none"
+        onchange="onDatePick(this.value)"
+      />
+      <div id="date-err" style="color:#991b1b;background:#fee2e2;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;margin-top:8px;display:none"></div>
+      <div id="date-ok"  style="color:#065f46;background:#d1fae5;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;margin-top:8px;display:none"></div>
     </div>
 
+    <!-- Pending bookings for selected date -->
     <div id="day-panel" class="day-panel hidden"></div>
 
-    <div class="legend-row">
-      <div class="leg"><span class="leg-ev" style="background:#b2c5a2"></span>Approved</div>
-      <div class="leg"><span class="leg-ev" style="background:#8ba5b8"></span>Pending</div>
+    <div class="legend-row" style="margin-top:4px">
+      <div class="leg"><span class="leg-ev" style="background:#16a34a">Name</span>Approved (Google Cal)</div>
+      <div class="leg"><span class="leg-ev" style="background:#3b82f6">Name</span>Pending (our system)</div>
     </div>
+    <p style="font-size:.71rem;color:#a0aec0;margin-bottom:12px">Sundays are unavailable &nbsp;•&nbsp; Approved sessions appear on the calendar above</p>
 
     <div class="btn-row">
-      <button class="btn btn-s" style="flex:0 0 auto;width:100px" onclick="goStep(1)">Back</button>
-      <button class="btn btn-p" id="btn-n2" onclick="goStep(3)" disabled>Next</button>
+      <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(1)">← Back</button>
+      <button class="btn btn-p" id="btn-n2" onclick="goStep(3)" disabled>Next: Set Time →</button>
     </div>
   </div>
 
+  <!-- Step 3 -->
   <div id="step-3" class="hidden">
-    <div class="ttl">Select Time</div>
+    <div class="ttl">Choose Your Time</div>
     <div class="sub" id="time-sub"></div>
     <div class="tp-wrap">
+      <div class="tp-head">Set start and end times for your session</div>
       <div class="tp-body">
         <div class="tp-row">
           <div class="tp-block">
-            <div class="tp-lbl">Start</div>
+            <div class="tp-lbl">🟢 Start Time</div>
             <div class="tp-spinners">
               <div class="sg">
+                <div class="sg-sub">Hr</div>
                 <button class="spb" onclick="adj('sh',1)">▲</button>
                 <div class="spv" id="s-h">09</div>
                 <button class="spb" onclick="adj('sh',-1)">▼</button>
               </div>
               <div class="sc2">:</div>
               <div class="sg">
+                <div class="sg-sub">Min</div>
                 <button class="spb" onclick="adj('sm',1)">▲</button>
                 <div class="spv" id="s-m">00</div>
                 <button class="spb" onclick="adj('sm',-1)">▼</button>
@@ -232,16 +288,19 @@ input[type="date"]{cursor:pointer}
               <button class="apb"    id="s-pm" onclick="setAP('s','PM')">PM</button>
             </div>
           </div>
+          <div class="tp-divider"></div>
           <div class="tp-block">
-            <div class="tp-lbl">End</div>
+            <div class="tp-lbl">🔴 End Time</div>
             <div class="tp-spinners">
               <div class="sg">
+                <div class="sg-sub">Hr</div>
                 <button class="spb" onclick="adj('eh',1)">▲</button>
                 <div class="spv" id="e-h">05</div>
                 <button class="spb" onclick="adj('eh',-1)">▼</button>
               </div>
               <div class="sc2">:</div>
               <div class="sg">
+                <div class="sg-sub">Min</div>
                 <button class="spb" onclick="adj('em',1)">▲</button>
                 <div class="spv" id="e-m">00</div>
                 <button class="spb" onclick="adj('em',-1)">▼</button>
@@ -259,27 +318,31 @@ input[type="date"]{cursor:pointer}
           <div class="rb"><div class="rb-l">End</div><div class="rb-v" id="r-end">5:00 PM</div></div>
           <div class="rb-dur" id="r-dur">8h</div>
         </div>
-        <div class="rb-err" id="time-err">End time must be after start time</div>
+        <div class="rb-err" id="time-err">⚠️ End time must be after start time</div>
         <div class="presets" id="presets"></div>
-        <div class="conflict" id="conflict">Time overlaps with an existing booking.</div>
+        <div class="conflict" id="conflict">
+          ⚠️ Your time overlaps with an approved booking on this day. You can still submit — the Karigar team will review.
+        </div>
       </div>
     </div>
     <div class="btn-row">
-      <button class="btn btn-s" style="flex:0 0 auto;width:100px" onclick="goStep(2)">Back</button>
-      <button class="btn btn-p" id="btn-n3" onclick="goStep(4)">Next</button>
+      <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(2)">← Back</button>
+      <button class="btn btn-p" id="btn-n3" onclick="goStep(4)">Next: Your Details →</button>
     </div>
   </div>
 
+  <!-- Step 4 -->
   <div id="step-4" class="hidden">
     <div class="ttl">Your Details</div>
+    <div class="sub">We'll contact you about your session</div>
     <div id="form-err" class="alert ae hidden"></div>
-    <div class="fg"><label>Full Name</label><input id="f-name" type="text" /></div>
-    <div class="fg"><label>Phone Number</label><input id="f-phone" type="tel" maxlength="10"/></div>
-    <div class="fg"><label>Email Address</label><input id="f-email" type="email" /></div>
+    <div class="fg"><label>Full Name *</label><input id="f-name" type="text" placeholder="e.g. Ramesh Kumar"/></div>
+    <div class="fg"><label>Phone Number *</label><input id="f-phone" type="tel" placeholder="10-digit mobile" maxlength="10"/></div>
+    <div class="fg"><label>Email Address *</label><input id="f-email" type="email" placeholder="you@example.com"/></div>
     <div class="fg">
-      <label>Skill Area</label>
+      <label>Skill Area / Type of Work *</label>
       <select id="f-svc">
-        <option value=""></option>
+        <option value="">— Select a skill area —</option>
         <option>Plumbing</option><option>Electrical Repairs</option><option>Carpentry</option>
         <option>Painting</option><option>AC Repair</option><option>Tiling / Masonry</option>
         <option>Welding / Fabrication</option><option>Baking / Food Processing</option>
@@ -288,46 +351,57 @@ input[type="date"]{cursor:pointer}
       </select>
     </div>
     <div class="btn-row">
-      <button class="btn btn-s" style="flex:0 0 auto;width:100px" onclick="goStep(3)">Back</button>
-      <button class="btn btn-p" onclick="goStep(5)">Review</button>
+      <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(3)">← Back</button>
+      <button class="btn btn-p" onclick="goStep(5)">Review Booking →</button>
     </div>
   </div>
 
+  <!-- Step 5 -->
   <div id="step-5" class="hidden">
-    <div class="ttl">Review</div>
+    <div class="ttl">Review & Confirm</div>
     <div class="summ" id="summ"></div>
     <div id="sub-err" class="alert ae hidden"></div>
     <div class="btn-row">
-      <button class="btn btn-s" style="flex:0 0 auto;width:100px" onclick="goStep(4)">Edit</button>
-      <button class="btn btn-p" id="btn-sub" onclick="submitBooking()">Confirm</button>
+      <button class="btn btn-s" style="flex:0 0 auto;width:86px" onclick="goStep(4)">← Edit</button>
+      <button class="btn btn-p" id="btn-sub" onclick="submitBooking()">✅ Confirm Session</button>
     </div>
   </div>
 
+  <!-- Step 6 -->
   <div id="step-6" class="hidden">
     <div class="sbox">
-      <h2>Submitted</h2>
-      <p>Your session is pending approval.</p>
+      <div style="font-size:3.2rem">🎉</div>
+      <h2>Request Submitted!</h2>
+      <p>Pending approval from the Karigar team.</p>
+      <p>You'll get an email once it's confirmed.</p>
       <div class="bid" id="bid"></div>
-      <div style="margin-top:24px">
-        <button class="btn btn-p" style="max-width:200px" onclick="resetForm()">Book Another</button>
+      <p style="font-size:.74rem;color:#a0aec0">Save this ID to track your booking</p>
+      <div style="margin-top:16px">
+        <button class="btn btn-p" style="max-width:200px" onclick="resetForm()">📅 Book Another</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- ══ STATUS ══ -->
 <div id="tab-status" class="card hidden">
-  <div class="ttl">Check Status</div>
-  <div class="fg">
-    <label>Email or Booking ID</label>
-    <input id="sq" type="text" onkeyup="if(event.key==='Enter')checkStatus()"/>
+  <div class="ttl">Check Booking Status</div>
+  <p style="color:#718096;font-size:.85rem;margin-bottom:15px">Enter your email or Booking ID.</p>
+  <div class="fg"><label>Email or Booking ID</label>
+    <input id="sq" type="text" placeholder="you@email.com or ABC12345" onkeyup="if(event.key==='Enter')checkStatus()"/>
   </div>
-  <button class="btn btn-p" onclick="checkStatus()">Search</button>
+  <button class="btn btn-p" onclick="checkStatus()">🔍 Check Status</button>
   <div id="st-out"></div>
 </div>
 </div>
 
+<div style="text-align:center;margin-top:24px;font-size:.72rem;color:#a0aec0;padding:0 16px">
+  Karigar – School of Applied Learning &nbsp;·&nbsp; <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
+</div>
+
 <script>
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
+
 var curStep=1, selDur=null, selDate=null, calY, calM, calBk={};
 var sH=9, sM=0, sAP='AM', eH=5, eM=0, eAP='PM';
 var today=new Date(); today.setHours(0,0,0,0);
@@ -343,6 +417,26 @@ var PRESETS={
   half:[{l:'9AM–1PM',sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},{l:'2PM–6PM',sH:2,sM:0,sAP:'PM',eH:6,eM:0,eAP:'PM'},{l:'8AM–12PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}],
   hourly:[{l:'9–10AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
 };
+
+async function testConn() {
+  var out = document.getElementById('diag-out');
+  out.textContent = '⏳ Fetching…\n\n';
+  try {
+    var res  = await fetch(SCRIPT_URL + '?action=calBookings&month=' + (calM+1) + '&year=' + calY);
+    var text = await res.text();
+    out.textContent += '── HTTP ' + res.status + ' ──\n\n' + text.substring(0,800) + '\n\n';
+    try {
+      var parsed = JSON.parse(text);
+      out.textContent += '── Parsed ──\n' + JSON.stringify(parsed,null,2);
+      if(parsed.success){
+        calBk=parsed.bookings||{};
+        out.textContent += '\n\n✅ SUCCESS! ' + Object.keys(calBk).length + ' date(s) with bookings.';
+      } else {
+        out.textContent += '\n\n❌ ' + parsed.error;
+      }
+    } catch(pe){ out.textContent += '❌ NOT valid JSON — check Apps Script Executions log.'; }
+  } catch(fe){ out.textContent += '❌ FETCH FAILED: ' + fe.message; }
+}
 
 async function safeFetch(url, opts) {
   try {
@@ -383,7 +477,7 @@ function goStep(n){
   }
   document.getElementById('step-'+curStep).classList.add('hidden');
   document.getElementById('step-'+n).classList.remove('hidden');
- .forEach(function(i){
+  [1,2,3,4,5].forEach(function(i){
     var s=document.getElementById('si-'+i); if(!s)return;
     s.classList.remove('active','done');
     if(i<n) s.classList.add('done');
@@ -391,8 +485,9 @@ function goStep(n){
   });
   curStep=n;
   if(n===2){
+    document.getElementById('dur-remind').textContent='Selected: '+DUR_LBL[selDur]+' — view the calendar above, then pick your date below';
     var dp=document.getElementById('date-picker');
-    dp.min=new Date().toISOString().split('T');
+    dp.min=new Date().toISOString().split('T')[0];
     dp.value='';
     document.getElementById('date-ok').style.display='none';
     document.getElementById('date-err').style.display='none';
@@ -411,17 +506,18 @@ function onDatePick(val){
   errEl.style.display='none'; okEl.style.display='none'; btn.disabled=true;
   if(!val){selDate=null;return;}
   var parts=val.split('-');
-  var picked=new Date(parseInt(parts),parseInt(parts)-1,parseInt(parts));
+  var picked=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
   if(picked.getDay()===0){
-    errEl.textContent='Sundays are unavailable.';
+    errEl.textContent='⚠️ Sundays are unavailable. Please pick another day.';
     errEl.style.display='block'; selDate=null; return;
   }
   if(picked<today){
-    errEl.textContent='Please pick a future date.';
+    errEl.textContent='⚠️ Please pick a future date.';
     errEl.style.display='block'; selDate=null; return;
   }
   selDate=picked;
-  okEl.textContent=picked.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var ds=picked.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  okEl.textContent='✅ '+ds+' selected';
   okEl.style.display='block';
   btn.disabled=false;
   showDayPanel(toKey(picked),picked);
@@ -439,15 +535,16 @@ async function loadCalBk(){
 function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
-  var h='<div class="dp-head"><span>'+date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})+'</span><span>'+(bks.length>0?bks.length+' booking(s)':'No bookings')+'</span></div><div class="dp-body">';
+  var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var h='<div class="dp-head"><span>📅 '+ds+'</span><span>'+(bks.length>0?bks.length+' booking(s) in system':'No pending bookings')+'</span></div><div class="dp-body">';
   if(bks.length===0){
-    h+='<div class="dp-empty">No pending bookings</div>';
+    h+='<div class="dp-empty">No bookings in our system for this day yet.</div>';
   } else {
     bks.forEach(function(b){
       var app=b.status==='Approved';
       h+='<div class="dp-event"><div class="dp-bar '+(app?'bar-approved':'bar-pending')+'"></div>'
-        +'<div class="dp-info"><div class="dp-name">'+(b.name||'—')+'</div>'
-        +'<div class="dp-meta">'+b.time+' → '+(b.endTime||'?')+'</div></div>'
+        +'<div class="dp-info"><div class="dp-name">👤 '+(b.name||'—')+'</div>'
+        +'<div class="dp-meta">🕐 '+b.time+' → '+(b.endTime||'?')+' &nbsp;·&nbsp; '+(b.duration||'')+'</div></div>'
         +'<span class="dp-badge '+(app?'db-approved':'db-pending')+'">'+b.status+'</span></div>';
     });
   }
@@ -459,6 +556,7 @@ function setupTime(){
   var df=DUR_DEF[selDur];
   sH=df.sH;sM=df.sM;sAP=df.sAP;eH=df.eH;eM=df.eM;eAP=df.eAP;
   syncAP(); updateTime(); buildPresets(); checkConflict();
+  document.getElementById('time-sub').textContent=DUR_LBL[selDur]+' · '+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
   document.getElementById('btn-n3').disabled=false;
 }
 function adj(p,d){
@@ -490,13 +588,13 @@ function updateTime(){
   var diff=toMins(eH,eM,eAP)-toMins(sH,sM,sAP);
   var dur=document.getElementById('r-dur');
   if(diff<=0){
-    dur.textContent='Error'; dur.style.background='#c45050';
+    dur.textContent='⚠️'; dur.style.background='#ef4444';
     document.getElementById('time-err').classList.add('show');
     document.getElementById('btn-n3').disabled=true;
   } else {
     var h=Math.floor(diff/60),m=diff%60;
     dur.textContent=h>0?(h+'h'+(m>0?' '+m+'m':'')):(m+'m');
-    dur.style.background='#8ba5b8';
+    dur.style.background='#6366f1';
     document.getElementById('time-err').classList.remove('show');
     document.getElementById('btn-n3').disabled=false;
   }
@@ -505,7 +603,8 @@ function buildPresets(){
   var list=PRESETS[selDur]||[];
   var w=document.getElementById('presets');
   if(!list.length){w.innerHTML='';return;}
-  w.innerHTML='<div class="pr-row">'+list.map(function(p,i){return '<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>';}).join('')+'</div>';
+  w.innerHTML='<div class="pr-lbl">Quick ranges:</div><div class="pr-row">'+
+    list.map(function(p,i){return '<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>';}).join('')+'</div>';
 }
 function applyPreset(i){
   var p=PRESETS[selDur][i];
@@ -523,19 +622,19 @@ function checkConflict(){
 
 function buildSummary(){
   document.getElementById('summ').innerHTML=
-    '<div class="sr"><span class="sl2">Type</span><span class="sv"><span class="pill pill-p">'+DUR_LBL[selDur]+'</span></span></div>'+
-    '<div class="sr"><span class="sl2">Date</span><span class="sv">'+selDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+'</span></div>'+
-    '<div class="sr"><span class="sl2">From</span><span class="sv"><span class="pill pill-t">'+fmtT(sH,sM,sAP)+'</span></span></div>'+
-    '<div class="sr"><span class="sl2">To</span><span class="sv"><span class="pill pill-t">'+fmtT(eH,eM,eAP)+'</span></span></div>'+
-    '<div class="sr"><span class="sl2">Skill</span><span class="sv">'+v('f-svc')+'</span></div>'+
-    '<div class="sr"><span class="sl2">Name</span><span class="sv">'+v('f-name')+'</span></div>'+
-    '<div class="sr"><span class="sl2">Phone</span><span class="sv">'+v('f-phone')+'</span></div>'+
-    '<div class="sr"><span class="sl2">Email</span><span class="sv">'+v('f-email')+'</span></div>';
+    '<div class="sr"><span class="sl2">⏱ Session Type</span><span class="sv"><span class="pill pill-p">'+DUR_LBL[selDur]+'</span></span></div>'+
+    '<div class="sr"><span class="sl2">📅 Date</span><span class="sv">'+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long',year:'numeric'})+'</span></div>'+
+    '<div class="sr"><span class="sl2">🕐 From</span><span class="sv"><span class="pill pill-t">'+fmtT(sH,sM,sAP)+'</span></span></div>'+
+    '<div class="sr"><span class="sl2">🕔 To</span><span class="sv"><span class="pill pill-t">'+fmtT(eH,eM,eAP)+'</span></span></div>'+
+    '<div class="sr"><span class="sl2">🔧 Skill Area</span><span class="sv">'+v('f-svc')+'</span></div>'+
+    '<div class="sr"><span class="sl2">👤 Name</span><span class="sv">'+v('f-name')+'</span></div>'+
+    '<div class="sr"><span class="sl2">📞 Phone</span><span class="sv">'+v('f-phone')+'</span></div>'+
+    '<div class="sr"><span class="sl2">📧 Email</span><span class="sv">'+v('f-email')+'</span></div>';
 }
 
 async function submitBooking(){
   var btn=document.getElementById('btn-sub');
-  btn.disabled=true; btn.textContent='Submitting…';
+  btn.disabled=true; btn.textContent='⏳ Submitting…';
   var err=document.getElementById('sub-err');
   var payload={
     action:'book', duration:DUR_LBL[selDur],
@@ -547,10 +646,10 @@ async function submitBooking(){
   if(data&&data.success){
     document.getElementById('step-5').classList.add('hidden');
     document.getElementById('step-6').classList.remove('hidden');
-    document.getElementById('bid').textContent=data.id.substring(0,8).toUpperCase();
+    document.getElementById('bid').textContent='ID: '+data.id.substring(0,8).toUpperCase();
   } else {
-    showErr(err,'Failed: '+(data?data.error:'No response'));
-    btn.disabled=false; btn.textContent='Confirm';
+    showErr(err,'⚠️ Failed: '+(data?data.error:'No response — check deployment'));
+    btn.disabled=false; btn.textContent='✅ Confirm Session';
   }
 }
 
@@ -562,7 +661,7 @@ function resetForm(){
   document.getElementById('btn-n1').disabled=true;
   for(var i=1;i<=6;i++){var e=document.getElementById('step-'+i);if(e)e.classList.add('hidden');}
   document.getElementById('step-1').classList.remove('hidden');
- .forEach(function(i){var s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
+  [1,2,3,4,5].forEach(function(i){var s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
   document.getElementById('si-1').classList.add('active');
   document.getElementById('day-panel').classList.add('hidden');
 }
@@ -573,22 +672,22 @@ async function checkStatus(){
   if(!q)return;
   out.innerHTML='<div class="spin"></div>';
   var data=await safeFetch(SCRIPT_URL+'?action=check&query='+encodeURIComponent(q));
-  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:16px">Connection error</div>';return;}
+  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server.</div>';return;}
   if(data.success&&data.bookings&&data.bookings.length>0){
     out.innerHTML=data.bookings.map(function(b){
       var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
-      var mt=b.status==='Approved'?'Confirmed'
-        :b.status==='Declined'?'Declined'
-        :'Pending';
-      return '<div class="stcard"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><strong>'+b.service+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
-        +'<div class="sr"><span class="sl2">Type</span><span class="sv">'+(b.duration||'—')+'</span></div>'
-        +'<div class="sr"><span class="sl2">Date</span><span class="sv">'+b.date+'</span></div>'
-        +'<div class="sr"><span class="sl2">From</span><span class="sv">'+b.time+'</span></div>'
-        +'<div class="sr"><span class="sl2">To</span><span class="sv">'+(b.endTime||'—')+'</span></div>'
+      var mt=b.status==='Approved'?'✅ Confirmed! The Karigar will be ready at your start time.'
+        :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
+        :'⏳ Pending — you\'ll be emailed once confirmed.';
+      return '<div class="stcard"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><strong>'+b.service+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
+        +'<div class="sr"><span class="sl2">⏱ Type</span><span class="sv">'+(b.duration||'—')+'</span></div>'
+        +'<div class="sr"><span class="sl2">📅 Date</span><span class="sv">'+b.date+'</span></div>'
+        +'<div class="sr"><span class="sl2">🕐 From</span><span class="sv">'+b.time+'</span></div>'
+        +'<div class="sr" style="border:none"><span class="sl2">🕔 To</span><span class="sv">'+(b.endTime||'—')+'</span></div>'
         +'<div class="stmsg '+mc+'">'+mt+'</div></div>';
     }).join('');
   } else {
-    out.innerHTML='<div class="alert ai" style="margin-top:16px">No bookings found</div>';
+    out.innerHTML='<div class="alert ai" style="margin-top:12px">No bookings found.</div>';
   }
 }
 
@@ -597,7 +696,7 @@ function showErr(el,msg){el.textContent=msg;el.classList.remove('hidden');}
 function toKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function fmtT(h,m,ap){return h+':'+(m===0?'00':String(m).padStart(2,'0'))+' '+ap;}
 function toMins(h,m,ap){var h2=h%12;if(ap==='PM')h2+=12;return h2*60+m;}
-function parseT(ts){if(!ts)return null;var m=(ts+'').match(/(\d+):(\d+)\s*(AM|PM)/i);return m?toMins(parseInt(m),parseInt(m),m.toUpperCase()):null;}
+function parseT(ts){if(!ts)return null;var m=(ts+'').match(/(\d+):(\d+)\s*(AM|PM)/i);return m?toMins(parseInt(m[1]),parseInt(m[2]),m[3].toUpperCase()):null;}
 </script>
 </body>
 </html>
