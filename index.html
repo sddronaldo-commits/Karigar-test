@@ -8,28 +8,15 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f1f0ed;
-  --surface:#ffffff;
-  --primary:#2d3a8c;
-  --primary-dark:#1e2766;
-  --primary-light:#eef0fb;
-  --accent:#c97d2a;
-  --accent-light:#fdf3e3;
-  --green:#0f6b4a;
-  --green-bg:#e6f5ef;
-  --red:#b91c1c;
-  --red-bg:#fee2e2;
-  --amber:#b45309;
-  --amber-bg:#fef3c7;
-  --text:#18181b;
-  --muted:#6b7280;
-  --border:#ddd8d0;
-  --shadow:0 2px 8px rgba(0,0,0,.08);
-  --shadow-md:0 4px 20px rgba(0,0,0,.12);
+  --bg:#f1f0ed;--surface:#ffffff;--primary:#2d3a8c;--primary-dark:#1e2766;
+  --primary-light:#eef0fb;--accent:#c97d2a;--accent-light:#fdf3e3;
+  --green:#0f6b4a;--green-bg:#e6f5ef;--red:#b91c1c;--red-bg:#fee2e2;
+  --amber:#b45309;--amber-bg:#fef3c7;--text:#18181b;--muted:#6b7280;
+  --border:#ddd8d0;--shadow:0 2px 8px rgba(0,0,0,.08);--shadow-md:0 4px 20px rgba(0,0,0,.12);
 }
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:100vh;padding-bottom:60px;color:var(--text)}
 
-/* ─── HERO ─── */
+/* HERO */
 .hero{background:linear-gradient(135deg,#1e2766 0%,#2d3a8c 60%,#3d4fb5 100%);padding:30px 20px 26px;text-align:center;color:white;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:5px 15px;margin-bottom:14px;font-size:.75rem;font-weight:700;letter-spacing:.3px}
@@ -39,25 +26,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
 .chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:3px 11px;font-size:.69rem;font-weight:600}
 
-/* ─── LAYOUT ─── */
+/* LAYOUT */
 .wrap{max-width:740px;margin:0 auto;padding:22px 16px 0}
 
-/* ─── SETUP ALERT ─── */
-.setup-alert{background:#fffbeb;border:2px solid #f59e0b;border-radius:14px;padding:16px 18px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start}
-.setup-alert .icon{font-size:1.4rem;flex-shrink:0;margin-top:1px}
-.setup-alert h3{font-size:.9rem;font-weight:700;color:#92400e;margin-bottom:4px}
-.setup-alert p{font-size:.8rem;color:#78350f;line-height:1.4}
-.setup-alert button{margin-top:8px;padding:6px 14px;background:#f59e0b;color:white;border:none;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit}
-
-/* ─── TABS ─── */
+/* TABS */
 .tabs{display:flex;background:white;border-radius:12px;padding:5px;margin-bottom:18px;box-shadow:var(--shadow);gap:4px}
 .tab-btn{flex:1;padding:10px 6px;border:none;background:none;border-radius:9px;cursor:pointer;font-size:.82rem;font-family:inherit;font-weight:600;color:var(--muted);transition:all .2s;white-space:nowrap}
 .tab-btn.active{background:var(--primary);color:white}
 
-/* ─── CARD ─── */
+/* CARD */
 .card{background:var(--surface);border-radius:18px;padding:26px;box-shadow:var(--shadow)}
 
-/* ─── STEP INDICATOR ─── */
+/* STEP INDICATOR */
 .steps{display:flex;justify-content:space-between;margin-bottom:28px;position:relative}
 .steps::before{content:'';position:absolute;top:14px;left:8%;right:8%;height:2px;background:var(--border);z-index:0}
 .step{display:flex;flex-direction:column;align-items:center;gap:5px;z-index:1}
@@ -68,11 +48,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .step.active .sl{color:var(--primary);font-weight:700}
 .step.done .sl{color:#10b981}
 
-/* ─── STEP CONTENT ─── */
+/* STEP CONTENT */
 .ttl{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:5px}
 .sub{font-size:.82rem;color:var(--muted);margin-bottom:18px;line-height:1.4}
 
-/* ─── DURATION CARDS ─── */
+/* DURATION CARDS */
 .dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
 .dur-card{border:2.5px solid var(--border);border-radius:16px;padding:20px 10px;text-align:center;cursor:pointer;transition:all .2s}
 .dur-card:hover{border-color:#a5b4fc;background:var(--primary-light)}
@@ -82,7 +62,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .dur-card.selected .dt{color:var(--primary)}
 .dd{font-size:.71rem;color:var(--muted);margin-top:4px;line-height:1.4}
 
-/* ─── CALENDAR SECTION ─── */
+/* CALENDAR */
 .cal-wrap{border:2px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px}
 .cal-head{background:linear-gradient(90deg,var(--primary),#3d4fb5);padding:11px 16px;display:flex;align-items:center;justify-content:space-between}
 .cal-head span{color:white;font-size:.82rem;font-weight:700}
@@ -100,7 +80,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .msg-err{background:var(--red-bg);color:var(--red)}
 .msg-warn{background:var(--amber-bg);color:var(--amber)}
 
-/* ─── DAY PANEL ─── */
+/* DAY PANEL */
 .day-panel{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
 .dp-head{background:#1e293b;color:white;padding:11px 16px;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
 .dp-head small{opacity:.6;font-size:.73rem;font-weight:400}
@@ -108,19 +88,17 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .dp-event{display:grid;grid-template-columns:4px 1fr auto;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #1e293b}
 .dp-event:last-child{border:none}
 .dp-bar{border-radius:4px;align-self:stretch;min-height:38px}
-.bar-a{background:#16a34a}
-.bar-p{background:#3b82f6}
+.bar-a{background:#16a34a}.bar-p{background:#3b82f6}
 .dp-name{color:#f1f5f9;font-weight:700;font-size:.85rem}
 .dp-meta{color:#64748b;font-size:.74rem;margin-top:2px}
 .dp-badge{font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:20px}
-.db-a{background:#16a34a;color:white}
-.db-p{background:#3b82f6;color:white}
+.db-a{background:#16a34a;color:white}.db-p{background:#3b82f6;color:white}
 .dp-empty{color:#475569;font-style:italic;padding:13px 15px;font-size:.82rem}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.71rem;color:var(--muted);margin:6px 0 12px;align-items:center}
 .leg{display:flex;align-items:center;gap:5px}
 .leg-dot{width:10px;height:10px;border-radius:2px}
 
-/* ─── TIME PICKER ─── */
+/* TIME PICKER */
 .tp-card{border:2px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px}
 .tp-head{background:#f8fafc;padding:10px 16px;border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted);font-weight:600}
 .tp-body{padding:18px 16px}
@@ -153,13 +131,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:
 .pr-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
 .pr-btn.on{background:var(--primary);color:white;border-color:var(--primary)}
 
-/* ─── FORM ─── */
+/* FORM */
 .fg{margin-bottom:14px}
 label{display:block;font-size:.81rem;font-weight:700;color:#374151;margin-bottom:5px}
 input,select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;font-size:.9rem;outline:none;transition:border .2s;font-family:inherit;color:var(--text);background:white}
 input:focus,select:focus{border-color:var(--primary)}
 
-/* ─── BUTTONS ─── */
+/* BUTTONS */
 .btn{padding:11px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
 .btn-p{background:var(--primary);color:white;width:100%}
 .btn-p:hover:not(:disabled){background:var(--primary-dark)}
@@ -170,7 +148,7 @@ input:focus,select:focus{border-color:var(--primary)}
 .btn-accent{background:var(--accent);color:white;border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-accent:hover{background:#b86d1a}
 
-/* ─── SUMMARY ─── */
+/* SUMMARY */
 .summ{background:#f7fafc;border-radius:11px;padding:15px;margin-bottom:15px}
 .sr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:.87rem;border-bottom:1px solid #edf2f7}
 .sr:last-child{border:none}
@@ -180,13 +158,13 @@ input:focus,select:focus{border-color:var(--primary)}
 .pill-p{background:var(--primary-light);color:var(--primary)}
 .pill-t{background:var(--green-bg);color:var(--green)}
 
-/* ─── SUCCESS ─── */
+/* SUCCESS */
 .sbox{text-align:center;padding:16px 0}
 .sbox h2{font-size:1.4rem;font-weight:800;color:var(--text);margin:12px 0 7px}
 .sbox p{color:var(--muted);font-size:.86rem;margin-bottom:3px;line-height:1.5}
 .bid{display:inline-block;background:var(--primary-light);color:var(--primary);padding:8px 18px;border-radius:8px;font-weight:800;margin:11px 0;font-size:.92rem;letter-spacing:2px;border:2px dashed #c7d2fe}
 
-/* ─── STATUS CARDS ─── */
+/* STATUS CARDS */
 .stcard{background:#f7fafc;border-radius:12px;padding:16px;margin-top:12px;border:1.5px solid var(--border)}
 .stcard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .stb{display:inline-block;padding:3px 12px;border-radius:20px;font-weight:700;font-size:.76rem}
@@ -199,7 +177,7 @@ input:focus,select:focus{border-color:var(--primary)}
 .sm-d{background:var(--red-bg);color:var(--red)}
 .sm-p{background:var(--amber-bg);color:var(--amber)}
 
-/* ─── RESCHEDULE ─── */
+/* RESCHEDULE */
 .reschedule-box{margin-top:14px;border-top:1.5px dashed var(--border);padding-top:14px}
 .reschedule-box h4{font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:10px}
 .reschedule-form{background:var(--accent-light);border-radius:10px;padding:14px;border:1.5px solid #e8c97a}
@@ -207,26 +185,18 @@ input:focus,select:focus{border-color:var(--primary)}
 .reschedule-form input{border-color:#e8c97a}
 .reschedule-form input:focus{border-color:var(--accent)}
 
-/* ─── SETUP TAB ─── */
-.setup-steps{counter-reset:step}
-.setup-step{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
-.setup-step::before{counter-increment:step;content:counter(step);min-width:32px;height:32px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;margin-top:2px}
-.setup-step h3{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:5px}
-.setup-step p{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
-.setup-step code{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:5px;padding:2px 7px;font-size:.77rem;color:#1e40af;word-break:break-all}
-.setup-step a{color:var(--primary);font-weight:600;font-size:.8rem}
-.config-box{background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-top:16px}
-.config-box h3{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px}
-.config-saved{font-size:.76rem;color:var(--green);font-weight:600;display:none;margin-top:8px}
+/* BACKEND NOTICE */
+.backend-notice{background:#fffbeb;border:2px solid #f59e0b;border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:.82rem;color:#78350f;line-height:1.5}
+.backend-notice strong{color:#92400e}
+.backend-notice code{background:#fef3c7;border:1px solid #fcd34d;border-radius:4px;padding:1px 6px;font-size:.78rem;color:#92400e}
 
-/* ─── MISC ─── */
+/* MISC */
 .spin{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:24px;height:24px;animation:sp .8s linear infinite;margin:16px auto}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
 .alert{padding:10px 14px;border-radius:9px;margin-bottom:12px;font-size:.84rem;font-weight:600}
 .ae{background:var(--red-bg);color:var(--red)}
 .ai{background:#e0f2fe;color:#0c4a6e}
-.separator{height:1px;background:var(--border);margin:16px 0}
 
 @media(max-width:500px){
   .dur-grid{grid-template-columns:1fr}
@@ -239,7 +209,6 @@ input:focus,select:focus{border-color:var(--primary)}
 </head>
 <body>
 
-<!-- ─── HERO ─── -->
 <div class="hero">
   <div class="hero-badge">🛠️ &nbsp;Karigar – School of Applied Learning</div>
   <h1>Book a <em>Skill Session</em></h1>
@@ -254,7 +223,6 @@ input:focus,select:focus{border-color:var(--primary)}
 
 <div class="wrap">
 
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Session</button>
     <button class="tab-btn" onclick="switchTab('status',this)">🔍 My Booking</button>
@@ -262,7 +230,13 @@ input:focus,select:focus{border-color:var(--primary)}
 
   <!-- ═══ BOOKING TAB ═══ -->
   <div id="tab-book" class="card">
-    <!-- Step Indicator -->
+
+    <!-- ⚠️ Backend not connected notice — hidden once URL is set -->
+    <div id="no-backend-notice" class="backend-notice hidden">
+      ⚠️ <strong>Backend not connected.</strong> Bookings cannot be submitted yet.<br>
+      Deploy your Apps Script and paste the URL into <code>BACKEND_SCRIPT_URL</code> in this file.
+    </div>
+
     <div class="steps">
       <div class="step active" id="si-1"><div class="sc">1</div><span class="sl">Type</span></div>
       <div class="step"        id="si-2"><div class="sc">2</div><span class="sl">Date</span></div>
@@ -292,12 +266,11 @@ input:focus,select:focus{border-color:var(--primary)}
       <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
     </div>
 
-    <!-- STEP 2: Date -->
+    <!-- STEP 2: Date — bookings allowed from tomorrow up to 10 days out -->
     <div id="step-2" class="hidden">
       <div class="ttl">Choose a Date</div>
       <div class="sub" id="dur-remind"></div>
 
-      <!-- Live Calendar Embed -->
       <div class="cal-wrap">
         <div class="cal-head">
           <span>📅 Karigar Bookings Calendar</span>
@@ -306,22 +279,20 @@ input:focus,select:focus{border-color:var(--primary)}
         <iframe id="cal-iframe" class="cal-frame" src="" frameborder="0" scrolling="no"></iframe>
       </div>
 
-      <!-- Date Picker -->
       <div class="date-box">
         <div class="date-label">📌 Select your booking date</div>
         <input type="date" id="date-picker" class="date-input" onchange="onDatePick(this.value)"/>
-        <div class="date-note">⏳ Bookings can only be made up to <strong>10 days in advance</strong></div>
+        <div class="date-note">⏳ Bookings open from <strong>tomorrow</strong> up to <strong>10 days in advance</strong> · No Sundays</div>
         <div id="date-err" class="msg msg-err hidden"></div>
         <div id="date-ok"  class="msg msg-ok  hidden"></div>
       </div>
 
-      <!-- Day bookings panel -->
       <div id="day-panel" class="day-panel hidden"></div>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#16a34a"></div> Approved (on calendar)</div>
-        <div class="leg"><div class="leg-dot" style="background:#3b82f6"></div> Pending (in system)</div>
+        <div class="leg"><div class="leg-dot" style="background:#16a34a"></div>Approved (on calendar)</div>
+        <div class="leg"><div class="leg-dot" style="background:#3b82f6"></div>Pending (in system)</div>
       </div>
-      <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays are unavailable &nbsp;·&nbsp; Approved sessions appear on the calendar above</p>
+      <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays unavailable · Approved sessions appear on the calendar above</p>
 
       <div class="btn-row">
         <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(1)">← Back</button>
@@ -334,7 +305,7 @@ input:focus,select:focus{border-color:var(--primary)}
       <div class="ttl">Set Your Session Time</div>
       <div class="sub" id="time-sub"></div>
       <div class="tp-card">
-        <div class="tp-head">Drag spinners or use quick-pick presets below</div>
+        <div class="tp-head">Use spinners or pick a quick-range preset below</div>
         <div class="tp-body">
           <div class="tp-row">
             <div class="tp-block">
@@ -438,10 +409,10 @@ input:focus,select:focus{border-color:var(--primary)}
   <!-- ═══ STATUS TAB ═══ -->
   <div id="tab-status" class="card hidden">
     <div class="ttl">Check Booking Status</div>
-    <p style="color:var(--muted);font-size:.84rem;margin-bottom:16px">Enter your email or Booking ID to see your bookings. If the backend URL is still blank in the code, status lookup will stay inactive.</p>
+    <p style="color:var(--muted);font-size:.84rem;margin-bottom:16px">Enter your email address or Booking ID (e.g. KARIGAR-XXXXXXXX)</p>
     <div class="fg">
       <label>Email or Booking ID</label>
-      <input id="sq" type="text" placeholder="you@email.com or KARIGAR12345678" onkeyup="if(event.key==='Enter')checkStatus()"/>
+      <input id="sq" type="text" placeholder="you@email.com  or  KARIGAR-12345678" onkeyup="if(event.key==='Enter')checkStatus()"/>
     </div>
     <button class="btn btn-p" onclick="checkStatus()">🔍 Check Status</button>
     <div id="st-out"></div>
@@ -449,41 +420,61 @@ input:focus,select:focus{border-color:var(--primary)}
 </div>
 
 <div style="text-align:center;margin-top:28px;font-size:.7rem;color:var(--muted);padding:0 16px">
-  Public calendar connected · iCal feed available in code as <code>PUBLIC_ICAL_URL</code><br>
   Karigar – School of Applied Learning &nbsp;·&nbsp; <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
 </div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────────────────────────
-const PUBLIC_CALENDAR_EMBED_URL = 'https://calendar.google.com/calendar/embed?src=c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff';
-const PUBLIC_ICAL_URL = 'https://calendar.google.com/calendar/ical/c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com/public/basic.ics';
-const BACKEND_SCRIPT_URL = ''; // Add your Apps Script web app URL here when the booking backend is ready.
+// ══════════════════════════════════════════════════════════════════
+//  ▼▼▼ PASTE YOUR DEPLOYED APPS SCRIPT URL BELOW ▼▼▼
+// ══════════════════════════════════════════════════════════════════
+const BACKEND_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJSwCqLkUQ1bItOrlU-5Y_tgxS0xK5LY5MyroRqEhZItPQAa3d1AuinuUiA/exec';
+// ══════════════════════════════════════════════════════════════════
 
-function SCRIPT_URL(){return BACKEND_SCRIPT_URL;}
+const PUBLIC_CALENDAR_EMBED_URL =
+  'https://calendar.google.com/calendar/embed?src=c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com'
+  + '&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff';
 
-function updateCalEmbed(){
-  var el=document.getElementById('cal-iframe');
-  if(!el)return;
-  el.src=PUBLIC_CALENDAR_EMBED_URL;
-}
-
-// ─── STATE ────────────────────────────────────────────────────────────────────
+// ── State ─────────────────────────────────────────────────────────
 var curStep=1, selDur=null, selDate=null, calBk={};
 var sH=9,sM=0,sAP='AM',eH=5,eM=0,eAP='PM';
 var today=new Date(); today.setHours(0,0,0,0);
+
 var DUR_LBL={full:'Full Day',half:'Half Day',hourly:'Hourly'};
 var DUR_DEF={
-  full:{sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},
-  half:{sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},
-  hourly:{sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'}
+  full:   {sH:9,sM:0,sAP:'AM',eH:5, eM:0,eAP:'PM'},
+  half:   {sH:9,sM:0,sAP:'AM',eH:1, eM:0,eAP:'PM'},
+  hourly: {sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'}
 };
 var PRESETS={
-  full:[{l:'9AM–5PM',sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},{l:'8AM–4PM',sH:8,sM:0,sAP:'AM',eH:4,eM:0,eAP:'PM'},{l:'10AM–6PM',sH:10,sM:0,sAP:'AM',eH:6,eM:0,eAP:'PM'}],
-  half:[{l:'9AM–1PM',sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},{l:'2PM–6PM',sH:2,sM:0,sAP:'PM',eH:6,eM:0,eAP:'PM'},{l:'8AM–12PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}],
-  hourly:[{l:'9–10AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
+  full:[
+    {l:'9AM–5PM', sH:9, sM:0,sAP:'AM',eH:5, eM:0,eAP:'PM'},
+    {l:'8AM–4PM', sH:8, sM:0,sAP:'AM',eH:4, eM:0,eAP:'PM'},
+    {l:'10AM–6PM',sH:10,sM:0,sAP:'AM',eH:6, eM:0,eAP:'PM'}
+  ],
+  half:[
+    {l:'9AM–1PM', sH:9,sM:0,sAP:'AM',eH:1, eM:0,eAP:'PM'},
+    {l:'2PM–6PM', sH:2,sM:0,sAP:'PM',eH:6, eM:0,eAP:'PM'},
+    {l:'8AM–12PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}
+  ],
+  hourly:[
+    {l:'9–10AM', sH:9, sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},
+    {l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},
+    {l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},
+    {l:'2–3PM',  sH:2, sM:0,sAP:'PM',eH:3, eM:0,eAP:'PM'},
+    {l:'3–4PM',  sH:3, sM:0,sAP:'PM',eH:4, eM:0,eAP:'PM'},
+    {l:'4–5PM',  sH:4, sM:0,sAP:'PM',eH:5, eM:0,eAP:'PM'}
+  ]
 };
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
+// ── Init ──────────────────────────────────────────────────────────
+(function init(){
+  document.getElementById('cal-iframe').src = PUBLIC_CALENDAR_EMBED_URL;
+  if (!BACKEND_SCRIPT_URL) {
+    document.getElementById('no-backend-notice').classList.remove('hidden');
+  }
+})();
+
+// ── Tabs ──────────────────────────────────────────────────────────
 function switchTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
@@ -491,7 +482,7 @@ function switchTab(tab,btn){
   document.getElementById('tab-status').classList.toggle('hidden',tab!=='status');
 }
 
-// ─── STEP 1 ───────────────────────────────────────────────────────────────────
+// ── Step 1 ────────────────────────────────────────────────────────
 function pickDur(type,el){
   selDur=type;
   document.querySelectorAll('.dur-card').forEach(function(c){c.classList.remove('selected');});
@@ -499,8 +490,9 @@ function pickDur(type,el){
   document.getElementById('btn-n1').disabled=false;
 }
 
-// ─── STEP NAVIGATION ──────────────────────────────────────────────────────────
+// ── Step navigation ───────────────────────────────────────────────
 function goStep(n){
+  // Validate details before review
   if(n===5){
     var err=document.getElementById('form-err');
     var nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),sv=v('f-svc');
@@ -510,16 +502,18 @@ function goStep(n){
     err.classList.add('hidden');
     buildSummary();
   }
+  // Validate time before details
   if(n===4){
     if(toMins(sH,sM,sAP)>=toMins(eH,eM,eAP)){
       document.getElementById('time-err').classList.remove('hidden'); return;
     }
     document.getElementById('time-err').classList.add('hidden');
   }
+
   document.getElementById('step-'+curStep).classList.add('hidden');
   document.getElementById('step-'+n).classList.remove('hidden');
   [1,2,3,4,5].forEach(function(i){
-    var s=document.getElementById('si-'+i); if(!s)return;
+    var s=document.getElementById('si-'+i); if(!s) return;
     s.classList.remove('active','done');
     if(i<n) s.classList.add('done');
     if(i===n) s.classList.add('active');
@@ -530,44 +524,55 @@ function goStep(n){
 }
 
 function initStep2(){
-  document.getElementById('dur-remind').textContent='Selected: '+DUR_LBL[selDur]+' · View the calendar above, then pick your date below';
-  updateCalEmbed();
-  var dp=document.getElementById('date-picker');
-  // Min = tomorrow, Max = today + 10 days
-  var minDate=new Date(); minDate.setDate(minDate.getDate()+1);
-  var maxDate=new Date(); maxDate.setDate(maxDate.getDate()+10);
-  dp.min=toKey(minDate);
-  dp.max=toKey(maxDate);
-  dp.value='';
+  document.getElementById('dur-remind').textContent =
+    'Selected: '+DUR_LBL[selDur]+' · View the calendar above, then pick your date below';
+
+  var dp = document.getElementById('date-picker');
+
+  // ── 10-day window: tomorrow → today + 10 ────────────────────────
+  var minDate = new Date(); minDate.setDate(minDate.getDate()+1);
+  var maxDate = new Date(); maxDate.setDate(maxDate.getDate()+10);
+  dp.min = toKey(minDate);
+  dp.max = toKey(maxDate);
+  dp.value = '';
+
   hide('date-ok'); hide('date-err');
-  document.getElementById('btn-n2').disabled=true;
+  document.getElementById('btn-n2').disabled = true;
   document.getElementById('day-panel').classList.add('hidden');
-  selDate=null;
+  selDate = null;
+
+  // Load existing bookings from backend for the current month
   loadCalBk();
 }
 
-// ─── DATE SELECTION ───────────────────────────────────────────────────────────
+// ── Date selection ────────────────────────────────────────────────
 function onDatePick(val){
   var errEl=document.getElementById('date-err');
-  var okEl=document.getElementById('date-ok');
-  var btn=document.getElementById('btn-n2');
+  var okEl =document.getElementById('date-ok');
+  var btn  =document.getElementById('btn-n2');
   hide('date-err'); hide('date-ok'); btn.disabled=true;
   if(!val){selDate=null;return;}
+
   var parts=val.split('-');
   var picked=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
+
+  // Sunday check
   if(picked.getDay()===0){
     showEl(errEl,'⚠️ Sundays are unavailable. Please pick another day.');
     selDate=null; return;
   }
+  // Must be in the future (strictly after today)
   if(picked<=today){
-    showEl(errEl,'⚠️ Please pick a future date.');
+    showEl(errEl,'⚠️ Please pick a future date (from tomorrow onwards).');
     selDate=null; return;
   }
-  var maxD=new Date(); maxD.setDate(maxD.getDate()+10); maxD.setHours(23,59,59);
+  // 10-day cap
+  var maxD=new Date(); maxD.setDate(maxD.getDate()+10); maxD.setHours(23,59,59,999);
   if(picked>maxD){
     showEl(errEl,'⚠️ Bookings can only be made up to 10 days in advance.');
     selDate=null; return;
   }
+
   selDate=picked;
   var ds=picked.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   showEl(okEl,'✅ '+ds+' selected');
@@ -575,38 +580,48 @@ function onDatePick(val){
   showDayPanel(toKey(picked),picked);
 }
 
+// Fetch bookings for the currently displayed month from backend
 async function loadCalBk(){
-  if(!SCRIPT_URL()) return;
-  var data=await apiGet('calBookings');
-  if(data&&data.success){ calBk=data.bookings||{}; if(selDate) showDayPanel(toKey(selDate),selDate); }
+  if(!BACKEND_SCRIPT_URL) return;
+  var now=new Date();
+  var data=await apiGetQuery('calBookings','month='+( now.getMonth()+1)+'&year='+now.getFullYear());
+  if(data&&data.success){
+    calBk=data.bookings||{};
+    if(selDate) showDayPanel(toKey(selDate),selDate);
+  }
 }
 
 function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
   var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  var h='<div class="dp-head"><span>📅 '+ds+'</span><small>'+(bks.length>0?bks.length+' booking(s)':'No pending bookings')+'</small></div><div class="dp-body">';
-  if(bks.length===0){
+  var h='<div class="dp-head"><span>📅 '+ds+'</span>'
+    +'<small>'+(bks.length>0?bks.length+' booking(s)':'No bookings yet')+'</small></div>'
+    +'<div class="dp-body">';
+  if(!bks.length){
     h+='<div class="dp-empty">No bookings in our system for this date yet.</div>';
   } else {
     bks.forEach(function(b){
       var app=b.status==='Approved';
-      h+='<div class="dp-event"><div class="dp-bar '+(app?'bar-a':'bar-p')+'"></div>'
+      h+='<div class="dp-event">'
+        +'<div class="dp-bar '+(app?'bar-a':'bar-p')+'"></div>'
         +'<div><div class="dp-name">👤 '+(b.name||'—')+'</div>'
         +'<div class="dp-meta">🕐 '+(b.time||'')+'→'+(b.endTime||'?')+' &nbsp;·&nbsp; '+(b.duration||'')+'</div></div>'
-        +'<span class="dp-badge '+(app?'db-a':'db-p')+'">'+b.status+'</span></div>';
+        +'<span class="dp-badge '+(app?'db-a':'db-p')+'">'+b.status+'</span>'
+        +'</div>';
     });
   }
   h+='</div>';
   p.innerHTML=h; p.classList.remove('hidden');
 }
 
-// ─── STEP 3: TIME ─────────────────────────────────────────────────────────────
+// ── Step 3: Time ──────────────────────────────────────────────────
 function setupTime(){
   var df=DUR_DEF[selDur];
   sH=df.sH;sM=df.sM;sAP=df.sAP;eH=df.eH;eM=df.eM;eAP=df.eAP;
   syncAP(); updateTime(); buildPresets(); checkConflict();
-  document.getElementById('time-sub').textContent=DUR_LBL[selDur]+' · '+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
+  document.getElementById('time-sub').textContent =
+    DUR_LBL[selDur]+' · '+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
   document.getElementById('btn-n3').disabled=false;
 }
 function adj(p,d){
@@ -634,7 +649,7 @@ function updateTime(){
   document.getElementById('e-h').textContent=pad(eH);
   document.getElementById('e-m').textContent=pad(eM);
   document.getElementById('r-start').textContent=fmtT(sH,sM,sAP);
-  document.getElementById('r-end').textContent=fmtT(eH,eM,eAP);
+  document.getElementById('r-end').textContent  =fmtT(eH,eM,eAP);
   var diff=toMins(eH,eM,eAP)-toMins(sH,sM,sAP);
   var dur=document.getElementById('r-dur');
   if(diff<=0){
@@ -653,8 +668,9 @@ function buildPresets(){
   var list=PRESETS[selDur]||[];
   var w=document.getElementById('presets');
   if(!list.length){w.innerHTML='';return;}
-  w.innerHTML='<div class="pr-lbl">Quick ranges:</div><div class="pr-row">'+
-    list.map(function(p,i){return '<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>';}).join('')+'</div>';
+  w.innerHTML='<div class="pr-lbl">Quick ranges:</div><div class="pr-row">'
+    +list.map(function(p,i){return '<button class="pr-btn" onclick="applyPreset('+i+')">'+p.l+'</button>';}).join('')
+    +'</div>';
 }
 function applyPreset(i){
   var p=PRESETS[selDur][i];
@@ -663,14 +679,17 @@ function applyPreset(i){
   document.querySelectorAll('.pr-btn').forEach(function(b,j){b.classList.toggle('on',j===i);});
 }
 function checkConflict(){
-  if(!selDate)return;
+  if(!selDate) return;
   var approved=(calBk[toKey(selDate)]||[]).filter(function(b){return b.status==='Approved';});
   var myS=toMins(sH,sM,sAP),myE=toMins(eH,eM,eAP);
-  var c=approved.some(function(b){var bs=parseT(b.time),be=parseT(b.endTime);return bs!==null&&be!==null&&myS<be&&myE>bs;});
+  var c=approved.some(function(b){
+    var bs=parseT(b.time),be=parseT(b.endTime);
+    return bs!==null&&be!==null&&myS<be&&myE>bs;
+  });
   document.getElementById('conflict').classList.toggle('hidden',!c);
 }
 
-// ─── SUMMARY & SUBMIT ────────────────────────────────────────────────────────
+// ── Summary & Submit ──────────────────────────────────────────────
 function buildSummary(){
   document.getElementById('summ').innerHTML=
     row('⏱ Session Type','<span class="pill pill-p">'+DUR_LBL[selDur]+'</span>')+
@@ -682,39 +701,61 @@ function buildSummary(){
     row('📞 Phone',v('f-phone'))+
     row('📧 Email',v('f-email'));
 }
-function row(l,val){return '<div class="sr"><span class="sl2">'+l+'</span><span class="sv">'+val+'</span></div>';}
+function row(l,val){
+  return '<div class="sr"><span class="sl2">'+l+'</span><span class="sv">'+val+'</span></div>';
+}
 
 async function submitBooking(){
   var btn=document.getElementById('btn-sub');
   var err=document.getElementById('sub-err');
+
+  if(!BACKEND_SCRIPT_URL){
+    showEl(err,'⚠️ Backend not connected. Please add your Apps Script URL to BACKEND_SCRIPT_URL in the HTML file.');
+    return;
+  }
+
   btn.disabled=true; btn.textContent='⏳ Submitting…';
   var payload={
     action:'book',
-    duration:DUR_LBL[selDur],
-    name:v('f-name'), phone:v('f-phone'), email:v('f-email'), service:v('f-svc'),
-    date:selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
-    dateKey:toKey(selDate),
-    time:fmtT(sH,sM,sAP), endTime:fmtT(eH,eM,eAP)
+    duration: DUR_LBL[selDur],
+    name:     v('f-name'),
+    phone:    v('f-phone'),
+    email:    v('f-email'),
+    service:  v('f-svc'),
+    date:     selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
+    dateKey:  toKey(selDate),
+    time:     fmtT(sH,sM,sAP),
+    endTime:  fmtT(eH,eM,eAP)
   };
+
   var data=await apiPost(payload);
   if(data&&data.success){
     document.getElementById('step-5').classList.add('hidden');
     document.getElementById('step-6').classList.remove('hidden');
     document.getElementById('bid').textContent='KARIGAR-'+data.id.substring(0,8).toUpperCase();
   } else {
-    showEl(err,'⚠️ '+(data&&data.error?data.error:'Booking backend is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.'));
+    showEl(err,'⚠️ '+(data&&data.error?data.error:'Submission failed. Please try again.'));
     btn.disabled=false; btn.textContent='✅ Confirm Session';
   }
 }
 
-// ─── STATUS CHECK ────────────────────────────────────────────────────────────
+// ── Status check ──────────────────────────────────────────────────
 async function checkStatus(){
-  var q=document.getElementById('sq').value.trim();
+  var q  =document.getElementById('sq').value.trim();
   var out=document.getElementById('st-out');
   if(!q){out.innerHTML='<div class="alert ai" style="margin-top:12px">Please enter your email or booking ID.</div>';return;}
+  if(!BACKEND_SCRIPT_URL){
+    out.innerHTML='<div class="alert ae" style="margin-top:12px">Backend not connected — add BACKEND_SCRIPT_URL to the HTML.</div>'; return;
+  }
   out.innerHTML='<div class="spin"></div>';
-  var data=await apiGetQuery('check','query='+encodeURIComponent(q));
-  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Status lookup is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.</div>';return;}
+
+  // Strip "KARIGAR-" prefix if user typed it
+  var cleanQ = q.replace(/^KARIGAR-/i,'');
+  var data=await apiGetQuery('check','query='+encodeURIComponent(cleanQ));
+
+  if(!data){
+    out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach backend. Please try again.</div>'; return;
+  }
   if(data.success&&data.bookings&&data.bookings.length>0){
     out.innerHTML=data.bookings.map(function(b){
       var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
@@ -723,19 +764,10 @@ async function checkStatus(){
         :'⏳ Pending review — you\'ll be notified once confirmed.';
       var canReschedule=(b.status==='Pending'||b.status==='Approved');
       return '<div class="stcard">'
-        +'<div class="stcard-head"><strong>'+b.service+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
+        +'<div class="stcard-head"><strong>'+(b.service||'—')+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
         +row('⏱ Type',b.duration||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
         +'<div class="stmsg '+mc+'">'+mt+'</div>'
-        +(canReschedule?'<div class="reschedule-box"><h4>🔄 Need a different time?</h4>'
-          +'<div class="reschedule-form">'
-          +'<div class="fg"><label>New Date (max 10 days out)</label>'
-          +'<input type="date" class="rs-date" id="rs-date-'+b.id+'" min="'+rsMinDate()+'" max="'+rsMaxDate()+'" style="border-color:#e8c97a"/></div>'
-          +'<div class="fg"><label>New Start Time</label><input type="text" id="rs-start-'+b.id+'" placeholder="e.g. 10:00 AM" style="border-color:#e8c97a"/></div>'
-          +'<div class="fg"><label>New End Time</label><input type="text" id="rs-end-'+b.id+'" placeholder="e.g. 12:00 PM" style="border-color:#e8c97a"/></div>'
-          +'<button class="btn-accent" style="width:100%" onclick="submitReschedule(\''+b.id+'\')">📅 Request Reschedule</button>'
-          +'<div id="rs-msg-'+b.id+'" style="margin-top:8px"></div>'
-          +'</div></div>'
-        :'')
+        +(canReschedule?rescheduleBlock(b.id):'')
         +'</div>';
     }).join('');
   } else {
@@ -743,21 +775,40 @@ async function checkStatus(){
   }
 }
 
+function rescheduleBlock(id){
+  return '<div class="reschedule-box"><h4>🔄 Need a different time?</h4>'
+    +'<div class="reschedule-form">'
+    +'<div class="fg"><label>New Date (tomorrow → 10 days out, no Sundays)</label>'
+    +'<input type="date" id="rs-date-'+id+'" min="'+rsMinDate()+'" max="'+rsMaxDate()+'" style="border-color:#e8c97a"/></div>'
+    +'<div class="fg"><label>New Start Time</label><input type="text" id="rs-start-'+id+'" placeholder="e.g. 10:00 AM" style="border-color:#e8c97a"/></div>'
+    +'<div class="fg"><label>New End Time</label><input type="text" id="rs-end-'+id+'" placeholder="e.g. 12:00 PM" style="border-color:#e8c97a"/></div>'
+    +'<button class="btn-accent" style="width:100%" onclick="submitReschedule(\''+id+'\')">📅 Request Reschedule</button>'
+    +'<div id="rs-msg-'+id+'" style="margin-top:8px"></div>'
+    +'</div></div>';
+}
+
 async function submitReschedule(bookingId){
-  var newDate=document.getElementById('rs-date-'+bookingId).value;
+  var newDate =document.getElementById('rs-date-'+bookingId).value;
   var newStart=document.getElementById('rs-start-'+bookingId).value.trim();
-  var newEnd=document.getElementById('rs-end-'+bookingId).value.trim();
-  var msgEl=document.getElementById('rs-msg-'+bookingId);
+  var newEnd  =document.getElementById('rs-end-'+bookingId).value.trim();
+  var msgEl   =document.getElementById('rs-msg-'+bookingId);
   if(!newDate||!newStart||!newEnd){
     msgEl.innerHTML='<div class="msg msg-err">Please fill in all reschedule fields.</div>'; return;
   }
   var parts=newDate.split('-');
   var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
   if(d.getDay()===0){msgEl.innerHTML='<div class="msg msg-err">Sundays are unavailable.</div>';return;}
+  if(d<=today){msgEl.innerHTML='<div class="msg msg-err">Please pick a future date.</div>';return;}
+  var maxD=new Date(); maxD.setDate(maxD.getDate()+10); maxD.setHours(23,59,59,999);
+  if(d>maxD){msgEl.innerHTML='<div class="msg msg-err">Date must be within 10 days.</div>';return;}
+
   msgEl.innerHTML='<div class="msg msg-warn">⏳ Submitting reschedule request…</div>';
-  var data=await apiPost({action:'reschedule',bookingId:bookingId,newDateKey:newDate,
+  var data=await apiPost({
+    action:'reschedule',bookingId:bookingId,
+    newDateKey:newDate,
     newDate:d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
-    newTime:newStart,newEndTime:newEnd});
+    newTime:newStart,newEndTime:newEnd
+  });
   if(data&&data.success){
     msgEl.innerHTML='<div class="msg msg-ok">✅ Reschedule request submitted! The team will review and confirm.</div>';
   } else {
@@ -765,29 +816,24 @@ async function submitReschedule(bookingId){
   }
 }
 
-// ─── API HELPERS ─────────────────────────────────────────────────────────────
-async function apiGet(action){
-  return apiGetQuery(action,'');
-}
+// ── API helpers ───────────────────────────────────────────────────
 async function apiGetQuery(action,params){
-  if(!SCRIPT_URL()) return null;
+  if(!BACKEND_SCRIPT_URL) return null;
   try{
-    var url=SCRIPT_URL()+'?action='+action+(params?'&'+params:'');
+    var url=BACKEND_SCRIPT_URL+'?action='+action+(params?'&'+params:'');
     var res=await fetch(url);
-    var text=await res.text();
-    return JSON.parse(text);
+    return JSON.parse(await res.text());
   }catch(e){return null;}
 }
 async function apiPost(payload){
-  if(!SCRIPT_URL()) return null;
+  if(!BACKEND_SCRIPT_URL) return null;
   try{
-    var res=await fetch(SCRIPT_URL(),{method:'POST',body:JSON.stringify(payload)});
-    var text=await res.text();
-    return JSON.parse(text);
+    var res=await fetch(BACKEND_SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
+    return JSON.parse(await res.text());
   }catch(e){return null;}
 }
 
-// ─── FORM RESET ───────────────────────────────────────────────────────────────
+// ── Form reset ────────────────────────────────────────────────────
 function resetForm(){
   selDur=null;selDate=null;curStep=1;calBk={};
   ['f-name','f-phone','f-email'].forEach(function(id){document.getElementById(id).value='';});
@@ -799,23 +845,24 @@ function resetForm(){
   [1,2,3,4,5].forEach(function(i){var s=document.getElementById('si-'+i);if(s)s.classList.remove('active','done');});
   document.getElementById('si-1').classList.add('active');
   document.getElementById('day-panel').classList.add('hidden');
+  hide('sub-err');
 }
 
-// ─── UTILITY HELPERS ─────────────────────────────────────────────────────────
-function v(id){return document.getElementById(id).value.trim();}
-function pad(n){return String(n).padStart(2,'0');}
-function toKey(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+// ── Utilities ─────────────────────────────────────────────────────
+function v(id)      {return document.getElementById(id).value.trim();}
+function pad(n)     {return String(n).padStart(2,'0');}
+function toKey(d)   {return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
 function fmtT(h,m,ap){return h+':'+(m===0?'00':pad(m))+' '+ap;}
 function toMins(h,m,ap){var h2=h%12;if(ap==='PM')h2+=12;return h2*60+m;}
-function parseT(ts){if(!ts)return null;var m=(ts+'').match(/(\d+):(\d+)\s*(AM|PM)/i);return m?toMins(parseInt(m[1]),parseInt(m[2]),m[3].toUpperCase()):null;}
-function hide(id){document.getElementById(id).classList.add('hidden');}
-function showEl(el,txt){el.textContent=txt;el.classList.remove('hidden');}
-function rsMinDate(){var d=new Date();d.setDate(d.getDate()+1);return toKey(d);}
-function rsMaxDate(){var d=new Date();d.setDate(d.getDate()+10);return toKey(d);}
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-updateCalEmbed();
+function parseT(ts){
+  if(!ts) return null;
+  var m=(ts+'').match(/(\d+):(\d+)\s*(AM|PM)/i);
+  return m?toMins(parseInt(m[1]),parseInt(m[2]),m[3].toUpperCase()):null;
+}
+function hide(id)         {document.getElementById(id).classList.add('hidden');}
+function showEl(el,txt)   {el.textContent=txt; el.classList.remove('hidden');}
+function rsMinDate()      {var d=new Date();d.setDate(d.getDate()+1);return toKey(d);}
+function rsMaxDate()      {var d=new Date();d.setDate(d.getDate()+10);return toKey(d);}
 </script>
 </body>
 </html>
-`;
