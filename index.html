@@ -253,21 +253,11 @@ input:focus,select:focus{border-color:var(--primary)}
 </div>
 
 <div class="wrap">
-  <!-- Setup alert if not configured -->
-  <div class="setup-alert hidden" id="setup-alert">
-    <div class="icon">⚙️</div>
-    <div>
-      <h3>Setup required</h3>
-      <p>Your Google Calendar and Apps Script are not connected yet. Go to the Setup tab to configure them — it only takes 5 minutes.</p>
-      <button onclick="switchTab('setup',document.querySelectorAll('.tab-btn')[2])">Go to Setup →</button>
-    </div>
-  </div>
 
   <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Session</button>
     <button class="tab-btn" onclick="switchTab('status',this)">🔍 My Booking</button>
-    <button class="tab-btn" onclick="switchTab('setup',this)">⚙️ Setup</button>
   </div>
 
   <!-- ═══ BOOKING TAB ═══ -->
@@ -311,7 +301,7 @@ input:focus,select:focus{border-color:var(--primary)}
       <div class="cal-wrap">
         <div class="cal-head">
           <span>📅 Karigar Bookings Calendar</span>
-          <small>Green = approved sessions</small>
+          <small>Live public Google Calendar</small>
         </div>
         <iframe id="cal-iframe" class="cal-frame" src="" frameborder="0" scrolling="no"></iframe>
       </div>
@@ -448,7 +438,7 @@ input:focus,select:focus{border-color:var(--primary)}
   <!-- ═══ STATUS TAB ═══ -->
   <div id="tab-status" class="card hidden">
     <div class="ttl">Check Booking Status</div>
-    <p style="color:var(--muted);font-size:.84rem;margin-bottom:16px">Enter your email or Booking ID to see your bookings.</p>
+    <p style="color:var(--muted);font-size:.84rem;margin-bottom:16px">Enter your email or Booking ID to see your bookings. If the backend URL is still blank in the code, status lookup will stay inactive.</p>
     <div class="fg">
       <label>Email or Booking ID</label>
       <input id="sq" type="text" placeholder="you@email.com or KARIGAR12345678" onkeyup="if(event.key==='Enter')checkStatus()"/>
@@ -456,110 +446,25 @@ input:focus,select:focus{border-color:var(--primary)}
     <button class="btn btn-p" onclick="checkStatus()">🔍 Check Status</button>
     <div id="st-out"></div>
   </div>
-
-  <!-- ═══ SETUP TAB ═══ -->
-  <div id="tab-setup" class="card hidden">
-    <div class="ttl">⚙️ Connect Google Calendar</div>
-    <p style="color:var(--muted);font-size:.83rem;margin-bottom:22px;line-height:1.5">Follow these steps to create a new Karigar calendar and connect it to this booking form. This only needs to be done once.</p>
-
-    <div class="setup-steps">
-      <div class="setup-step">
-        <div>
-          <h3>Create a new Google Calendar</h3>
-          <p>Go to <a href="https://calendar.google.com" target="_blank">Google Calendar</a> → click the <strong>+</strong> next to "Other calendars" → "Create new calendar". Name it <em>Karigar Bookings</em>.</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div>
-          <h3>Make it public &amp; get the Calendar ID</h3>
-          <p>Open the calendar's settings → "Access permissions" → check <strong>"Make available to public"</strong>. Then copy the <strong>Calendar ID</strong> from "Integrate calendar" — it looks like:<br><br><code>abc123xyz@group.calendar.google.com</code></p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div>
-          <h3>Create a Google Sheet for bookings</h3>
-          <p>Go to <a href="https://sheets.new" target="_blank">sheets.new</a> and create a new sheet. Add these headers in Row 1:</p>
-          <p style="margin-top:6px"><code>ID | Name | Phone | Email | Service | Date | DateKey | Time | EndTime | Duration | Status | CalEventId | SubmittedAt | Notes</code></p>
-          <p style="margin-top:6px">Copy the Sheet ID from the URL (the long string between /d/ and /edit).</p>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div>
-          <h3>Deploy the Apps Script backend</h3>
-          <p>In your Google Sheet: <strong>Extensions → Apps Script</strong>. Paste the code from the <strong>karigar-apps-script.js</strong> file (download below). Update <code>SHEET_ID</code> and <code>CAL_ID</code> at the top. Then click <strong>Deploy → New Deployment</strong> → Web App → Execute as "Me" → Access "Anyone" → Deploy. Copy the web app URL.</p>
-          <button class="btn btn-s" style="margin-top:8px;font-size:.78rem" onclick="downloadAppsScript()">⬇️ Download Apps Script Code</button>
-        </div>
-      </div>
-      <div class="setup-step">
-        <div>
-          <h3>Configure this booking form</h3>
-          <p>Paste your Calendar ID and Apps Script URL below, then save.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="config-box">
-      <h3>🔗 Your Configuration</h3>
-      <div class="fg">
-        <label>Google Calendar ID</label>
-        <input id="cfg-cal" type="text" placeholder="abc123@group.calendar.google.com"/>
-      </div>
-      <div class="fg">
-        <label>Apps Script Web App URL</label>
-        <input id="cfg-url" type="text" placeholder="https://script.google.com/macros/s/…/exec"/>
-      </div>
-      <button class="btn btn-p" onclick="saveConfig()">💾 Save Configuration</button>
-      <div class="config-saved" id="cfg-saved">✅ Configuration saved! Calendar embed and API are now active.</div>
-    </div>
-
-    <div class="separator"></div>
-    <h3 style="font-size:.88rem;font-weight:700;color:var(--text);margin-bottom:10px">Admin: Approve Bookings</h3>
-    <p style="font-size:.8rem;color:var(--muted);line-height:1.5">To approve or decline a booking, open your Google Sheet. Change the <strong>Status</strong> column from <code>Pending</code> to <code>Approved</code> or <code>Declined</code>. An <code>onEdit</code> trigger in the Apps Script will automatically add it to Google Calendar when approved.</p>
-  </div>
 </div>
 
 <div style="text-align:center;margin-top:28px;font-size:.7rem;color:var(--muted);padding:0 16px">
+  Public calendar connected · iCal feed available in code as <code>PUBLIC_ICAL_URL</code><br>
   Karigar – School of Applied Learning &nbsp;·&nbsp; <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
 </div>
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
-function getCfg(){return JSON.parse(localStorage.getItem('karigar_cfg')||'{}')}
-function setCfg(o){localStorage.setItem('karigar_cfg',JSON.stringify(o))}
-function SCRIPT_URL(){return getCfg().url||''}
-function CAL_ID(){return getCfg().calId||''}
+const PUBLIC_CALENDAR_EMBED_URL = 'https://calendar.google.com/calendar/embed?src=c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff';
+const PUBLIC_ICAL_URL = 'https://calendar.google.com/calendar/ical/c_f52c1786104054526a8c486e0767da89d6f225bad1974494ab17b5a99a487abe%40group.calendar.google.com/public/basic.ics';
+const BACKEND_SCRIPT_URL = ''; // Add your Apps Script web app URL here when the booking backend is ready.
 
-function saveConfig(){
-  var cal=document.getElementById('cfg-cal').value.trim();
-  var url=document.getElementById('cfg-url').value.trim();
-  if(!cal||!url){alert('Please fill in both fields.');return;}
-  setCfg({calId:cal,url:url});
-  document.getElementById('cfg-saved').style.display='block';
-  document.getElementById('setup-alert').classList.add('hidden');
-  updateCalEmbed();
-  setTimeout(function(){document.getElementById('cfg-saved').style.display='none';},4000);
-}
-
-function loadConfigInputs(){
-  var c=getCfg();
-  if(c.calId) document.getElementById('cfg-cal').value=c.calId;
-  if(c.url)   document.getElementById('cfg-url').value=c.url;
-}
-
-function checkSetup(){
-  var c=getCfg();
-  if(!c.calId||!c.url) document.getElementById('setup-alert').classList.remove('hidden');
-}
+function SCRIPT_URL(){return BACKEND_SCRIPT_URL;}
 
 function updateCalEmbed(){
-  var id=CAL_ID();
   var el=document.getElementById('cal-iframe');
   if(!el)return;
-  if(id){
-    el.src='https://calendar.google.com/calendar/embed?src='+encodeURIComponent(id)+'&ctz=Asia%2FKolkata&mode=MONTH&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff';
-  } else {
-    el.src='about:blank';
-  }
+  el.src=PUBLIC_CALENDAR_EMBED_URL;
 }
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -584,7 +489,6 @@ function switchTab(tab,btn){
   btn.classList.add('active');
   document.getElementById('tab-book').classList.toggle('hidden',tab!=='book');
   document.getElementById('tab-status').classList.toggle('hidden',tab!=='status');
-  document.getElementById('tab-setup').classList.toggle('hidden',tab!=='setup');
 }
 
 // ─── STEP 1 ───────────────────────────────────────────────────────────────────
@@ -798,7 +702,7 @@ async function submitBooking(){
     document.getElementById('step-6').classList.remove('hidden');
     document.getElementById('bid').textContent='KARIGAR-'+data.id.substring(0,8).toUpperCase();
   } else {
-    showEl(err,'⚠️ '+(data&&data.error?data.error:'Could not submit. Check your Apps Script URL in Setup.'));
+    showEl(err,'⚠️ '+(data&&data.error?data.error:'Booking backend is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.'));
     btn.disabled=false; btn.textContent='✅ Confirm Session';
   }
 }
@@ -810,7 +714,7 @@ async function checkStatus(){
   if(!q){out.innerHTML='<div class="alert ai" style="margin-top:12px">Please enter your email or booking ID.</div>';return;}
   out.innerHTML='<div class="spin"></div>';
   var data=await apiGetQuery('check','query='+encodeURIComponent(q));
-  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Could not reach server. Check Setup tab.</div>';return;}
+  if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Status lookup is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.</div>';return;}
   if(data.success&&data.bookings&&data.bookings.length>0){
     out.innerHTML=data.bookings.map(function(b){
       var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
@@ -897,240 +801,6 @@ function resetForm(){
   document.getElementById('day-panel').classList.add('hidden');
 }
 
-// ─── APPS SCRIPT DOWNLOAD ────────────────────────────────────────────────────
-function downloadAppsScript(){
-  var code=getAppsScriptCode();
-  var blob=new Blob([code],{type:'text/plain'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='karigar-apps-script.gs';
-  a.click();
-}
-
-function getAppsScriptCode(){
-return `// ═══════════════════════════════════════════════════════════════
-// KARIGAR BOOKING SYSTEM – Google Apps Script Backend
-// ═══════════════════════════════════════════════════════════════
-// 1. Paste this into your Google Sheet's Apps Script editor
-// 2. Update SHEET_ID and CAL_ID below
-// 3. Deploy as Web App: Execute as "Me", Access "Anyone"
-// 4. Add onEdit trigger: Edit → Triggers → onEdit → From spreadsheet → On edit
-// ───────────────────────────────────────────────────────────────
-
-var SHEET_ID  = 'YOUR_GOOGLE_SHEET_ID_HERE';
-var CAL_ID    = 'YOUR_GOOGLE_CALENDAR_ID_HERE';
-var SHEET_NAME = 'Bookings';
-
-// Column indices (0-based)
-var COL = {
-  ID:0, NAME:1, PHONE:2, EMAIL:3, SERVICE:4, DATE:5, DATE_KEY:6,
-  TIME:7, END_TIME:8, DURATION:9, STATUS:10, CAL_EVENT:11, SUBMITTED:12, NOTES:13
-};
-
-// ── Routing ──────────────────────────────────────────────────────
-function doGet(e) {
-  var action = e.parameter.action;
-  var res;
-  if (action === 'calBookings') res = getCalBookings();
-  else if (action === 'check')  res = checkBooking(e.parameter.query);
-  else res = {error: 'Unknown action'};
-  return json(res);
-}
-
-function doPost(e) {
-  var p = JSON.parse(e.postData.contents);
-  var res;
-  if (p.action === 'book')        res = createBooking(p);
-  else if (p.action === 'reschedule') res = rescheduleBooking(p);
-  else res = {error: 'Unknown action'};
-  return json(res);
-}
-
-// ── Create Booking ────────────────────────────────────────────────
-function createBooking(p) {
-  try {
-    var sheet = getSheet();
-    var id = Utilities.getUuid();
-    var now = new Date().toISOString();
-    sheet.appendRow([
-      id, p.name, p.phone, p.email, p.service,
-      p.date, p.dateKey, p.time, p.endTime, p.duration,
-      'Pending', '', now, ''
-    ]);
-    sendConfirmationEmail(p, id);
-    return {success: true, id: id};
-  } catch(e) {
-    return {success: false, error: e.message};
-  }
-}
-
-// ── Reschedule Booking ────────────────────────────────────────────
-function rescheduleBooking(p) {
-  try {
-    var sheet = getSheet();
-    var data = sheet.getDataRange().getValues();
-    for (var i = 1; i < data.length; i++) {
-      if (data[i][COL.ID] === p.bookingId) {
-        // Save note about old time
-        var oldNote = 'Was: ' + data[i][COL.DATE] + ' ' + data[i][COL.TIME] + '-' + data[i][COL.END_TIME];
-        // Update row
-        sheet.getRange(i+1, COL.DATE+1).setValue(p.newDate);
-        sheet.getRange(i+1, COL.DATE_KEY+1).setValue(p.newDateKey);
-        sheet.getRange(i+1, COL.TIME+1).setValue(p.newTime);
-        sheet.getRange(i+1, COL.END_TIME+1).setValue(p.newEndTime);
-        sheet.getRange(i+1, COL.STATUS+1).setValue('Pending');
-        sheet.getRange(i+1, COL.NOTES+1).setValue(oldNote);
-        // Remove old calendar event if exists
-        var evId = data[i][COL.CAL_EVENT];
-        if (evId) {
-          try { CalendarApp.getCalendarById(CAL_ID).getEventById(evId).deleteEvent(); } catch(e2) {}
-          sheet.getRange(i+1, COL.CAL_EVENT+1).setValue('');
-        }
-        return {success: true};
-      }
-    }
-    return {success: false, error: 'Booking not found'};
-  } catch(e) {
-    return {success: false, error: e.message};
-  }
-}
-
-// ── Check Booking ─────────────────────────────────────────────────
-function checkBooking(query) {
-  try {
-    var sheet = getSheet();
-    var data = sheet.getDataRange().getValues();
-    var results = [];
-    var q = (query || '').toLowerCase().replace('karigar-','');
-    for (var i = 1; i < data.length; i++) {
-      var row = data[i];
-      var matchEmail = row[COL.EMAIL].toLowerCase() === q;
-      var matchId    = row[COL.ID].substring(0,8).toUpperCase() === q.toUpperCase();
-      if (matchEmail || matchId) {
-        results.push({
-          id: row[COL.ID], name: row[COL.NAME], service: row[COL.SERVICE],
-          date: row[COL.DATE], dateKey: row[COL.DATE_KEY],
-          time: row[COL.TIME], endTime: row[COL.END_TIME],
-          duration: row[COL.DURATION], status: row[COL.STATUS]
-        });
-      }
-    }
-    return {success: true, bookings: results};
-  } catch(e) {
-    return {success: false, error: e.message};
-  }
-}
-
-// ── Calendar Bookings (for date picker overlay) ────────────────────
-function getCalBookings() {
-  try {
-    var sheet = getSheet();
-    var data = sheet.getDataRange().getValues();
-    var result = {};
-    for (var i = 1; i < data.length; i++) {
-      var row = data[i];
-      var key = row[COL.DATE_KEY];
-      if (!key) continue;
-      if (!result[key]) result[key] = [];
-      result[key].push({
-        name: row[COL.NAME], time: row[COL.TIME], endTime: row[COL.END_TIME],
-        duration: row[COL.DURATION], status: row[COL.STATUS]
-      });
-    }
-    return {success: true, bookings: result};
-  } catch(e) {
-    return {success: false, error: e.message};
-  }
-}
-
-// ── onEdit Trigger: Auto-create/delete calendar events ──────────────
-// Set up as: Edit > Triggers > onEdit > From spreadsheet > On edit
-function onEdit(e) {
-  var sheet = e.source.getActiveSheet();
-  if (sheet.getName() !== SHEET_NAME) return;
-  var row = e.range.getRow();
-  var col = e.range.getColumn();
-  if (col !== COL.STATUS + 1 || row < 2) return;  // Only watch Status column
-
-  var data = sheet.getRange(row, 1, 1, 14).getValues()[0];
-  var status = data[COL.STATUS];
-  var evId   = data[COL.CAL_EVENT];
-
-  if (status === 'Approved') {
-    // Create calendar event
-    if (!evId) {
-      try {
-        var cal    = CalendarApp.getCalendarById(CAL_ID);
-        var dateKey = data[COL.DATE_KEY]; // YYYY-MM-DD
-        var parts  = dateKey.split('-');
-        var startTime = parseTime12(data[COL.TIME]);
-        var endTime   = parseTime12(data[COL.END_TIME]);
-        var startDate = new Date(parts[0], parts[1]-1, parts[2], startTime.h, startTime.m);
-        var endDate   = new Date(parts[0], parts[1]-1, parts[2], endTime.h,   endTime.m);
-        var title     = data[COL.NAME] + ' – ' + data[COL.SERVICE] + ' (' + data[COL.DURATION] + ')';
-        var ev        = cal.createEvent(title, startDate, endDate, {
-          description: 'Booking ID: ' + data[COL.ID] + '\\nPhone: ' + data[COL.PHONE] + '\\nEmail: ' + data[COL.EMAIL]
-        });
-        sheet.getRange(row, COL.CAL_EVENT + 1).setValue(ev.getId());
-        sendApprovalEmail(data);
-      } catch(err) { Logger.log('Calendar error: ' + err.message); }
-    }
-  } else if (status === 'Declined') {
-    // Remove calendar event if exists
-    if (evId) {
-      try { CalendarApp.getCalendarById(CAL_ID).getEventById(evId).deleteEvent(); } catch(err) {}
-      sheet.getRange(row, COL.CAL_EVENT + 1).setValue('');
-    }
-    sendDeclineEmail(data);
-  }
-}
-
-// ── Email Helpers ─────────────────────────────────────────────────
-function sendConfirmationEmail(p, id) {
-  try {
-    MailApp.sendEmail({
-      to: p.email,
-      subject: 'Karigar Booking Received – KARIGAR-' + id.substring(0,8).toUpperCase(),
-      body: 'Hi ' + p.name + ',\\n\\nWe received your session request for ' + p.service + ' on ' + p.date + ' (' + p.time + ' – ' + p.endTime + ').\\n\\nYour Booking ID: KARIGAR-' + id.substring(0,8).toUpperCase() + '\\n\\nWe\\'ll email you once your booking is approved. If you need to reschedule, use your Booking ID on the booking page.\\n\\nKarigar – School of Applied Learning\\nLend A Hand India, Pune'
-    });
-  } catch(e) {}
-}
-function sendApprovalEmail(data) {
-  try {
-    MailApp.sendEmail({
-      to: data[COL.EMAIL],
-      subject: '✅ Your Karigar Session is Confirmed!',
-      body: 'Hi ' + data[COL.NAME] + ',\\n\\nYour session has been confirmed!\\n\\n📅 Date: ' + data[COL.DATE] + '\\n🕐 Time: ' + data[COL.TIME] + ' – ' + data[COL.END_TIME] + '\\n🔧 Skill: ' + data[COL.SERVICE] + '\\n\\nSee you at Karigar!\\n\\nKarigar – School of Applied Learning\\nLend A Hand India, Pune'
-    });
-  } catch(e) {}
-}
-function sendDeclineEmail(data) {
-  try {
-    MailApp.sendEmail({
-      to: data[COL.EMAIL],
-      subject: 'Karigar Booking Update',
-      body: 'Hi ' + data[COL.NAME] + ',\\n\\nUnfortunately your session request for ' + data[COL.DATE] + ' could not be approved. Please visit the booking page to choose another date/time.\\n\\nKarigar – School of Applied Learning\\nLend A Hand India, Pune'
-    });
-  } catch(e) {}
-}
-
-// ── Utilities ─────────────────────────────────────────────────────
-function parseTime12(str) {
-  var m = (str+'').match(/(\\d+):(\\d+)\\s*(AM|PM)/i);
-  if (!m) return {h:9, m:0};
-  var h = parseInt(m[1]) % 12;
-  if (m[3].toUpperCase() === 'PM') h += 12;
-  return {h: h, m: parseInt(m[2])};
-}
-function getSheet() {
-  return SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-}
-function json(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
-}
-`;
-}
-
 // ─── UTILITY HELPERS ─────────────────────────────────────────────────────────
 function v(id){return document.getElementById(id).value.trim();}
 function pad(n){return String(n).padStart(2,'0');}
@@ -1144,8 +814,6 @@ function rsMinDate(){var d=new Date();d.setDate(d.getDate()+1);return toKey(d);}
 function rsMaxDate(){var d=new Date();d.setDate(d.getDate()+10);return toKey(d);}
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
-loadConfigInputs();
-checkSetup();
 updateCalEmbed();
 </script>
 </body>
