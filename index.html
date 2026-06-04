@@ -501,44 +501,49 @@ body{
   margin-bottom:14px;
   background:white;
 }
-.tp-head{
-  background:var(--bg);
-  padding:10px 16px;
-  border-bottom:1px solid var(--border);
-  font-size:.77rem;
-  color:var(--muted);
-  font-weight:500;
-}
-.tp-body{padding:20px 16px}
-.tp-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.tp-block{flex:1;min-width:190px;max-width:240px}
+.tp-body{padding:24px 20px 20px}
 .tp-lbl{
   font-size:.68rem;font-weight:700;color:var(--primary);
-  text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;text-align:center;
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;text-align:center;
 }
-.spinners{display:flex;align-items:center;justify-content:center;gap:7px}
-.sg{display:flex;flex-direction:column;align-items:center;gap:4px}
-.sg-sub{font-size:.59rem;color:var(--muted);font-weight:600;text-transform:uppercase;height:14px}
-.spb{
-  width:30px;height:30px;border:1.5px solid var(--border);border-radius:7px;
-  background:white;cursor:pointer;font-size:.84rem;color:var(--primary);
-  display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s;
+/* Two-dropdown layout */
+.time-sel-row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
 }
-.spb:hover{background:var(--primary-light);border-color:var(--primary)}
-.spv{
-  font-size:1.4rem;font-weight:700;color:var(--text);min-width:46px;text-align:center;
-  background:var(--bg);border:1.5px solid var(--border);border-radius:8px;
-  padding:7px 4px;line-height:1;
+.time-sel-block{flex:1;min-width:148px;max-width:200px}
+.time-sel-arr{
+  flex:0 0 auto;
+  padding-bottom:11px;
+  font-size:1.1rem;
+  color:var(--primary);
+  font-weight:600;
 }
-.sc2{font-size:1.35rem;font-weight:600;color:var(--primary);margin:0 2px;align-self:center;padding-top:14px}
-.ap-row{display:flex;gap:5px;margin-top:6px;justify-content:center}
-.apb{
-  padding:5px 12px;border:1.5px solid var(--border);border-radius:7px;background:white;
-  cursor:pointer;font-weight:600;font-size:.77rem;color:var(--muted);
-  transition:all .15s;font-family:inherit;
+.time-select-wrap{position:relative}
+.time-select-wrap::after{
+  content:'▾';
+  position:absolute;
+  right:12px;top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);font-size:.76rem;
+  pointer-events:none;line-height:1;
 }
-.apb.on{background:var(--primary);color:white;border-color:var(--primary)}
-.tp-div{width:1px;background:var(--border);align-self:stretch;margin:0 4px}
+.time-select{
+  appearance:none;-webkit-appearance:none;
+  width:100%;padding:11px 30px 11px 13px;
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:.9rem;font-family:inherit;color:var(--text);
+  background:white;cursor:pointer;outline:none;
+  transition:border .2s,box-shadow .2s;
+}
+.time-select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(201,111,83,.08);
+}
 
 .range-box{
   display:flex;align-items:center;justify-content:center;gap:14px;
@@ -715,10 +720,10 @@ textarea{min-height:96px;resize:vertical}
 @media(max-width:500px){
   .dur-grid{grid-template-columns:1fr}
   .card{padding:20px 16px}
-  .tp-div{display:none}
-  .tp-block{min-width:155px}
   .ts-wordmark{font-size:3rem}
   .content-wrap{padding:28px 16px 60px}
+  .time-sel-row{gap:8px}
+  .time-sel-arr{font-size:.9rem;padding-bottom:13px}
 }
 
 </style>
@@ -840,7 +845,7 @@ textarea{min-height:96px;resize:vertical}
         <!-- Live Calendar Embed -->
         <div class="cal-wrap">
           <div class="cal-head">
-            <span>Karigar Bookings Calendar</span>
+            <span>📅 Karigar Bookings Calendar</span>
             <small>Live public Google Calendar</small>
           </div>
           <iframe id="cal-iframe" class="cal-frame" src="" frameborder="0" scrolling="no"></iframe>
@@ -877,41 +882,33 @@ textarea{min-height:96px;resize:vertical}
         <div class="ttl">Set Your Session Time</div>
         <div class="sub" id="time-sub"></div>
         <div class="tp-card">
-          <div class="tp-head">Use spinners or pick a quick preset below</div>
           <div class="tp-body">
-            <div class="tp-row">
-              <div class="tp-block">
+
+            <!-- Two clean dropdowns -->
+            <div class="time-sel-row">
+              <div class="time-sel-block">
                 <div class="tp-lbl">Start Time</div>
-                <div class="spinners">
-                  <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('sh',1)">▲</button><div class="spv" id="s-h">09</div><button class="spb" onclick="adj('sh',-1)">▼</button></div>
-                  <div class="sc2">:</div>
-                  <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('sm',1)">▲</button><div class="spv" id="s-m">00</div><button class="spb" onclick="adj('sm',-1)">▼</button></div>
-                </div>
-                <div class="ap-row">
-                  <button class="apb on" id="s-am" onclick="setAP('s','AM')">AM</button>
-                  <button class="apb"    id="s-pm" onclick="setAP('s','PM')">PM</button>
+                <div class="time-select-wrap">
+                  <select id="time-start" class="time-select" onchange="onStartTimeChange(this.value)"></select>
                 </div>
               </div>
-              <div class="tp-div"></div>
-              <div class="tp-block">
+              <div class="time-sel-arr">→</div>
+              <div class="time-sel-block">
                 <div class="tp-lbl">End Time</div>
-                <div class="spinners">
-                  <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('eh',1)">▲</button><div class="spv" id="e-h">05</div><button class="spb" onclick="adj('eh',-1)">▼</button></div>
-                  <div class="sc2">:</div>
-                  <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('em',1)">▲</button><div class="spv" id="e-m">00</div><button class="spb" onclick="adj('em',-1)">▼</button></div>
-                </div>
-                <div class="ap-row">
-                  <button class="apb"    id="e-am" onclick="setAP('e','AM')">AM</button>
-                  <button class="apb on" id="e-pm" onclick="setAP('e','PM')">PM</button>
+                <div class="time-select-wrap">
+                  <select id="time-end" class="time-select" onchange="onEndTimeChange(this.value)"></select>
                 </div>
               </div>
             </div>
+
+            <!-- Duration summary strip -->
             <div class="range-box">
               <div class="rb"><div class="rb-l">Start</div><div class="rb-v" id="r-start">9:00 AM</div></div>
               <div class="rb-arr">→</div>
               <div class="rb"><div class="rb-l">End</div><div class="rb-v" id="r-end">5:00 PM</div></div>
               <div class="rb-dur" id="r-dur">8h</div>
             </div>
+
             <div id="time-err" class="msg msg-err hidden" style="margin-top:10px">⚠️ End time must be after start time</div>
             <div class="presets" id="presets"></div>
             <div id="conflict" class="msg msg-warn hidden" style="margin-top:10px">
@@ -1254,7 +1251,7 @@ function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
   var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  var h='<div class="dp-head"><span>'+ds+'</span><small>'+(bks.length>0?bks.length+' booking(s)':'No bookings yet')+'</small></div><div class="dp-body">';
+  var h='<div class="dp-head"><span>📅 '+ds+'</span><small>'+(bks.length>0?bks.length+' booking(s)':'No bookings yet')+'</small></div><div class="dp-body">';
   if(bks.length===0){
     h+='<div class="dp-empty">No bookings in our system for this date yet.</div>';
   } else {
@@ -1292,16 +1289,11 @@ function setAP(side,val){
   syncAP(); updateTime(); checkConflict();
 }
 function syncAP(){
-  document.getElementById('s-am').classList.toggle('on',sAP==='AM');
-  document.getElementById('s-pm').classList.toggle('on',sAP==='PM');
-  document.getElementById('e-am').classList.toggle('on',eAP==='AM');
-  document.getElementById('e-pm').classList.toggle('on',eAP==='PM');
+  // AM/PM toggle buttons removed — delegate to the new select sync
+  syncTimeSelects();
 }
 function updateTime(){
-  document.getElementById('s-h').textContent=pad(sH);
-  document.getElementById('s-m').textContent=pad(sM);
-  document.getElementById('e-h').textContent=pad(eH);
-  document.getElementById('e-m').textContent=pad(eM);
+  // Null-safe: spinner display elements are removed; only r-start/r-end/r-dur remain
   document.getElementById('r-start').textContent=fmtT(sH,sM,sAP);
   document.getElementById('r-end').textContent=fmtT(eH,eM,eAP);
   var diff=toMins(eH,eM,eAP)-toMins(sH,sM,sAP);
@@ -1337,6 +1329,65 @@ function checkConflict(){
   var myS=toMins(sH,sM,sAP),myE=toMins(eH,eM,eAP);
   var c=approved.some(function(b){var bs=parseT(b.time),be=parseT(b.endTime);return bs!==null&&be!==null&&myS<be&&myE>bs;});
   document.getElementById('conflict').classList.toggle('hidden',!c);
+}
+
+// ─── TIME SELECT HELPERS ──────────────────────────────────────────────────────
+var ALL_TIME_OPTS=null;
+function getTimeOpts(){
+  if(!ALL_TIME_OPTS){
+    ALL_TIME_OPTS=[];
+    for(var m=7*60;m<=21*60;m+=30){
+      var h24=Math.floor(m/60),mn=m%60;
+      var ap=h24>=12?'PM':'AM';
+      var h12=h24%12; if(h12===0)h12=12;
+      ALL_TIME_OPTS.push(h12+':'+(mn===0?'00':pad(mn))+' '+ap);
+    }
+  }
+  return ALL_TIME_OPTS;
+}
+function buildTimeOpts(selectedVal,afterMins){
+  var html='<option value="">— Select —</option>';
+  getTimeOpts().forEach(function(t){
+    var m=parseT(t);
+    if(afterMins===undefined||m>afterMins){
+      html+='<option value="'+t+'"'+(t===selectedVal?' selected':'')+'>'+t+'</option>';
+    }
+  });
+  return html;
+}
+function syncTimeSelects(){
+  var startEl=document.getElementById('time-start');
+  var endEl=document.getElementById('time-end');
+  if(!startEl||!endEl)return;
+  var startVal=fmtT(sH,sM,sAP);
+  var endVal=fmtT(eH,eM,eAP);
+  startEl.innerHTML=buildTimeOpts(startVal);
+  endEl.innerHTML=buildTimeOpts(endVal,toMins(sH,sM,sAP));
+}
+function onStartTimeChange(val){
+  if(!val)return;
+  var m=val.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if(!m)return;
+  sH=parseInt(m[1]);sM=parseInt(m[2]);sAP=m[3].toUpperCase();
+  // Auto-advance end time if it would now be invalid
+  var sMin=toMins(sH,sM,sAP),eMin=toMins(eH,eM,eAP);
+  if(eMin<=sMin){
+    var dur=selDur==='full'?480:selDur==='half'?240:60;
+    var newE=Math.min(sMin+dur,21*60);
+    var nh24=Math.floor(newE/60),nm=newE%60;
+    eAP=nh24>=12?'PM':'AM'; eH=nh24%12; if(eH===0)eH=12; eM=nm;
+  }
+  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
+  syncTimeSelects();
+  updateTime(); checkConflict();
+}
+function onEndTimeChange(val){
+  if(!val)return;
+  var m=val.match(/(\d+):(\d+)\s*(AM|PM)/i);
+  if(!m)return;
+  eH=parseInt(m[1]);eM=parseInt(m[2]);eAP=m[3].toUpperCase();
+  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
+  updateTime(); checkConflict();
 }
 
 // ─── SUMMARY & SUBMIT ─────────────────────────────────────────────────────────
