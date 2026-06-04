@@ -42,7 +42,7 @@ body{
 
 /* ─── TOP SHELL ───────────────────────────────────────────── */
 .top-shell{
-  min-height:92vh;
+  min-height:72vh;
   display:flex;
   align-items:center;
   padding:64px max(5vw,24px);
@@ -705,10 +705,6 @@ textarea{min-height:96px;resize:vertical}
   text-align:center;padding:28px 20px 40px;font-size:.69rem;
   color:var(--muted);border-top:1px solid var(--border);line-height:1.8;
 }
-.site-footer code{
-  background:var(--surface);border:1px solid var(--border);border-radius:4px;
-  padding:1px 6px;font-size:.67rem;color:var(--primary-dark);
-}
 
 /* ─── RESPONSIVE ──────────────────────────────────────────── */
 @media(max-width:800px){
@@ -822,13 +818,16 @@ textarea{min-height:96px;resize:vertical}
         <div class="sub">Choose the best fit for your project or learning goal</div>
         <div class="dur-grid">
           <div class="dur-card" onclick="pickDur('full',this)">
-            <div class="di"></div><div class="dt">Full Day</div>
+            <div class="di">📅</div><div class="dt">Full Day</div>
+            <div class="dd">Intensive work<br>Large projects</div>
           </div>
           <div class="dur-card" onclick="pickDur('half',this)">
-            <div class="di"></div><div class="dt">Half Day</div>
+            <div class="di">🌗</div><div class="dt">Half Day</div>
+            <div class="dd">Mid-size work<br>Learning sessions</div>
           </div>
           <div class="dur-card" onclick="pickDur('hourly',this)">
-            <div class="di"></div><div class="dt">Hourly</div>
+            <div class="di">⏰</div><div class="dt">Hourly</div>
+            <div class="dd">Quick fixes<br>Demos &amp; repairs</div>
           </div>
         </div>
         <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
@@ -1038,7 +1037,6 @@ textarea{min-height:96px;resize:vertical}
 
 <!-- ─── FOOTER ──────────────────────────────────────────────── -->
 <footer class="site-footer">
-  Public calendar connected · iCal feed available in code as <code>PUBLIC_ICAL_URL</code><br>
   Karigar – School of Applied Learning &nbsp;·&nbsp; <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
 </footer>
 
@@ -1097,30 +1095,6 @@ var PRESETS={
   full:[{l:'9AM–5PM',sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},{l:'8AM–4PM',sH:8,sM:0,sAP:'AM',eH:4,eM:0,eAP:'PM'},{l:'10AM–6PM',sH:10,sM:0,sAP:'AM',eH:6,eM:0,eAP:'PM'}],
   half:[{l:'9AM–1PM',sH:9,sM:0,sAP:'AM',eH:1,eM:0,eAP:'PM'},{l:'2PM–6PM',sH:2,sM:0,sAP:'PM',eH:6,eM:0,eAP:'PM'},{l:'8AM–12PM',sH:8,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'}],
   hourly:[{l:'9–10AM',sH:9,sM:0,sAP:'AM',eH:10,eM:0,eAP:'AM'},{l:'10–11AM',sH:10,sM:0,sAP:'AM',eH:11,eM:0,eAP:'AM'},{l:'11AM–12',sH:11,sM:0,sAP:'AM',eH:12,eM:0,eAP:'PM'},{l:'2–3PM',sH:2,sM:0,sAP:'PM',eH:3,eM:0,eAP:'PM'},{l:'3–4PM',sH:3,sM:0,sAP:'PM',eH:4,eM:0,eAP:'PM'},{l:'4–5PM',sH:4,sM:0,sAP:'PM',eH:5,eM:0,eAP:'PM'}]
-};
-
-var RESCHEDULE_SLOTS={
-  'Full Day':[
-    {label:'8:00 AM – 4:00 PM',start:'8:00 AM',end:'4:00 PM'},
-    {label:'9:00 AM – 5:00 PM',start:'9:00 AM',end:'5:00 PM'},
-    {label:'10:00 AM – 6:00 PM',start:'10:00 AM',end:'6:00 PM'}
-  ],
-  'Half Day':[
-    {label:'8:00 AM – 12:00 PM',start:'8:00 AM',end:'12:00 PM'},
-    {label:'9:00 AM – 1:00 PM',start:'9:00 AM',end:'1:00 PM'},
-    {label:'2:00 PM – 6:00 PM',start:'2:00 PM',end:'6:00 PM'}
-  ],
-  'Hourly':[
-    {label:'9:00 AM – 10:00 AM',start:'9:00 AM',end:'10:00 AM'},
-    {label:'10:00 AM – 11:00 AM',start:'10:00 AM',end:'11:00 AM'},
-    {label:'11:00 AM – 12:00 PM',start:'11:00 AM',end:'12:00 PM'},
-    {label:'12:00 PM – 1:00 PM',start:'12:00 PM',end:'1:00 PM'},
-    {label:'1:00 PM – 2:00 PM',start:'1:00 PM',end:'2:00 PM'},
-    {label:'2:00 PM – 3:00 PM',start:'2:00 PM',end:'3:00 PM'},
-    {label:'3:00 PM – 4:00 PM',start:'3:00 PM',end:'4:00 PM'},
-    {label:'4:00 PM – 5:00 PM',start:'4:00 PM',end:'5:00 PM'},
-    {label:'5:00 PM – 6:00 PM',start:'5:00 PM',end:'6:00 PM'}
-  ]
 };
 
 // ─── TABS (unchanged) ─────────────────────────────────────────────────────────
@@ -1272,19 +1246,6 @@ function setupTime(){
   syncAP(); updateTime(); buildPresets(); checkConflict();
   document.getElementById('time-sub').textContent=DUR_LBL[selDur]+' · '+selDate.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'long'});
   document.getElementById('btn-n3').disabled=false;
-}
-function adj(p,d){
-  if(p==='sh') sH=((sH-1+d+12)%12)+1;
-  else if(p==='sm') sM=(sM+d*15+60)%60;
-  else if(p==='eh') eH=((eH-1+d+12)%12)+1;
-  else if(p==='em') eM=(eM+d*15+60)%60;
-  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
-  updateTime(); checkConflict();
-}
-function setAP(side,val){
-  if(side==='s') sAP=val; else eAP=val;
-  document.querySelectorAll('.pr-btn').forEach(function(b){b.classList.remove('on');});
-  syncAP(); updateTime(); checkConflict();
 }
 function syncAP(){
   // AM/PM toggle buttons removed — delegate to the new select sync
@@ -1449,21 +1410,26 @@ async function checkStatus(){
   if(data.success&&data.bookings&&data.bookings.length>0){
     var bookings=data.bookings;
     if(rescheduleMode){
+      // Reschedule mode: only show bookings that can actually be rescheduled
       bookings=bookings.filter(function(b){return b.status==='Pending'||b.status==='Approved';});
     }
     if(bookings.length>0){
       out.innerHTML=bookings.map(function(b){
         var mc=b.status==='Approved'?'sm-a':b.status==='Declined'||b.status==='Cancelled'?'sm-d':'sm-p';
         var mt=b.status==='Approved'?'✅ Confirmed! The Karigar team will be ready at your start time.'
-          :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
-          :b.status==='Cancelled'?'🚫 This session was cancelled by the team. Please book a new slot.'
+          :b.status==='Declined'?'❌ This booking was not approved.'
+          :b.status==='Cancelled'?'🚫 This session was cancelled.'
           :'⏳ Pending review — you\'ll be notified once confirmed.';
-        var canReschedule=(b.status==='Pending'||b.status==='Approved');
+        // Reschedule form: only in reschedule mode, only for Pending/Approved
+        var showReschedule=rescheduleMode&&(b.status==='Pending'||b.status==='Approved');
+        // Book Again button: only in My Booking mode, only for Declined/Cancelled
+        var showRebook=!rescheduleMode&&(b.status==='Declined'||b.status==='Cancelled');
         return '<div class="stcard">'
           +'<div class="stcard-head"><strong>'+(b.typeOfWork||b.service||'—')+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
           +row('⏱ Session Type',b.duration||'—')+row('🏷 Type of Work',b.typeOfWork||b.service||'—')+row('🏫 Labs',b.labs||'—')+row('📝 Details',b.workDetails||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
           +'<div class="stmsg '+mc+'">'+mt+'</div>'
-          +(canReschedule?rescheduleBlock(b):'')
+          +(showRebook?'<div style="margin-top:12px"><button class="btn btn-p" style="font-size:.82rem;padding:9px 16px;width:auto" onclick="showSection(\'book\',document.getElementById(\'ai-book\'))">📅 Book a New Session</button></div>':'')
+          +(showReschedule?rescheduleBlock(b):'')
           +'</div>';
       }).join('');
     } else {
@@ -1559,7 +1525,7 @@ async function apiPost(payload){
 
 // ─── FORM RESET ───────────────────────────────────────────────────────────────
 function resetForm(){
-  selDur=null;selDate=null;curStep=1;calBk={};
+  selDur=null;selDate=null;curStep=1;calBk={};rescheduleMode=false;
   ['f-name','f-phone','f-email','f-work-details'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('f-type').value='';
   document.getElementById('f-type-other').value='';
@@ -1670,6 +1636,11 @@ function showSection(which, cardEl) {
   // Clear previous results so switching modes doesn't show stale data
   var stOut = document.getElementById('st-out');
   if (stOut) stOut.innerHTML = '';
+  // Auto-re-search if the user already has a query typed in
+  var sqEl = document.getElementById('sq');
+  if (sqEl && sqEl.value.trim()) {
+    setTimeout(checkStatus, 80);
+  }
 
   // Delegate to the existing switchTab() — tab buttons are hidden but still in DOM
   var tabBtn = document.querySelector('.tab-btn[data-tab="' + tabKey + '"]');
