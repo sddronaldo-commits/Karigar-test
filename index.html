@@ -822,16 +822,13 @@ textarea{min-height:96px;resize:vertical}
         <div class="sub">Choose the best fit for your project or learning goal</div>
         <div class="dur-grid">
           <div class="dur-card" onclick="pickDur('full',this)">
-            <div class="di">📅</div><div class="dt">Full Day</div>
-            <div class="dd">Intensive work<br>Large projects</div>
+            <div class="di"></div><div class="dt">Full Day</div>
           </div>
           <div class="dur-card" onclick="pickDur('half',this)">
-            <div class="di">🌗</div><div class="dt">Half Day</div>
-            <div class="dd">Mid-size work<br>Learning sessions</div>
+            <div class="di"></div><div class="dt">Half Day</div>
           </div>
           <div class="dur-card" onclick="pickDur('hourly',this)">
-            <div class="di">⏰</div><div class="dt">Hourly</div>
-            <div class="dd">Quick fixes<br>Demos &amp; repairs</div>
+            <div class="di"></div><div class="dt">Hourly</div>
           </div>
         </div>
         <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
@@ -1089,6 +1086,7 @@ function startAutoRefresh(){
 var curStep=1, selDur=null, selDate=null, calBk={};
 var sH=9,sM=0,sAP='AM',eH=5,eM=0,eAP='PM';
 var today=new Date(); today.setHours(0,0,0,0);
+var rescheduleMode=false; // true when user entered via the Reschedule action card
 var DUR_LBL={full:'Full Day',half:'Half Day',hourly:'Hourly'};
 var DUR_DEF={
   full:{sH:9,sM:0,sAP:'AM',eH:5,eM:0,eAP:'PM'},
@@ -1449,57 +1447,45 @@ async function checkStatus(){
   var data=await apiGetQuery('check','query='+encodeURIComponent(q));
   if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Status lookup is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.</div>';return;}
   if(data.success&&data.bookings&&data.bookings.length>0){
-    out.innerHTML=data.bookings.map(function(b){
-      var mc=b.status==='Approved'?'sm-a':b.status==='Declined'||b.status==='Cancelled'?'sm-d':'sm-p';
-      var mt=b.status==='Approved'?'✅ Confirmed! The Karigar team will be ready at your start time.'
-        :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
-        :b.status==='Cancelled'?'🚫 This session was cancelled by the team. Please book a new slot.'
-        :'⏳ Pending review — you\'ll be notified once confirmed.';
-      var canReschedule=(b.status==='Pending'||b.status==='Approved');
-      return '<div class="stcard">'
-        +'<div class="stcard-head"><strong>'+(b.typeOfWork||b.service||'—')+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
-        +row('⏱ Session Type',b.duration||'—')+row('🏷 Type of Work',b.typeOfWork||b.service||'—')+row('🏫 Labs',b.labs||'—')+row('📝 Details',b.workDetails||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
-        +'<div class="stmsg '+mc+'">'+mt+'</div>'
-        +(canReschedule?rescheduleBlock(b):'')
-        +'</div>';
-    }).join('');
+    var bookings=data.bookings;
+    if(rescheduleMode){
+      bookings=bookings.filter(function(b){return b.status==='Pending'||b.status==='Approved';});
+    }
+    if(bookings.length>0){
+      out.innerHTML=bookings.map(function(b){
+        var mc=b.status==='Approved'?'sm-a':b.status==='Declined'||b.status==='Cancelled'?'sm-d':'sm-p';
+        var mt=b.status==='Approved'?'✅ Confirmed! The Karigar team will be ready at your start time.'
+          :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
+          :b.status==='Cancelled'?'🚫 This session was cancelled by the team. Please book a new slot.'
+          :'⏳ Pending review — you\'ll be notified once confirmed.';
+        var canReschedule=(b.status==='Pending'||b.status==='Approved');
+        return '<div class="stcard">'
+          +'<div class="stcard-head"><strong>'+(b.typeOfWork||b.service||'—')+'</strong><span class="stb stb-'+b.status+'">'+b.status+'</span></div>'
+          +row('⏱ Session Type',b.duration||'—')+row('🏷 Type of Work',b.typeOfWork||b.service||'—')+row('🏫 Labs',b.labs||'—')+row('📝 Details',b.workDetails||'—')+row('📅 Date',b.date)+row('🕐 From',b.time||'—')+row('🕔 To',b.endTime||'—')
+          +'<div class="stmsg '+mc+'">'+mt+'</div>'
+          +(canReschedule?rescheduleBlock(b):'')
+          +'</div>';
+      }).join('');
+    } else {
+      out.innerHTML='<div class="alert ai" style="margin-top:12px">No bookings eligible for rescheduling. Only Pending or Approved bookings can be rescheduled.</div>';
+    }
   } else {
-    out.innerHTML='<div class="alert ai" style="margin-top:12px">No bookings found for that email or ID.</div>';
+    out.innerHTML='<div class="alert ai" style="margin-top:12px">'+(rescheduleMode?'No eligible bookings found for that email or ID.':'No bookings found for that email or ID.')+'</div>';
   }
 }
 
 // ─── RESCHEDULE ───────────────────────────────────────────────────────────────
-function buildSelectableTimes(){
-  var out=[];
-  for(var mins=8*60; mins<=18*60; mins+=30){
-    var h24=Math.floor(mins/60), m=mins%60;
-    var ap=h24>=12?'PM':'AM';
-    var h12=h24%12; if(h12===0) h12=12;
-    out.push(h12+':'+(m===0?'00':pad(m))+' '+ap);
-  }
-  return out;
-}
-
-var RESCHEDULE_TIME_OPTIONS=buildSelectableTimes();
+// Uses the shared getTimeOpts() / buildTimeOpts() from the main time picker
 
 function renderRescheduleTimeOptions(selectedValue){
-  return '<option value="">— Select time —</option>'+RESCHEDULE_TIME_OPTIONS.map(function(t){
-    return '<option value="'+t+'"'+(t===selectedValue?' selected':'')+'>'+t+'</option>';
-  }).join('');
+  return buildTimeOpts(selectedValue);
 }
 
 function populateRescheduleEndOptions(bookingId, selectedEnd){
   var startVal=document.getElementById('rs-start-'+bookingId).value;
   var endEl=document.getElementById('rs-end-'+bookingId);
-  var startMins=parseT(startVal);
-  var opts='<option value="">— Select end time —</option>';
-  RESCHEDULE_TIME_OPTIONS.forEach(function(t){
-    var mins=parseT(t);
-    if(startMins===null || mins>startMins){
-      opts+='<option value="'+t+'"'+(t===selectedEnd?' selected':'')+'>'+t+'</option>';
-    }
-  });
-  endEl.innerHTML=opts;
+  var startMins=parseT(startVal); // null when nothing selected → shows all times
+  endEl.innerHTML=buildTimeOpts(selectedEnd, startMins);
 }
 
 function onRescheduleStartChange(bookingId){
@@ -1670,12 +1656,20 @@ function showSection(which, cardEl) {
   var hEl   = document.getElementById('status-heading');
   var hintEl = document.getElementById('status-hint');
   if (which === 'reschedule') {
+    rescheduleMode = true;
     if (hEl)   hEl.textContent   = 'Reschedule Your Booking';
-    if (hintEl) hintEl.textContent = 'Enter your email or Booking ID below. Eligible bookings will show a reschedule option once found.';
+    if (hintEl) hintEl.textContent = 'Enter your email or Booking ID. Only bookings eligible for rescheduling will be shown.';
   } else if (which === 'status') {
+    rescheduleMode = false;
     if (hEl)   hEl.textContent   = 'Check Booking Status';
     if (hintEl) hintEl.textContent = 'Enter your email or Booking ID to see your bookings.';
+  } else {
+    rescheduleMode = false;
   }
+
+  // Clear previous results so switching modes doesn't show stale data
+  var stOut = document.getElementById('st-out');
+  if (stOut) stOut.innerHTML = '';
 
   // Delegate to the existing switchTab() — tab buttons are hidden but still in DOM
   var tabBtn = document.querySelector('.tab-btn[data-tab="' + tabKey + '"]');
