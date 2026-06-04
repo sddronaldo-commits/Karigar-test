@@ -602,6 +602,35 @@ textarea{min-height:96px;resize:vertical}
 .checkbox-pill:has(input:checked){border-color:var(--primary);background:var(--primary-light)}
 .field-help{font-size:.71rem;color:var(--muted);margin-top:6px}
 
+/* ─── STEP 4 FORM LAYOUT ──────────────────────────────────── */
+.form-section-lbl{
+  font-size:.64rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  margin:24px 0 16px;
+}
+.form-section-lbl:first-of-type{margin-top:6px}
+.form-section-opt{
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:0;
+  font-size:.72rem;
+  color:var(--muted);
+}
+.fg-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.fg-row .fg{margin-bottom:16px}
+/* Fixed 3-col grids — prevents uneven wrapping */
+.lab-grid{grid-template-columns:repeat(3,1fr)!important}
+.req-grid{grid-template-columns:repeat(3,1fr)!important}
+
 /* ─── BUTTONS ─────────────────────────────────────────────── */
 .btn{
   padding:11px 20px;border:none;border-radius:9px;font-size:.87rem;
@@ -720,6 +749,9 @@ textarea{min-height:96px;resize:vertical}
   .content-wrap{padding:28px 16px 60px}
   .time-sel-row{gap:8px}
   .time-sel-arr{font-size:.9rem;padding-bottom:13px}
+  .fg-row{grid-template-columns:1fr}
+  .lab-grid{grid-template-columns:repeat(2,1fr)!important}
+  .req-grid{grid-template-columns:repeat(2,1fr)!important}
 }
 
 </style>
@@ -923,9 +955,26 @@ textarea{min-height:96px;resize:vertical}
         <div class="ttl">Your Details</div>
         <div class="sub">We'll contact you once your session is confirmed</div>
         <div id="form-err" class="alert ae hidden"></div>
-        <div class="fg"><label>Full Name *</label><input id="f-name" type="text"/></div>
-        <div class="fg"><label>Phone Number *</label><input id="f-phone" type="tel"/></div>
-        <div class="fg"><label>Email Address *</label><input id="f-email" type="email"/></div>
+
+        <!-- Contact -->
+        <div class="form-section-lbl">Contact</div>
+        <div class="fg-row">
+          <div class="fg">
+            <label>Full Name *</label>
+            <input id="f-name" type="text" placeholder="Your full name"/>
+          </div>
+          <div class="fg">
+            <label>Phone Number *</label>
+            <input id="f-phone" type="tel" inputmode="numeric" placeholder="10-digit mobile number"/>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Email Address *</label>
+          <input id="f-email" type="email" placeholder="you@example.com"/>
+        </div>
+
+        <!-- Session Details -->
+        <div class="form-section-lbl">Session Details</div>
         <div class="fg">
           <label>Type of Work *</label>
           <select id="f-type" onchange="toggleOtherType(this.value)">
@@ -943,8 +992,8 @@ textarea{min-height:96px;resize:vertical}
           </div>
         </div>
         <div class="fg">
-          <label>Select Lab * (choose one or more)</label>
-          <div class="checkbox-grid" id="f-labs">
+          <label>Select Lab * <span style="font-weight:400;color:var(--muted)">(choose one or more)</span></label>
+          <div class="checkbox-grid lab-grid" id="f-labs">
             <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Agriculture Lab"/>Agriculture Lab</label>
             <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Electrical Lab"/>Electrical Lab</label>
             <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Engineering Lab"/>Engineering Lab</label>
@@ -954,22 +1003,21 @@ textarea{min-height:96px;resize:vertical}
             <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="1st Floor"/>1st Floor</label>
             <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="2nd Floor"/>2nd Floor</label>
           </div>
-          <div class="field-help">You can select multiple labs / locations.</div>
         </div>
         <div class="fg">
-          <label>What is it about? *</label>
-          <textarea id="f-work-details"></textarea>
+          <label>Session Description *</label>
+          <textarea id="f-work-details" rows="4" placeholder="Briefly describe what you'll be doing, how many people are joining, and any special setup needed…"></textarea>
         </div>
 
         <!-- Additional Requirements -->
-        <div class="fg">
-          <label>Additional Requirements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
-          <div class="checkbox-grid">
+        <div class="form-section-lbl">Additional Requirements <span class="form-section-opt">(Optional)</span></div>
+        <div class="fg" style="margin-bottom:0">
+          <div class="checkbox-grid req-grid">
             <label class="checkbox-pill" onclick="toggleReq('food')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Food &amp; Refreshments" id="req-cb-food" style="pointer-events:none"/>🍽️ Food &amp; Refreshments</label>
             <label class="checkbox-pill" onclick="toggleReq('stationery')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Stationery" id="req-cb-stationery" style="pointer-events:none"/>✏️ Stationery</label>
             <label class="checkbox-pill" onclick="toggleReq('tv')" style="cursor:pointer"><input type="checkbox" name="f-req" value="TV / Projector" id="req-cb-tv" style="pointer-events:none"/>📺 TV / Projector</label>
             <label class="checkbox-pill" onclick="toggleReq('wifi')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Wi-Fi" id="req-cb-wifi" style="pointer-events:none"/>📶 Wi-Fi</label>
-            <label class="checkbox-pill" onclick="toggleReq('chairs')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Extra Chairs / Tables" id="req-cb-chairs" style="pointer-events:none"/>🪑 Extra Chairs / Tables</label>
+            <label class="checkbox-pill" onclick="toggleReq('chairs')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Extra Chairs / Tables" id="req-cb-chairs" style="pointer-events:none"/>🪑 Chairs / Tables</label>
             <label class="checkbox-pill" onclick="toggleReq('vc')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Video Conferencing" id="req-cb-vc" style="pointer-events:none"/>💻 Video Conferencing</label>
             <label class="checkbox-pill" onclick="toggleReq('other')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Other" id="req-cb-other" style="pointer-events:none"/>➕ Other</label>
           </div>
@@ -977,7 +1025,7 @@ textarea{min-height:96px;resize:vertical}
           <div id="req-wrap-stationery" class="hidden" style="margin-top:8px"><textarea id="req-note-stationery" rows="2" placeholder="Details for Stationery…"                style="resize:vertical;min-height:64px"></textarea></div>
           <div id="req-wrap-tv"         class="hidden" style="margin-top:8px"><textarea id="req-note-tv"         rows="2" placeholder="Details for TV / Projector…"            style="resize:vertical;min-height:64px"></textarea></div>
           <div id="req-wrap-wifi"       class="hidden" style="margin-top:8px"><textarea id="req-note-wifi"       rows="2" placeholder="Details for Wi-Fi…"                     style="resize:vertical;min-height:64px"></textarea></div>
-          <div id="req-wrap-chairs"     class="hidden" style="margin-top:8px"><textarea id="req-note-chairs"     rows="2" placeholder="Details for Extra Chairs / Tables…"     style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-chairs"     class="hidden" style="margin-top:8px"><textarea id="req-note-chairs"     rows="2" placeholder="Details for Chairs / Tables…"           style="resize:vertical;min-height:64px"></textarea></div>
           <div id="req-wrap-vc"         class="hidden" style="margin-top:8px"><textarea id="req-note-vc"         rows="2" placeholder="Details for Video Conferencing…"        style="resize:vertical;min-height:64px"></textarea></div>
           <div id="req-wrap-other"      class="hidden" style="margin-top:8px"><textarea id="req-note-other"      rows="2" placeholder="Describe your additional requirement…"  style="resize:vertical;min-height:64px"></textarea></div>
         </div>
