@@ -4,491 +4,1050 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Karigar – Book a Skill Session</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+/* ─── RESET & TOKENS ──────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f1f0ed;
-  --surface:#ffffff;
-  --primary:#2d3a8c;
-  --primary-dark:#1e2766;
-  --primary-light:#eef0fb;
-  --accent:#c97d2a;
-  --accent-light:#fdf3e3;
-  --green:#0f6b4a;
-  --green-bg:#e6f5ef;
-  --red:#b91c1c;
-  --red-bg:#fee2e2;
-  --amber:#b45309;
-  --amber-bg:#fef3c7;
-  --text:#18181b;
-  --muted:#6b7280;
-  --border:#ddd8d0;
-  --shadow:0 2px 8px rgba(0,0,0,.08);
-  --shadow-md:0 4px 20px rgba(0,0,0,.12);
+  --bg:#F5F0EA;
+  --surface:#FFFFFF;
+  --primary:#C96F53;
+  --primary-dark:#B05842;
+  --primary-light:#FBF0EC;
+  --accent:#B8843F;
+  --accent-light:#FBF5EC;
+  --green:#4D7A50;
+  --green-bg:#EBF2EA;
+  --red:#B91C1C;
+  --red-bg:#FEE2E2;
+  --amber:#B45309;
+  --amber-bg:#FEF3C7;
+  --text:#1A1410;
+  --muted:#7C756D;
+  --border:#E2D8CE;
+  --shadow:0 1px 3px rgba(26,20,16,.04),0 4px 20px rgba(26,20,16,.07);
+  --shadow-md:0 6px 28px rgba(26,20,16,.11);
+  --r:12px;
+  --r-lg:18px;
 }
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);min-height:100vh;padding-bottom:60px;color:var(--text)}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  min-height:100vh;
+  color:var(--text);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
 
-/* ─── HERO ─── */
-.hero{background:linear-gradient(135deg,#1e2766 0%,#2d3a8c 60%,#3d4fb5 100%);padding:30px 20px 26px;text-align:center;color:white;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:5px 15px;margin-bottom:14px;font-size:.75rem;font-weight:700;letter-spacing:.3px}
-.hero h1{font-size:1.8rem;font-weight:800;margin-bottom:6px;letter-spacing:-.5px}
-.hero h1 em{font-style:normal;color:#f5c842}
-.hero p{font-size:.83rem;opacity:.75;max-width:480px;margin:0 auto 14px;line-height:1.5}
-.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
-.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:3px 11px;font-size:.69rem;font-weight:600}
+/* ─── TOP SHELL ───────────────────────────────────────────── */
+.top-shell{
+  min-height:92vh;
+  display:flex;
+  align-items:center;
+  padding:64px max(5vw,24px);
+}
+.ts-inner{
+  max-width:1100px;
+  width:100%;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 440px;
+  gap:80px;
+  align-items:center;
+}
 
-/* ─── LAYOUT ─── */
-.wrap{max-width:740px;margin:0 auto;padding:22px 16px 0}
+/* Brand side */
+.ts-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin-bottom:22px;
+}
+.ts-eyebrow::before{
+  content:'';
+  display:block;
+  width:22px;
+  height:1.5px;
+  background:var(--primary);
+  flex-shrink:0;
+}
+.ts-wordmark{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:clamp(4rem,9vw,6.8rem);
+  line-height:.9;
+  color:var(--text);
+  letter-spacing:-0.025em;
+  margin-bottom:22px;
+}
+.ts-rule{
+  width:34px;
+  height:2px;
+  background:var(--primary);
+  margin-bottom:18px;
+}
+.ts-subtitle{
+  font-size:.98rem;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:5px;
+}
+.ts-org{
+  font-size:.82rem;
+  color:var(--muted);
+}
+.ts-tagline{
+  margin-top:28px;
+  padding-top:24px;
+  border-top:1px solid var(--border);
+  font-size:.78rem;
+  color:var(--muted);
+  line-height:1.65;
+  max-width:300px;
+}
 
-/* ─── SETUP ALERT ─── */
-.setup-alert{background:#fffbeb;border:2px solid #f59e0b;border-radius:14px;padding:16px 18px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start}
-.setup-alert .icon{font-size:1.4rem;flex-shrink:0;margin-top:1px}
-.setup-alert h3{font-size:.9rem;font-weight:700;color:#92400e;margin-bottom:4px}
-.setup-alert p{font-size:.8rem;color:#78350f;line-height:1.4}
-.setup-alert button{margin-top:8px;padding:6px 14px;background:#f59e0b;color:white;border:none;border-radius:8px;font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit}
+/* Action nav side */
+.ts-nav-label{
+  font-size:.66rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+  padding-left:2px;
+}
+.action-list{
+  border:1.5px solid var(--border);
+  border-radius:var(--r-lg);
+  background:var(--surface);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.action-item{
+  display:flex;
+  align-items:center;
+  width:100%;
+  border:none;
+  border-bottom:1px solid var(--border);
+  background:transparent;
+  cursor:pointer;
+  font-family:inherit;
+  text-align:left;
+  padding:0;
+  transition:background .18s ease;
+  position:relative;
+}
+.action-item:last-child{border-bottom:none}
+.action-item:hover{background:#FAF6F1}
+.action-item.ac-active{background:var(--primary-light)}
+.action-item.ac-active .ai-num{color:var(--primary)}
+.action-item.ac-active .ai-title{color:var(--primary-dark)}
+.ai-num{
+  flex:0 0 52px;
+  padding:22px 0 22px 22px;
+  font-size:.68rem;
+  font-weight:700;
+  color:var(--muted);
+  letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;
+  transition:color .18s;
+}
+.ai-content{
+  flex:1;
+  padding:20px 10px 20px 0;
+}
+.ai-title{
+  font-size:.92rem;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+  transition:color .18s;
+}
+.ai-desc{
+  font-size:.74rem;
+  color:var(--muted);
+  font-weight:400;
+}
+.ai-arrow{
+  flex:0 0 50px;
+  padding:22px 22px 22px 0;
+  font-size:1rem;
+  color:var(--border);
+  transition:color .18s,transform .18s;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.action-item:hover .ai-arrow,.action-item.ac-active .ai-arrow{
+  color:var(--primary);
+  transform:translateX(3px);
+}
+.ts-nav-hint{
+  font-size:.7rem;
+  color:var(--muted);
+  margin-top:10px;
+  padding-left:2px;
+  font-weight:400;
+}
 
-/* ─── TABS ─── */
-.tabs{display:flex;background:white;border-radius:12px;padding:5px;margin-bottom:18px;box-shadow:var(--shadow);gap:4px}
-.tab-btn{flex:1;padding:10px 6px;border:none;background:none;border-radius:9px;cursor:pointer;font-size:.82rem;font-family:inherit;font-weight:600;color:var(--muted);transition:all .2s;white-space:nowrap}
-.tab-btn.active{background:var(--primary);color:white}
+/* ─── CONTENT AREA ────────────────────────────────────────── */
+.content-wrap{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:40px max(4vw,16px) 80px;
+}
+.content-inner{
+  max-width:760px;
+  margin:0 auto;
+}
 
-/* ─── CARD ─── */
-.card{background:var(--surface);border-radius:18px;padding:26px;box-shadow:var(--shadow)}
+/* Section breadcrumb header */
+.section-hdr{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.back-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:.78rem;
+  font-weight:500;
+  color:var(--muted);
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:7px 0;
+  font-family:inherit;
+  transition:color .18s;
+}
+.back-btn:hover{color:var(--text)}
+.back-btn::before{content:'←';margin-right:1px}
+.section-crumb{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-style:italic;
+  font-size:1.1rem;
+  font-weight:500;
+  color:var(--muted);
+  letter-spacing:.01em;
+}
 
-/* ─── STEP INDICATOR ─── */
-.steps{display:flex;justify-content:space-between;margin-bottom:28px;position:relative}
-.steps::before{content:'';position:absolute;top:14px;left:8%;right:8%;height:2px;background:var(--border);z-index:0}
-.step{display:flex;flex-direction:column;align-items:center;gap:5px;z-index:1}
-.sc{width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;transition:all .3s}
-.step.active .sc{background:var(--primary);color:white;box-shadow:0 0 0 4px var(--primary-light)}
-.step.done .sc{background:#10b981;color:white}
-.sl{font-size:.62rem;color:var(--muted);text-align:center;font-weight:600}
+/* ─── CARD ────────────────────────────────────────────────── */
+.card{
+  background:var(--surface);
+  border-radius:var(--r-lg);
+  padding:32px 36px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+
+/* ─── STEP INDICATOR ──────────────────────────────────────── */
+.steps{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:32px;
+  position:relative;
+}
+.steps::before{
+  content:'';
+  position:absolute;
+  top:11px;
+  left:calc(10% + 12px);
+  right:calc(10% + 12px);
+  height:1px;
+  background:var(--border);
+  z-index:0;
+}
+.step{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  z-index:1;
+}
+.sc{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:.62rem;
+  transition:all .25s;
+}
+.step.active .sc{
+  background:var(--primary);
+  color:white;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px var(--primary-light);
+}
+.step.done .sc{
+  background:var(--green);
+  color:white;
+  border-color:var(--green);
+}
+.sl{
+  font-size:.59rem;
+  color:var(--muted);
+  text-align:center;
+  font-weight:500;
+  letter-spacing:.02em;
+}
 .step.active .sl{color:var(--primary);font-weight:700}
-.step.done .sl{color:#10b981}
+.step.done .sl{color:var(--green)}
 
-/* ─── STEP CONTENT ─── */
-.ttl{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:5px}
-.sub{font-size:.82rem;color:var(--muted);margin-bottom:18px;line-height:1.4}
+/* ─── STEP HEADINGS ───────────────────────────────────────── */
+.ttl{
+  font-size:1.12rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:5px;
+  letter-spacing:-.01em;
+}
+.sub{
+  font-size:.82rem;
+  color:var(--muted);
+  margin-bottom:22px;
+  line-height:1.55;
+}
 
-/* ─── DURATION CARDS ─── */
-.dur-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
-.dur-card{border:2.5px solid var(--border);border-radius:16px;padding:20px 10px;text-align:center;cursor:pointer;transition:all .2s}
-.dur-card:hover{border-color:#a5b4fc;background:var(--primary-light)}
-.dur-card.selected{border-color:var(--primary);background:var(--primary-light)}
-.di{font-size:2rem;margin-bottom:8px}
-.dt{font-weight:700;color:var(--text);font-size:.92rem}
-.dur-card.selected .dt{color:var(--primary)}
-.dd{font-size:.71rem;color:var(--muted);margin-top:4px;line-height:1.4}
+/* ─── DURATION CARDS ──────────────────────────────────────── */
+.dur-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:24px;
+}
+.dur-card{
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  padding:22px 12px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  background:white;
+}
+.dur-card:hover{
+  border-color:var(--primary);
+  background:var(--primary-light);
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(201,111,83,.12);
+}
+.dur-card.selected{
+  border-color:var(--primary);
+  background:var(--primary-light);
+  box-shadow:0 4px 14px rgba(201,111,83,.14);
+}
+.di{font-size:1.75rem;margin-bottom:10px}
+.dt{font-weight:600;color:var(--text);font-size:.88rem}
+.dur-card.selected .dt{color:var(--primary-dark)}
+.dd{font-size:.72rem;color:var(--muted);margin-top:5px;line-height:1.45}
 
-/* ─── CALENDAR SECTION ─── */
-.cal-wrap{border:2px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px}
-.cal-head{background:linear-gradient(90deg,var(--primary),#3d4fb5);padding:11px 16px;display:flex;align-items:center;justify-content:space-between}
-.cal-head span{color:white;font-size:.82rem;font-weight:700}
-.cal-head small{color:rgba(255,255,255,.7);font-size:.7rem}
-.cal-frame{width:100%;height:480px;border:none;display:block;background:white}
+/* ─── CALENDAR ────────────────────────────────────────────── */
+.cal-wrap{
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:16px;
+}
+.cal-head{
+  background:var(--primary);
+  padding:11px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.cal-head span{color:white;font-size:.8rem;font-weight:600}
+.cal-head small{color:rgba(255,255,255,.6);font-size:.68rem}
+.cal-frame{width:100%;height:460px;border:none;display:block;background:white}
 
-.date-box{background:var(--primary-light);border-radius:12px;padding:16px;margin-bottom:14px;border:1.5px solid #c7d2fe}
-.date-label{font-size:.82rem;font-weight:700;color:var(--primary);margin-bottom:9px}
-.date-input{width:100%;padding:11px 14px;border:2px solid #c7d2fe;border-radius:10px;font-size:.93rem;font-family:inherit;color:var(--text);background:white;outline:none;cursor:pointer}
+.date-box{
+  background:var(--primary-light);
+  border-radius:var(--r);
+  padding:16px 18px;
+  margin-bottom:16px;
+  border:1.5px solid #E8C5B8;
+}
+.date-label{
+  font-size:.72rem;
+  font-weight:700;
+  color:var(--primary-dark);
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.date-input{
+  width:100%;
+  padding:10px 14px;
+  border:1.5px solid #E8C5B8;
+  border-radius:9px;
+  font-size:.9rem;
+  font-family:inherit;
+  color:var(--text);
+  background:white;
+  outline:none;
+  cursor:pointer;
+  transition:border .2s;
+}
 .date-input:focus{border-color:var(--primary)}
-.date-note{font-size:.72rem;color:var(--accent);font-weight:600;margin-top:7px;display:flex;align-items:center;gap:5px}
+.date-note{
+  font-size:.72rem;
+  color:var(--accent);
+  font-weight:500;
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
 
-.msg{border-radius:9px;padding:8px 12px;font-size:.79rem;font-weight:600;margin-top:8px}
-.msg-ok{background:var(--green-bg);color:var(--green)}
-.msg-err{background:var(--red-bg);color:var(--red)}
-.msg-warn{background:var(--amber-bg);color:var(--amber)}
-
-/* ─── DAY PANEL ─── */
-.day-panel{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
-.dp-head{background:#1e293b;color:white;padding:11px 16px;font-size:.85rem;font-weight:700;display:flex;align-items:center;justify-content:space-between}
-.dp-head small{opacity:.6;font-size:.73rem;font-weight:400}
-.dp-body{background:#0f172a;padding:2px 0 4px}
-.dp-event{display:grid;grid-template-columns:4px 1fr auto;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #1e293b}
-.dp-event:last-child{border:none}
-.dp-bar{border-radius:4px;align-self:stretch;min-height:38px}
-.bar-a{background:#16a34a}
-.bar-p{background:#3b82f6}
-.dp-name{color:#f1f5f9;font-weight:700;font-size:.85rem}
-.dp-meta{color:#64748b;font-size:.74rem;margin-top:2px}
-.dp-badge{font-size:.67rem;font-weight:700;padding:3px 9px;border-radius:20px}
-.db-a{background:#16a34a;color:white}
-.db-p{background:#3b82f6;color:white}
-.dp-empty{color:#475569;font-style:italic;padding:13px 15px;font-size:.82rem}
-.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.71rem;color:var(--muted);margin:6px 0 12px;align-items:center}
-.leg{display:flex;align-items:center;gap:5px}
-.leg-dot{width:10px;height:10px;border-radius:2px}
-
-/* ─── TIME PICKER ─── */
-.tp-card{border:2px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:10px}
-.tp-head{background:#f8fafc;padding:10px 16px;border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted);font-weight:600}
-.tp-body{padding:18px 16px}
-.tp-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.tp-block{flex:1;min-width:190px;max-width:240px}
-.tp-lbl{font-size:.71rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;text-align:center}
-.spinners{display:flex;align-items:center;justify-content:center;gap:7px}
-.sg{display:flex;flex-direction:column;align-items:center;gap:4px}
-.sg-sub{font-size:.62rem;color:var(--muted);font-weight:600;text-transform:uppercase;height:14px}
-.spb{width:32px;height:32px;border:1.5px solid var(--border);border-radius:7px;background:white;cursor:pointer;font-size:.88rem;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s}
-.spb:hover{background:var(--primary-light);border-color:#a5b4fc}
-.spv{font-size:1.5rem;font-weight:800;color:var(--text);min-width:50px;text-align:center;background:#f8fafc;border:2px solid var(--border);border-radius:9px;padding:7px 4px;line-height:1}
-.sc2{font-size:1.5rem;font-weight:700;color:var(--primary);margin:0 1px;align-self:center;padding-top:14px}
-.ap-row{display:flex;gap:5px;margin-top:5px;justify-content:center}
-.apb{padding:5px 12px;border:2px solid var(--border);border-radius:7px;background:white;cursor:pointer;font-weight:700;font-size:.8rem;color:var(--muted);transition:all .15s;font-family:inherit}
-.apb.on{background:var(--primary);color:white;border-color:var(--primary)}
-.tp-div{width:1px;background:var(--border);align-self:stretch;margin:0 4px}
-
-.range-box{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px;background:#f0f4ff;border-radius:11px;padding:12px;flex-wrap:wrap}
-.rb{text-align:center}
-.rb-l{font-size:.63rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
-.rb-v{font-size:1rem;font-weight:800;color:var(--text)}
-.rb-arr{font-size:1.1rem;font-weight:700;color:var(--primary)}
-.rb-dur{background:var(--primary);color:white;border-radius:20px;padding:3px 12px;font-size:.74rem;font-weight:700}
-
-.presets{margin-top:14px}
-.pr-lbl{font-size:.74rem;font-weight:700;color:#94a3b8;margin-bottom:7px}
-.pr-row{display:flex;flex-wrap:wrap;gap:6px}
-.pr-btn{padding:5px 11px;border:1.5px solid var(--border);border-radius:20px;background:white;cursor:pointer;font-size:.74rem;font-weight:600;color:#4a5568;transition:all .15s;font-family:inherit}
-.pr-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
-.pr-btn.on{background:var(--primary);color:white;border-color:var(--primary)}
-
-/* ─── FORM ─── */
-.fg{margin-bottom:14px}
-label{display:block;font-size:.81rem;font-weight:700;color:#374151;margin-bottom:5px}
-input,select,textarea{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:10px;font-size:.9rem;outline:none;transition:border .2s;font-family:inherit;color:var(--text);background:white}
-input:focus,select:focus,textarea:focus{border-color:var(--primary)}
-textarea{min-height:96px;resize:vertical}
-.checkbox-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.checkbox-pill{display:flex;align-items:center;gap:8px;padding:10px 12px;border:2px solid var(--border);border-radius:12px;background:white;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--text)}
-.checkbox-pill input{width:auto;flex:0 0 auto;margin:0;padding:0;border:none;accent-color:var(--primary)}
-.checkbox-pill:has(input:checked){border-color:var(--primary);background:var(--primary-light)}
-.field-help{font-size:.73rem;color:var(--muted);margin-top:6px}
-.date-tile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:10px;margin:14px 0 10px}
-.date-tile{border:2px solid var(--border);border-radius:14px;background:white;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s}
+/* Date tiles grid */
+.date-tile-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(86px,1fr));
+  gap:8px;
+  margin:2px 0 16px;
+}
+.date-tile{
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  background:white;
+  padding:10px 8px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s;
+  font-family:inherit;
+  outline:none;
+}
 .date-tile:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
-.date-tile small{display:block;font-size:.67rem;color:var(--muted);font-weight:700;margin-bottom:3px}
-.date-tile strong{display:block;font-size:1rem;color:var(--text);margin-bottom:4px}
-.date-tile span{display:block;font-size:.68rem;font-weight:700}
-.date-tile.available{background:#f0fdf4;border-color:#86efac}
-.date-tile.available span{color:#166534}
+.date-tile small{display:block;font-size:.63rem;color:var(--muted);font-weight:600;margin-bottom:3px}
+.date-tile strong{display:block;font-size:.96rem;color:var(--text);margin-bottom:4px;font-weight:700}
+.date-tile span{display:block;font-size:.64rem;font-weight:600}
+.date-tile.available{background:var(--green-bg);border-color:#B8CEBA}
+.date-tile.available span{color:var(--green)}
 .date-tile.pending{background:#fffbeb;border-color:#fcd34d}
 .date-tile.pending span{color:#92400e}
 .date-tile.booked{background:#fef2f2;border-color:#fca5a5}
 .date-tile.booked span{color:#991b1b}
-.date-tile.selected{box-shadow:0 0 0 3px var(--primary-light);border-color:var(--primary)}
+.date-tile.selected{box-shadow:0 0 0 2px var(--primary);border-color:var(--primary)}
 
-/* ─── BUTTONS ─── */
-.btn{padding:11px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit}
+/* Messages */
+.msg{border-radius:8px;padding:8px 13px;font-size:.79rem;font-weight:500;margin-top:10px}
+.msg-ok{background:var(--green-bg);color:var(--green)}
+.msg-err{background:var(--red-bg);color:var(--red)}
+.msg-warn{background:var(--amber-bg);color:var(--amber)}
+
+/* ─── DAY PANEL ───────────────────────────────────────────── */
+.day-panel{
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:14px;
+}
+.dp-head{
+  background:#1A1410;
+  color:white;
+  padding:11px 16px;
+  font-size:.83rem;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.dp-head small{opacity:.5;font-size:.71rem;font-weight:400}
+.dp-body{background:#130F0C;padding:2px 0 4px}
+.dp-event{
+  display:grid;
+  grid-template-columns:4px 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-bottom:1px solid #201A17;
+}
+.dp-event:last-child{border:none}
+.dp-bar{border-radius:4px;align-self:stretch;min-height:36px}
+.bar-a{background:var(--green)}
+.bar-p{background:#7BA7C2}
+.dp-name{color:#F5F0EA;font-weight:600;font-size:.83rem}
+.dp-meta{color:#8A837C;font-size:.72rem;margin-top:2px}
+.dp-badge{font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:20px}
+.db-a{background:var(--green);color:white}
+.db-p{background:#7BA7C2;color:white}
+.dp-empty{color:#8A837C;font-style:italic;padding:14px 16px;font-size:.81rem}
+
+.legend{
+  display:flex;gap:14px;flex-wrap:wrap;font-size:.71rem;
+  color:var(--muted);margin:6px 0 12px;align-items:center;
+}
+.leg{display:flex;align-items:center;gap:5px}
+.leg-dot{width:8px;height:8px;border-radius:2px}
+
+/* ─── TIME PICKER ─────────────────────────────────────────── */
+.tp-card{
+  border:1.5px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:14px;
+  background:white;
+}
+.tp-head{
+  background:var(--bg);
+  padding:10px 16px;
+  border-bottom:1px solid var(--border);
+  font-size:.77rem;
+  color:var(--muted);
+  font-weight:500;
+}
+.tp-body{padding:20px 16px}
+.tp-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.tp-block{flex:1;min-width:190px;max-width:240px}
+.tp-lbl{
+  font-size:.68rem;font-weight:700;color:var(--primary);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;text-align:center;
+}
+.spinners{display:flex;align-items:center;justify-content:center;gap:7px}
+.sg{display:flex;flex-direction:column;align-items:center;gap:4px}
+.sg-sub{font-size:.59rem;color:var(--muted);font-weight:600;text-transform:uppercase;height:14px}
+.spb{
+  width:30px;height:30px;border:1.5px solid var(--border);border-radius:7px;
+  background:white;cursor:pointer;font-size:.84rem;color:var(--primary);
+  display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .15s;
+}
+.spb:hover{background:var(--primary-light);border-color:var(--primary)}
+.spv{
+  font-size:1.4rem;font-weight:700;color:var(--text);min-width:46px;text-align:center;
+  background:var(--bg);border:1.5px solid var(--border);border-radius:8px;
+  padding:7px 4px;line-height:1;
+}
+.sc2{font-size:1.35rem;font-weight:600;color:var(--primary);margin:0 2px;align-self:center;padding-top:14px}
+.ap-row{display:flex;gap:5px;margin-top:6px;justify-content:center}
+.apb{
+  padding:5px 12px;border:1.5px solid var(--border);border-radius:7px;background:white;
+  cursor:pointer;font-weight:600;font-size:.77rem;color:var(--muted);
+  transition:all .15s;font-family:inherit;
+}
+.apb.on{background:var(--primary);color:white;border-color:var(--primary)}
+.tp-div{width:1px;background:var(--border);align-self:stretch;margin:0 4px}
+
+.range-box{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin-top:18px;background:var(--primary-light);border-radius:10px;
+  padding:13px;flex-wrap:wrap;
+}
+.rb{text-align:center}
+.rb-l{font-size:.6rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.rb-v{font-size:.96rem;font-weight:700;color:var(--text)}
+.rb-arr{font-size:1rem;font-weight:600;color:var(--primary)}
+.rb-dur{background:var(--primary);color:white;border-radius:20px;padding:3px 12px;font-size:.72rem;font-weight:700}
+
+.presets{margin-top:14px}
+.pr-lbl{font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:8px}
+.pr-row{display:flex;flex-wrap:wrap;gap:7px}
+.pr-btn{
+  padding:5px 13px;border:1.5px solid var(--border);border-radius:20px;background:white;
+  cursor:pointer;font-size:.73rem;font-weight:500;color:var(--muted);
+  transition:all .15s;font-family:inherit;
+}
+.pr-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.pr-btn.on{background:var(--primary);color:white;border-color:var(--primary)}
+
+/* ─── FORM ────────────────────────────────────────────────── */
+.fg{margin-bottom:16px}
+label{
+  display:block;font-size:.77rem;font-weight:600;
+  color:#574F4A;margin-bottom:6px;letter-spacing:.01em;
+}
+input,select,textarea{
+  width:100%;padding:10px 14px;border:1.5px solid var(--border);
+  border-radius:9px;font-size:.89rem;outline:none;
+  transition:border .2s,box-shadow .2s;font-family:inherit;
+  color:var(--text);background:white;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(201,111,83,.08);
+}
+textarea{min-height:96px;resize:vertical}
+.checkbox-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:8px;
+}
+.checkbox-pill{
+  display:flex;align-items:center;gap:8px;padding:9px 12px;
+  border:1.5px solid var(--border);border-radius:9px;background:white;
+  cursor:pointer;font-size:.81rem;font-weight:500;color:var(--text);
+  transition:all .15s;
+}
+.checkbox-pill input{
+  width:auto;flex:0 0 auto;margin:0;padding:0;
+  border:none;box-shadow:none;accent-color:var(--primary);
+}
+.checkbox-pill:has(input:checked){border-color:var(--primary);background:var(--primary-light)}
+.field-help{font-size:.71rem;color:var(--muted);margin-top:6px}
+
+/* ─── BUTTONS ─────────────────────────────────────────────── */
+.btn{
+  padding:11px 20px;border:none;border-radius:9px;font-size:.87rem;
+  font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;letter-spacing:.01em;
+}
 .btn-p{background:var(--primary);color:white;width:100%}
-.btn-p:hover:not(:disabled){background:var(--primary-dark)}
-.btn-p:disabled{background:#a5b4fc;cursor:not-allowed}
-.btn-s{background:#f7fafc;color:#4a5568;border:2px solid var(--border)}
-.btn-s:hover{background:#edf2f7}
-.btn-row{display:flex;gap:10px;margin-top:20px}
-.btn-accent{background:var(--accent);color:white;border:none;border-radius:10px;padding:10px 20px;font-weight:700;font-size:.88rem;cursor:pointer;font-family:inherit;transition:all .2s}
-.btn-accent:hover{background:#b86d1a}
+.btn-p:hover:not(:disabled){
+  background:var(--primary-dark);
+  box-shadow:0 4px 16px rgba(201,111,83,.28);
+}
+.btn-p:disabled{background:#E8B9A8;cursor:not-allowed}
+.btn-s{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+.btn-s:hover{background:#EDE7DF;color:var(--text)}
+.btn-row{display:flex;gap:10px;margin-top:22px}
+.btn-accent{
+  background:var(--accent);color:white;border:none;border-radius:9px;
+  padding:10px 20px;font-weight:600;font-size:.85rem;cursor:pointer;
+  font-family:inherit;transition:all .2s;width:100%;
+}
+.btn-accent:hover{background:#A07234}
 
-/* ─── SUMMARY ─── */
-.summ{background:#f7fafc;border-radius:11px;padding:15px;margin-bottom:15px}
-.sr{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:.87rem;border-bottom:1px solid #edf2f7}
+/* ─── SUMMARY ─────────────────────────────────────────────── */
+.summ{
+  background:var(--bg);border-radius:var(--r);
+  padding:16px 18px;margin-bottom:18px;border:1px solid var(--border);
+}
+.sr{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:8px 0;font-size:.85rem;border-bottom:1px solid var(--border);gap:12px;
+}
 .sr:last-child{border:none}
-.sl2{color:var(--muted)}
-.sv{font-weight:700;color:var(--text);text-align:right}
-.pill{border-radius:20px;padding:2px 11px;font-size:.77rem;font-weight:700}
+.sl2{color:var(--muted);flex-shrink:0}
+.sv{font-weight:600;color:var(--text);text-align:right;word-break:break-word}
+.pill{border-radius:20px;padding:2px 11px;font-size:.74rem;font-weight:600}
 .pill-p{background:var(--primary-light);color:var(--primary)}
 .pill-t{background:var(--green-bg);color:var(--green)}
 
-/* ─── SUCCESS ─── */
-.sbox{text-align:center;padding:16px 0}
-.sbox h2{font-size:1.4rem;font-weight:800;color:var(--text);margin:12px 0 7px}
-.sbox p{color:var(--muted);font-size:.86rem;margin-bottom:3px;line-height:1.5}
-.bid{display:inline-block;background:var(--primary-light);color:var(--primary);padding:8px 18px;border-radius:8px;font-weight:800;margin:11px 0;font-size:.92rem;letter-spacing:2px;border:2px dashed #c7d2fe}
+/* ─── SUCCESS ─────────────────────────────────────────────── */
+.sbox{text-align:center;padding:20px 0}
+.sbox h2{
+  font-size:1.5rem;font-weight:700;color:var(--text);
+  margin:12px 0 8px;letter-spacing:-.02em;
+}
+.sbox p{color:var(--muted);font-size:.85rem;margin-bottom:4px;line-height:1.6}
+.bid{
+  display:inline-block;background:var(--primary-light);color:var(--primary);
+  padding:9px 20px;border-radius:8px;font-weight:700;margin:14px 0;
+  font-size:.88rem;letter-spacing:.12em;border:1.5px dashed #E8C5B8;
+  font-family:monospace;
+}
 
-/* ─── STATUS CARDS ─── */
-.stcard{background:#f7fafc;border-radius:12px;padding:16px;margin-top:12px;border:1.5px solid var(--border)}
-.stcard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.stb{display:inline-block;padding:3px 12px;border-radius:20px;font-weight:700;font-size:.76rem}
+/* ─── STATUS CARDS ────────────────────────────────────────── */
+.stcard{
+  background:var(--bg);border-radius:var(--r);padding:18px;
+  margin-top:14px;border:1.5px solid var(--border);
+}
+.stcard-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.stb{display:inline-block;padding:3px 12px;border-radius:20px;font-weight:700;font-size:.73rem;letter-spacing:.02em}
 .stb-Pending{background:var(--amber-bg);color:var(--amber)}
 .stb-Approved{background:var(--green-bg);color:var(--green)}
 .stb-Declined{background:var(--red-bg);color:var(--red)}
-.stb-Rescheduled{background:#f3f4f6;color:#6b7280}
-.stmsg{margin-top:10px;padding:9px 13px;border-radius:8px;font-weight:600;font-size:.83rem}
+.stb-Rescheduled{background:#F0ECE6;color:#7A7571}
+.stb-Cancelled{background:#e2e8f0;color:#475569}
+.stmsg{margin-top:12px;padding:10px 14px;border-radius:8px;font-weight:500;font-size:.81rem}
 .sm-a{background:var(--green-bg);color:var(--green)}
 .sm-d{background:var(--red-bg);color:var(--red)}
 .sm-p{background:var(--amber-bg);color:var(--amber)}
 
-/* ─── RESCHEDULE ─── */
-.reschedule-box{margin-top:14px;border-top:1.5px dashed var(--border);padding-top:14px}
-.reschedule-box h4{font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:10px}
-.reschedule-form{background:var(--accent-light);border-radius:10px;padding:14px;border:1.5px solid #e8c97a}
+/* ─── RESCHEDULE ──────────────────────────────────────────── */
+.reschedule-box{margin-top:16px;border-top:1px dashed var(--border);padding-top:16px}
+.reschedule-box h4{font-size:.83rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.reschedule-form{
+  background:var(--accent-light);border-radius:10px;
+  padding:16px;border:1.5px solid #e8c97a;
+}
 .reschedule-form label{color:#78350f}
 .reschedule-form input{border-color:#e8c97a}
 .reschedule-form input:focus{border-color:var(--accent)}
 
-/* ─── SETUP TAB ─── */
-.setup-steps{counter-reset:step}
-.setup-step{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
-.setup-step::before{counter-increment:step;content:counter(step);min-width:32px;height:32px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;margin-top:2px}
-.setup-step h3{font-size:.92rem;font-weight:700;color:var(--text);margin-bottom:5px}
-.setup-step p{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:6px}
-.setup-step code{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:5px;padding:2px 7px;font-size:.77rem;color:#1e40af;word-break:break-all}
-.setup-step a{color:var(--primary);font-weight:600;font-size:.8rem}
-.config-box{background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-top:16px}
-.config-box h3{font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px}
-.config-saved{font-size:.76rem;color:var(--green);font-weight:600;display:none;margin-top:8px}
-
-/* ─── MISC ─── */
-.spin{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:24px;height:24px;animation:sp .8s linear infinite;margin:16px auto}
+/* ─── MISC ────────────────────────────────────────────────── */
+.spin{
+  border:2px solid var(--border);border-top:2px solid var(--primary);
+  border-radius:50%;width:22px;height:22px;
+  animation:sp .7s linear infinite;margin:20px auto;
+}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
-.alert{padding:10px 14px;border-radius:9px;margin-bottom:12px;font-size:.84rem;font-weight:600}
+.alert{
+  padding:10px 14px;border-radius:9px;margin-bottom:14px;
+  font-size:.82rem;font-weight:500;line-height:1.45;
+}
 .ae{background:var(--red-bg);color:var(--red)}
 .ai{background:#e0f2fe;color:#0c4a6e}
-.separator{height:1px;background:var(--border);margin:16px 0}
+.separator{height:1px;background:var(--border);margin:18px 0}
 
+/* Hidden tabs — kept in DOM for switchTab() JS logic, not displayed */
+.tabs{display:none!important}
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+.site-footer{
+  text-align:center;padding:28px 20px 40px;font-size:.69rem;
+  color:var(--muted);border-top:1px solid var(--border);line-height:1.8;
+}
+.site-footer code{
+  background:var(--surface);border:1px solid var(--border);border-radius:4px;
+  padding:1px 6px;font-size:.67rem;color:var(--primary-dark);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:800px){
+  .ts-inner{grid-template-columns:1fr;gap:36px}
+  .ts-wordmark{font-size:clamp(3rem,13vw,4.5rem)}
+  .top-shell{min-height:auto;padding:48px 20px 40px}
+  .ts-tagline{max-width:100%}
+}
 @media(max-width:500px){
   .dur-grid{grid-template-columns:1fr}
-  .card{padding:16px 12px}
+  .card{padding:20px 16px}
   .tp-div{display:none}
   .tp-block{min-width:155px}
-  .hero h1{font-size:1.45rem}
+  .ts-wordmark{font-size:3rem}
+  .content-wrap{padding:28px 16px 60px}
 }
+
 </style>
 </head>
 <body>
 
-<!-- ─── HERO ─── -->
-<div class="hero">
-  <div class="hero-badge">🛠️ &nbsp;Karigar – School of Applied Learning</div>
-  <h1>Book a <em>Skill Session</em></h1>
-  <p>A flagship initiative by Lend A Hand India · Pune, Maharashtra<br>Hands-on vocational education — the "Disney Land of Skills"</p>
-  <div class="chips">
-    <div class="chip">⚡ Electrical</div><div class="chip">🪵 Carpentry</div>
-    <div class="chip">🔧 Plumbing</div><div class="chip">🎨 Painting</div>
-    <div class="chip">🌱 Landscaping</div><div class="chip">🚗 Auto</div>
-    <div class="chip">💻 IT</div><div class="chip">🍞 Baking</div>
+<!-- ═══════════════════════════════════════════════════════════
+     TOP SHELL  — Brand left · Action nav right
+════════════════════════════════════════════════════════════ -->
+<div class="top-shell">
+  <div class="ts-inner">
+
+    <!-- Brand (left) -->
+    <div class="ts-brand">
+      <div class="ts-eyebrow">Lend A Hand India</div>
+      <div class="ts-wordmark">Karigar</div>
+      <div class="ts-rule"></div>
+      <div class="ts-subtitle">School of Applied Learning</div>
+      <div class="ts-org">Pune, Maharashtra</div>
+      <div class="ts-tagline">
+        Hands-on vocational education.<br>
+        The "Disney Land of Skills."
+      </div>
+    </div>
+
+    <!-- Action nav (right) -->
+    <div class="ts-nav">
+      <div class="ts-nav-label">Get started</div>
+      <div class="action-list" role="navigation" aria-label="Main actions">
+        <button class="action-item" id="ai-book" onclick="showSection('book',this)">
+          <span class="ai-num">01</span>
+          <div class="ai-content">
+            <div class="ai-title">Booking</div>
+            <div class="ai-desc">Reserve a hands-on skill session</div>
+          </div>
+          <span class="ai-arrow">→</span>
+        </button>
+        <button class="action-item" id="ai-mybooking" onclick="showSection('status',this)">
+          <span class="ai-num">02</span>
+          <div class="ai-content">
+            <div class="ai-title">My Booking</div>
+            <div class="ai-desc">Check the status of your booking</div>
+          </div>
+          <span class="ai-arrow">→</span>
+        </button>
+        <button class="action-item" id="ai-reschedule" onclick="showSection('reschedule',this)">
+          <span class="ai-num">03</span>
+          <div class="ai-content">
+            <div class="ai-title">Reschedule</div>
+            <div class="ai-desc">Change your session date or time</div>
+          </div>
+          <span class="ai-arrow">→</span>
+        </button>
+      </div>
+      <div class="ts-nav-hint">Select an option above to continue</div>
+    </div>
+
   </div>
 </div>
 
-<div class="wrap">
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('book',this)">📅 Book a Session</button>
-    <button class="tab-btn" onclick="switchTab('status',this)">🔍 My Booking</button>
+<!-- ═══════════════════════════════════════════════════════════
+     CONTENT AREA  — hidden until an action card is selected
+════════════════════════════════════════════════════════════ -->
+<div id="content-wrap" class="content-wrap hidden">
+
+  <!-- Hidden tab buttons — preserved in DOM for switchTab() -->
+  <div class="tabs" aria-hidden="true">
+    <button class="tab-btn active" data-tab="book" onclick="switchTab('book',this)">Book</button>
+    <button class="tab-btn" data-tab="status" onclick="switchTab('status',this)">Status</button>
   </div>
 
-  <!-- ═══ BOOKING TAB ═══ -->
-  <div id="tab-book" class="card">
-    <!-- Step Indicator -->
-    <div class="steps">
-      <div class="step active" id="si-1"><div class="sc">1</div><span class="sl">Type</span></div>
-      <div class="step"        id="si-2"><div class="sc">2</div><span class="sl">Date</span></div>
-      <div class="step"        id="si-3"><div class="sc">3</div><span class="sl">Time</span></div>
-      <div class="step"        id="si-4"><div class="sc">4</div><span class="sl">Details</span></div>
-      <div class="step"        id="si-5"><div class="sc">5</div><span class="sl">Confirm</span></div>
+  <div class="content-inner">
+
+    <!-- Section breadcrumb -->
+    <div class="section-hdr">
+      <button class="back-btn" onclick="goToTop()">Top</button>
+      <span class="section-crumb" id="section-crumb">Karigar</span>
     </div>
 
-    <!-- STEP 1: Session type -->
-    <div id="step-1">
-      <div class="ttl">What type of session do you need?</div>
-      <div class="sub">Choose the best fit for your project or learning goal</div>
-      <div class="dur-grid">
-        <div class="dur-card" onclick="pickDur('full',this)">
-          <div class="di">📅</div><div class="dt">Full Day</div>
-          <div class="dd">Intensive work<br>Large projects</div>
+    <!-- ═══ BOOKING TAB ═══ -->
+    <div id="tab-book" class="card">
+
+      <!-- Step Indicator -->
+      <div class="steps">
+        <div class="step active" id="si-1"><div class="sc">1</div><span class="sl">Type</span></div>
+        <div class="step"        id="si-2"><div class="sc">2</div><span class="sl">Date</span></div>
+        <div class="step"        id="si-3"><div class="sc">3</div><span class="sl">Time</span></div>
+        <div class="step"        id="si-4"><div class="sc">4</div><span class="sl">Details</span></div>
+        <div class="step"        id="si-5"><div class="sc">5</div><span class="sl">Confirm</span></div>
+      </div>
+
+      <!-- STEP 1: Session type -->
+      <div id="step-1">
+        <div class="ttl">What type of session do you need?</div>
+        <div class="sub">Choose the best fit for your project or learning goal</div>
+        <div class="dur-grid">
+          <div class="dur-card" onclick="pickDur('full',this)">
+            <div class="di">📅</div><div class="dt">Full Day</div>
+            <div class="dd">Intensive work<br>Large projects</div>
+          </div>
+          <div class="dur-card" onclick="pickDur('half',this)">
+            <div class="di">🌗</div><div class="dt">Half Day</div>
+            <div class="dd">Mid-size work<br>Learning sessions</div>
+          </div>
+          <div class="dur-card" onclick="pickDur('hourly',this)">
+            <div class="di">⏰</div><div class="dt">Hourly</div>
+            <div class="dd">Quick fixes<br>Demos &amp; repairs</div>
+          </div>
         </div>
-        <div class="dur-card" onclick="pickDur('half',this)">
-          <div class="di">🌗</div><div class="dt">Half Day</div>
-          <div class="dd">Mid-size work<br>Learning sessions</div>
+        <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
+      </div>
+
+      <!-- STEP 2: Date -->
+      <div id="step-2" class="hidden">
+        <div class="ttl">Choose a Date</div>
+        <div class="sub" id="dur-remind"></div>
+
+        <!-- Live Calendar Embed -->
+        <div class="cal-wrap">
+          <div class="cal-head">
+            <span>Karigar Bookings Calendar</span>
+            <small>Live public Google Calendar</small>
+          </div>
+          <iframe id="cal-iframe" class="cal-frame" src="" frameborder="0" scrolling="no"></iframe>
         </div>
-        <div class="dur-card" onclick="pickDur('hourly',this)">
-          <div class="di">⏰</div><div class="dt">Hourly</div>
-          <div class="dd">Quick fixes<br>Demos &amp; repairs</div>
+
+        <!-- Quick date tile grid (renderDateTiles target) -->
+        <div id="date-tiles" class="date-tile-grid"></div>
+
+        <!-- Date Picker -->
+        <div class="date-box">
+          <div class="date-label">Select your booking date</div>
+          <input type="date" id="date-picker" class="date-input" onchange="onDatePick(this.value)"/>
+          <div class="date-note">⏳ Bookings must be at least <strong>10 full days in advance</strong>. Sundays are open.</div>
+          <div id="date-err" class="msg msg-err hidden"></div>
+          <div id="date-ok"  class="msg msg-ok  hidden"></div>
+        </div>
+
+        <!-- Day bookings panel -->
+        <div id="day-panel" class="day-panel hidden"></div>
+        <div class="legend">
+          <div class="leg"><div class="leg-dot" style="background:#4D7A50"></div> Approved</div>
+          <div class="leg"><div class="leg-dot" style="background:#7BA7C2"></div> Pending</div>
+        </div>
+        <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays are open · Approved sessions appear on the calendar above</p>
+
+        <div class="btn-row">
+          <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(1)">← Back</button>
+          <button class="btn btn-p" id="btn-n2" onclick="goStep(3)" disabled>Next: Set Time →</button>
         </div>
       </div>
-      <button class="btn btn-p" id="btn-n1" onclick="goStep(2)" disabled>Next: Pick a Date →</button>
-    </div>
 
-    <!-- STEP 2: Date -->
-    <div id="step-2" class="hidden">
-      <div class="ttl">Choose a Date</div>
-      <div class="sub" id="dur-remind"></div>
-
-      <!-- Live Calendar Embed -->
-      <div class="cal-wrap">
-        <div class="cal-head">
-          <span>📅 Karigar Bookings Calendar</span>
-          <small>Live public Google Calendar</small>
-        </div>
-        <iframe id="cal-iframe" class="cal-frame" src="" frameborder="0" scrolling="no"></iframe>
-      </div>
-
-      <!-- Date Picker -->
-      <div class="date-box">
-        <div class="date-label">📌 Select your booking date</div>
-        <input type="date" id="date-picker" class="date-input" onchange="onDatePick(this.value)"/>
-        <div class="date-note">⏳ Bookings must be made at least <strong>10 full days in advance</strong>. Sundays are open.</div>
-        <div id="date-err" class="msg msg-err hidden"></div>
-        <div id="date-ok"  class="msg msg-ok  hidden"></div>
-      </div>
-
-      <!-- Day bookings panel -->
-      <div id="day-panel" class="day-panel hidden"></div>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#16a34a"></div> Approved (on calendar)</div>
-        <div class="leg"><div class="leg-dot" style="background:#3b82f6"></div> Pending (in system)</div>
-      </div>
-      <p style="font-size:.7rem;color:var(--muted);margin-bottom:14px">Sundays are open &nbsp;·&nbsp; Approved sessions appear on the calendar above</p>
-
-      <div class="btn-row">
-        <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(1)">← Back</button>
-        <button class="btn btn-p" id="btn-n2" onclick="goStep(3)" disabled>Next: Set Time →</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: Time -->
-    <div id="step-3" class="hidden">
-      <div class="ttl">Set Your Session Time</div>
-      <div class="sub" id="time-sub"></div>
-      <div class="tp-card">
-        <div class="tp-head">Drag spinners or use quick-pick presets below</div>
-        <div class="tp-body">
-          <div class="tp-row">
-            <div class="tp-block">
-              <div class="tp-lbl">🟢 Start Time</div>
-              <div class="spinners">
-                <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('sh',1)">▲</button><div class="spv" id="s-h">09</div><button class="spb" onclick="adj('sh',-1)">▼</button></div>
-                <div class="sc2">:</div>
-                <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('sm',1)">▲</button><div class="spv" id="s-m">00</div><button class="spb" onclick="adj('sm',-1)">▼</button></div>
+      <!-- STEP 3: Time -->
+      <div id="step-3" class="hidden">
+        <div class="ttl">Set Your Session Time</div>
+        <div class="sub" id="time-sub"></div>
+        <div class="tp-card">
+          <div class="tp-head">Use spinners or pick a quick preset below</div>
+          <div class="tp-body">
+            <div class="tp-row">
+              <div class="tp-block">
+                <div class="tp-lbl">Start Time</div>
+                <div class="spinners">
+                  <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('sh',1)">▲</button><div class="spv" id="s-h">09</div><button class="spb" onclick="adj('sh',-1)">▼</button></div>
+                  <div class="sc2">:</div>
+                  <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('sm',1)">▲</button><div class="spv" id="s-m">00</div><button class="spb" onclick="adj('sm',-1)">▼</button></div>
+                </div>
+                <div class="ap-row">
+                  <button class="apb on" id="s-am" onclick="setAP('s','AM')">AM</button>
+                  <button class="apb"    id="s-pm" onclick="setAP('s','PM')">PM</button>
+                </div>
               </div>
-              <div class="ap-row">
-                <button class="apb on" id="s-am" onclick="setAP('s','AM')">AM</button>
-                <button class="apb"    id="s-pm" onclick="setAP('s','PM')">PM</button>
+              <div class="tp-div"></div>
+              <div class="tp-block">
+                <div class="tp-lbl">End Time</div>
+                <div class="spinners">
+                  <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('eh',1)">▲</button><div class="spv" id="e-h">05</div><button class="spb" onclick="adj('eh',-1)">▼</button></div>
+                  <div class="sc2">:</div>
+                  <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('em',1)">▲</button><div class="spv" id="e-m">00</div><button class="spb" onclick="adj('em',-1)">▼</button></div>
+                </div>
+                <div class="ap-row">
+                  <button class="apb"    id="e-am" onclick="setAP('e','AM')">AM</button>
+                  <button class="apb on" id="e-pm" onclick="setAP('e','PM')">PM</button>
+                </div>
               </div>
             </div>
-            <div class="tp-div"></div>
-            <div class="tp-block">
-              <div class="tp-lbl">🔴 End Time</div>
-              <div class="spinners">
-                <div class="sg"><div class="sg-sub">Hr</div><button class="spb" onclick="adj('eh',1)">▲</button><div class="spv" id="e-h">05</div><button class="spb" onclick="adj('eh',-1)">▼</button></div>
-                <div class="sc2">:</div>
-                <div class="sg"><div class="sg-sub">Min</div><button class="spb" onclick="adj('em',1)">▲</button><div class="spv" id="e-m">00</div><button class="spb" onclick="adj('em',-1)">▼</button></div>
-              </div>
-              <div class="ap-row">
-                <button class="apb"    id="e-am" onclick="setAP('e','AM')">AM</button>
-                <button class="apb on" id="e-pm" onclick="setAP('e','PM')">PM</button>
-              </div>
+            <div class="range-box">
+              <div class="rb"><div class="rb-l">Start</div><div class="rb-v" id="r-start">9:00 AM</div></div>
+              <div class="rb-arr">→</div>
+              <div class="rb"><div class="rb-l">End</div><div class="rb-v" id="r-end">5:00 PM</div></div>
+              <div class="rb-dur" id="r-dur">8h</div>
+            </div>
+            <div id="time-err" class="msg msg-err hidden" style="margin-top:10px">⚠️ End time must be after start time</div>
+            <div class="presets" id="presets"></div>
+            <div id="conflict" class="msg msg-warn hidden" style="margin-top:10px">
+              ⚠️ Your time overlaps with an approved booking. You can still submit — the team will review.
             </div>
           </div>
-          <div class="range-box">
-            <div class="rb"><div class="rb-l">Start</div><div class="rb-v" id="r-start">9:00 AM</div></div>
-            <div class="rb-arr">→</div>
-            <div class="rb"><div class="rb-l">End</div><div class="rb-v" id="r-end">5:00 PM</div></div>
-            <div class="rb-dur" id="r-dur">8h</div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(2)">← Back</button>
+          <button class="btn btn-p" id="btn-n3" onclick="goStep(4)">Next: Your Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Details -->
+      <div id="step-4" class="hidden">
+        <div class="ttl">Your Details</div>
+        <div class="sub">We'll contact you once your session is confirmed</div>
+        <div id="form-err" class="alert ae hidden"></div>
+        <div class="fg"><label>Full Name *</label><input id="f-name" type="text"/></div>
+        <div class="fg"><label>Phone Number *</label><input id="f-phone" type="tel"/></div>
+        <div class="fg"><label>Email Address *</label><input id="f-email" type="email"/></div>
+        <div class="fg">
+          <label>Type of Work *</label>
+          <select id="f-type" onchange="toggleOtherType(this.value)">
+            <option value="">— Select type of work —</option>
+            <option>Karigar Express</option>
+            <option>Exposure Visit</option>
+            <option>One Day Hands Visit</option>
+            <option>Long Term Course</option>
+            <option>Training of Teachers</option>
+            <option>Birthday Celebration</option>
+            <option>Other</option>
+          </select>
+          <div id="other-type-wrap" class="hidden" style="margin-top:10px">
+            <input id="f-type-other" type="text" placeholder="Please describe your session type…"/>
           </div>
-          <div id="time-err" class="msg msg-err hidden" style="margin-top:10px">⚠️ End time must be after start time</div>
-          <div class="presets" id="presets"></div>
-          <div id="conflict" class="msg msg-warn hidden" style="margin-top:10px">
-            ⚠️ Your time overlaps with an approved booking. You can still submit — the team will review.
+        </div>
+        <div class="fg">
+          <label>Select Lab * (choose one or more)</label>
+          <div class="checkbox-grid" id="f-labs">
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Agriculture Lab"/>Agriculture Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Electrical Lab"/>Electrical Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Engineering Lab"/>Engineering Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Food Processing Lab"/>Food Processing Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Healthcare Lab"/>Healthcare Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Mechatronics Lab"/>Mechatronics Lab</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="1st Floor"/>1st Floor</label>
+            <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="2nd Floor"/>2nd Floor</label>
+          </div>
+          <div class="field-help">You can select multiple labs / locations.</div>
+        </div>
+        <div class="fg">
+          <label>What is it about? *</label>
+          <textarea id="f-work-details"></textarea>
+        </div>
+
+        <!-- Additional Requirements -->
+        <div class="fg">
+          <label>Additional Requirements <span style="font-weight:400;color:var(--muted)">(Optional)</span></label>
+          <div class="checkbox-grid">
+            <label class="checkbox-pill" onclick="toggleReq('food')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Food &amp; Refreshments" id="req-cb-food" style="pointer-events:none"/>🍽️ Food &amp; Refreshments</label>
+            <label class="checkbox-pill" onclick="toggleReq('stationery')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Stationery" id="req-cb-stationery" style="pointer-events:none"/>✏️ Stationery</label>
+            <label class="checkbox-pill" onclick="toggleReq('tv')" style="cursor:pointer"><input type="checkbox" name="f-req" value="TV / Projector" id="req-cb-tv" style="pointer-events:none"/>📺 TV / Projector</label>
+            <label class="checkbox-pill" onclick="toggleReq('wifi')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Wi-Fi" id="req-cb-wifi" style="pointer-events:none"/>📶 Wi-Fi</label>
+            <label class="checkbox-pill" onclick="toggleReq('chairs')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Extra Chairs / Tables" id="req-cb-chairs" style="pointer-events:none"/>🪑 Extra Chairs / Tables</label>
+            <label class="checkbox-pill" onclick="toggleReq('vc')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Video Conferencing" id="req-cb-vc" style="pointer-events:none"/>💻 Video Conferencing</label>
+            <label class="checkbox-pill" onclick="toggleReq('other')" style="cursor:pointer"><input type="checkbox" name="f-req" value="Other" id="req-cb-other" style="pointer-events:none"/>➕ Other</label>
+          </div>
+          <div id="req-wrap-food"       class="hidden" style="margin-top:8px"><textarea id="req-note-food"       rows="2" placeholder="Details for Food &amp; Refreshments…"  style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-stationery" class="hidden" style="margin-top:8px"><textarea id="req-note-stationery" rows="2" placeholder="Details for Stationery…"                style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-tv"         class="hidden" style="margin-top:8px"><textarea id="req-note-tv"         rows="2" placeholder="Details for TV / Projector…"            style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-wifi"       class="hidden" style="margin-top:8px"><textarea id="req-note-wifi"       rows="2" placeholder="Details for Wi-Fi…"                     style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-chairs"     class="hidden" style="margin-top:8px"><textarea id="req-note-chairs"     rows="2" placeholder="Details for Extra Chairs / Tables…"     style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-vc"         class="hidden" style="margin-top:8px"><textarea id="req-note-vc"         rows="2" placeholder="Details for Video Conferencing…"        style="resize:vertical;min-height:64px"></textarea></div>
+          <div id="req-wrap-other"      class="hidden" style="margin-top:8px"><textarea id="req-note-other"      rows="2" placeholder="Describe your additional requirement…"  style="resize:vertical;min-height:64px"></textarea></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(3)">← Back</button>
+          <button class="btn btn-p" onclick="goStep(5)">Review Booking →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Confirm -->
+      <div id="step-5" class="hidden">
+        <div class="ttl">Review &amp; Confirm</div>
+        <div class="summ" id="summ"></div>
+        <div id="sub-err" class="alert ae hidden"></div>
+        <div class="btn-row">
+          <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(4)">← Edit</button>
+          <button class="btn btn-p" id="btn-sub" onclick="submitBooking()">✅ Confirm Session</button>
+        </div>
+      </div>
+
+      <!-- STEP 6: Success -->
+      <div id="step-6" class="hidden">
+        <div class="sbox">
+          <div style="font-size:3rem">🎉</div>
+          <h2>Request Submitted!</h2>
+          <p>Your session request is pending approval from the Karigar team.</p>
+          <p>You'll receive an email once your booking is confirmed.</p>
+          <div class="bid" id="bid"></div>
+          <p style="font-size:.73rem;color:var(--muted)">Save this ID to track or reschedule your booking</p>
+          <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <button class="btn btn-p" style="max-width:200px" onclick="resetForm()">📅 Book Another</button>
+            <button class="btn btn-s" onclick="showSection('status',document.getElementById('ai-mybooking'))">🔍 Check Status</button>
           </div>
         </div>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(2)">← Back</button>
-        <button class="btn btn-p" id="btn-n3" onclick="goStep(4)">Next: Your Details →</button>
-      </div>
-    </div>
 
-    <!-- STEP 4: Details -->
-    <div id="step-4" class="hidden">
-      <div class="ttl">Your Details</div>
-      <div class="sub">We'll contact you once your session is confirmed</div>
-      <div id="form-err" class="alert ae hidden"></div>
-      <div class="fg"><label>Full Name *</label><input id="f-name" type="text" placeholder="e.g. Ramesh Kumar"/></div>
-      <div class="fg"><label>Phone Number *</label><input id="f-phone" type="tel" placeholder="10-digit mobile" maxlength="10"/></div>
-      <div class="fg"><label>Email Address *</label><input id="f-email" type="email" placeholder="you@example.com"/></div>      <div class="fg">
-        <label>Type of Work *</label>
-        <select id="f-type">
-          <option value="">— Select type of work —</option>
-          <option>Karigar Express</option>
-          <option>Exposure Visit</option>
-          <option>One Day Hands Visit</option>
-          <option>Long Term Course</option>
-          <option>Training of Teachers</option>
-          <option>Birthday Celebration</option>
-          <option>Other</option>
-        </select>
-      </div>
+    </div><!-- /tab-book -->
+
+    <!-- ═══ STATUS TAB ═══ -->
+    <div id="tab-status" class="card hidden">
+      <div class="ttl" id="status-heading">Check Booking Status</div>
+      <p id="status-hint" style="color:var(--muted);font-size:.83rem;margin-bottom:18px;line-height:1.55">
+        Enter your email or Booking ID to see your bookings.
+      </p>
       <div class="fg">
-        <label>Select Lab * (choose one or more)</label>
-        <div class="checkbox-grid" id="f-labs">
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="EE LAB"/>EE LAB</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="AI LAB"/>AI LAB</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="Auto LAB"/>Auto LAB</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="GNAT LAB"/>GNAT LAB</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="FPT LAB"/>FPT LAB</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="1st Floor"/>1st Floor</label>
-          <label class="checkbox-pill"><input type="checkbox" name="f-lab" value="2nd Floor"/>2nd Floor</label>
-        </div>
-        <div class="field-help">You can select multiple labs / locations.</div>
+        <label>Email or Booking ID</label>
+        <input id="sq" type="text" placeholder="you@email.com or KARIGAR12345678" onkeyup="if(event.key==='Enter')checkStatus()"/>
       </div>
-      <div class="fg">
-        <label>What is it about? *</label>
-        <textarea id="f-work-details" placeholder="e.g. Exposure visit in AI LAB and course is MSBSVET Electrical Wireman &amp; Automobile Course Batch - 2"></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(3)">← Back</button>
-        <button class="btn btn-p" onclick="goStep(5)">Review Booking →</button>
-      </div>
+      <button class="btn btn-p" onclick="checkStatus()">🔍 Check Status</button>
+      <div id="st-out"></div>
     </div>
 
-    <!-- STEP 5: Confirm -->
-    <div id="step-5" class="hidden">
-      <div class="ttl">Review &amp; Confirm</div>
-      <div class="summ" id="summ"></div>
-      <div id="sub-err" class="alert ae hidden"></div>
-      <div class="btn-row">
-        <button class="btn btn-s" style="flex:0 0 auto;width:80px" onclick="goStep(4)">← Edit</button>
-        <button class="btn btn-p" id="btn-sub" onclick="submitBooking()">✅ Confirm Session</button>
-      </div>
-    </div>
+  </div><!-- /content-inner -->
+</div><!-- /content-wrap -->
 
-    <!-- STEP 6: Success -->
-    <div id="step-6" class="hidden">
-      <div class="sbox">
-        <div style="font-size:3.5rem">🎉</div>
-        <h2>Request Submitted!</h2>
-        <p>Your session request is pending approval from the Karigar team.</p>
-        <p>You'll receive an email once your booking is confirmed.</p>
-        <div class="bid" id="bid"></div>
-        <p style="font-size:.73rem;color:var(--muted)">Save this ID to track or reschedule your booking</p>
-        <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-p" style="max-width:200px" onclick="resetForm()">📅 Book Another</button>
-          <button class="btn btn-s" onclick="switchTab('status',document.querySelectorAll('.tab-btn')[1])">🔍 Check Status</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ═══ STATUS TAB ═══ -->
-  <div id="tab-status" class="card hidden">
-    <div class="ttl">Check Booking Status</div>
-    <p style="color:var(--muted);font-size:.84rem;margin-bottom:16px">Enter your email or Booking ID to see your bookings. If the backend URL is still blank in the code, status lookup will stay inactive.</p>
-    <div class="fg">
-      <label>Email or Booking ID</label>
-      <input id="sq" type="text" placeholder="you@email.com or KARIGAR12345678" onkeyup="if(event.key==='Enter')checkStatus()"/>
-    </div>
-    <button class="btn btn-p" onclick="checkStatus()">🔍 Check Status</button>
-    <div id="st-out"></div>
-  </div>
-</div>
-
-<div style="text-align:center;margin-top:28px;font-size:.7rem;color:var(--muted);padding:0 16px">
+<!-- ─── FOOTER ──────────────────────────────────────────────── -->
+<footer class="site-footer">
   Public calendar connected · iCal feed available in code as <code>PUBLIC_ICAL_URL</code><br>
   Karigar – School of Applied Learning &nbsp;·&nbsp; <strong>Lend A Hand India</strong> &nbsp;·&nbsp; Pune, Maharashtra
-</div>
+</footer>
+
 
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
@@ -569,7 +1128,7 @@ var RESCHEDULE_SLOTS={
   ]
 };
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
+// ─── TABS (unchanged) ─────────────────────────────────────────────────────────
 function switchTab(tab,btn){
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
@@ -592,6 +1151,7 @@ function goStep(n){
     var err=document.getElementById('form-err');
     var nm=v('f-name'),ph=v('f-phone'),em=v('f-email'),type=v('f-type'),details=v('f-work-details'),labs=getSelectedLabs();
     if(!nm||!ph||!em||!type||!details||!labs.length){showEl(err,'Please fill in all required fields, including at least one lab.');return;}
+    if(type==='Other' && !document.getElementById('f-type-other').value.trim()){showEl(err,'Please specify your "Other" session type.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){showEl(err,'Enter a valid email address.');return;}
     if(!/^\d{10}$/.test(ph)){showEl(err,'Phone must be exactly 10 digits.');return;}
     err.classList.add('hidden');
@@ -680,7 +1240,7 @@ function renderDateTiles(){
     html+='<button type="button" class="date-tile '+cls+selected+'" onclick="pickTileDate(\''+key+'\')">'
       +'<small>'+d.toLocaleDateString('en-IN',{weekday:'short'})+'</small>'
       +'<strong>'+d.getDate()+'</strong>'
-      +'<span>'+(hasApproved?'Approved booked':(hasPending?'Pending request':'Available'))+'</span>'
+      +'<span>'+(hasApproved?'Booked':(hasPending?'Pending':'Open'))+'</span>'
       +'</button>';
   }
   wrap.innerHTML=html;
@@ -694,7 +1254,7 @@ function showDayPanel(key,date){
   var p=document.getElementById('day-panel');
   var bks=calBk[key]||[];
   var ds=date.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  var h='<div class="dp-head"><span>📅 '+ds+'</span><small>'+(bks.length>0?bks.length+' booking(s)':'No pending bookings')+'</small></div><div class="dp-body">';
+  var h='<div class="dp-head"><span>'+ds+'</span><small>'+(bks.length>0?bks.length+' booking(s)':'No bookings yet')+'</small></div><div class="dp-body">';
   if(bks.length===0){
     h+='<div class="dp-empty">No bookings in our system for this date yet.</div>';
   } else {
@@ -779,7 +1339,7 @@ function checkConflict(){
   document.getElementById('conflict').classList.toggle('hidden',!c);
 }
 
-// ─── SUMMARY & SUBMIT ────────────────────────────────────────────────────────
+// ─── SUMMARY & SUBMIT ─────────────────────────────────────────────────────────
 function buildSummary(){
   document.getElementById('summ').innerHTML=
     row('⏱ Session Type','<span class="pill pill-p">'+DUR_LBL[selDur]+'</span>')+
@@ -791,7 +1351,8 @@ function buildSummary(){
     row('📝 Details',escapeHtml(v('f-work-details')))+
     row('👤 Name',v('f-name'))+
     row('📞 Phone',v('f-phone'))+
-    row('📧 Email',v('f-email'));
+    row('📧 Email',v('f-email'))+
+    row('📋 Requirements',escapeHtml(getSelectedReqs().join(', ')||'None'));
 }
 function row(l,val){return '<div class="sr"><span class="sl2">'+l+'</span><span class="sv">'+val+'</span></div>';}
 
@@ -810,6 +1371,8 @@ async function submitBooking(){
     typeOfWork:typeOfWork,
     labs:labs,
     workDetails:workDetails,
+    typeOtherDetail:(typeOfWork==='Other'?(document.getElementById('f-type-other').value.trim()):''),
+    additionalRequirements:getSelectedReqs(),
     date:selDate.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
     dateKey:toKey(selDate),
     time:fmtT(sH,sM,sAP), endTime:fmtT(eH,eM,eAP)
@@ -826,7 +1389,7 @@ async function submitBooking(){
   }
 }
 
-// ─── STATUS CHECK ────────────────────────────────────────────────────────────
+// ─── STATUS CHECK ─────────────────────────────────────────────────────────────
 async function checkStatus(){
   var q=document.getElementById('sq').value.trim();
   var out=document.getElementById('st-out');
@@ -836,9 +1399,10 @@ async function checkStatus(){
   if(!data){out.innerHTML='<div class="alert ae" style="margin-top:12px">Status lookup is not connected yet. Add your Apps Script URL in BACKEND_SCRIPT_URL inside the HTML file.</div>';return;}
   if(data.success&&data.bookings&&data.bookings.length>0){
     out.innerHTML=data.bookings.map(function(b){
-      var mc=b.status==='Approved'?'sm-a':b.status==='Declined'?'sm-d':'sm-p';
+      var mc=b.status==='Approved'?'sm-a':b.status==='Declined'||b.status==='Cancelled'?'sm-d':'sm-p';
       var mt=b.status==='Approved'?'✅ Confirmed! The Karigar team will be ready at your start time.'
         :b.status==='Declined'?'❌ Not approved. Please book a different slot.'
+        :b.status==='Cancelled'?'🚫 This session was cancelled by the team. Please book a new slot.'
         :'⏳ Pending review — you\'ll be notified once confirmed.';
       var canReschedule=(b.status==='Pending'||b.status==='Approved');
       return '<div class="stcard">'
@@ -853,6 +1417,7 @@ async function checkStatus(){
   }
 }
 
+// ─── RESCHEDULE ───────────────────────────────────────────────────────────────
 function buildSelectableTimes(){
   var out=[];
   for(var mins=8*60; mins<=18*60; mins+=30){
@@ -900,7 +1465,7 @@ function rescheduleBlock(booking){
     +'<div class="fg"><label>End Time</label>'
     +'<select id="rs-end-'+booking.id+'" style="border-color:#e8c97a"><option value="">— Select end time —</option></select></div>'
     +'<div style="font-size:.74rem;color:#92400e;margin-top:-4px;margin-bottom:10px">Select the time from the list. Manual typing is disabled.</div>'
-    +'<button class="btn-accent" style="width:100%" onclick="submitReschedule(\''+booking.id+'\')">📅 Request Reschedule</button>'
+    +'<button class="btn-accent" onclick="submitReschedule(\''+booking.id+'\')">📅 Request Reschedule</button>'
     +'<div id="rs-msg-'+booking.id+'" style="margin-top:8px"></div>'
     +'</div></div>';
 }
@@ -933,7 +1498,7 @@ async function submitReschedule(bookingId){
   }
 }
 
-// ─── API HELPERS ─────────────────────────────────────────────────────────────
+// ─── API HELPERS ──────────────────────────────────────────────────────────────
 async function apiGet(action){
   return apiGetQuery(action,'');
 }
@@ -960,6 +1525,16 @@ function resetForm(){
   selDur=null;selDate=null;curStep=1;calBk={};
   ['f-name','f-phone','f-email','f-work-details'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('f-type').value='';
+  document.getElementById('f-type-other').value='';
+  document.getElementById('other-type-wrap').classList.add('hidden');
+  ['food','stationery','tv','wifi','chairs','vc','other'].forEach(function(key){
+    var cb = document.getElementById('req-cb-' + key);
+    if(cb) cb.checked = false;
+    var wrap = document.getElementById('req-wrap-' + key);
+    if(wrap) wrap.classList.add('hidden');
+    var note = document.getElementById('req-note-' + key);
+    if(note) note.value = '';
+  });
   clearSelectedLabs();
   document.querySelectorAll('.dur-card').forEach(function(c){c.classList.remove('selected');});
   document.getElementById('btn-n1').disabled=true;
@@ -970,7 +1545,7 @@ function resetForm(){
   document.getElementById('day-panel').classList.add('hidden');
 }
 
-// ─── UTILITY HELPERS ─────────────────────────────────────────────────────────
+// ─── UTILITY HELPERS ──────────────────────────────────────────────────────────
 function v(id){return document.getElementById(id).value.trim();}
 function pad(n){return String(n).padStart(2,'0');}
 function toKey(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
@@ -987,10 +1562,92 @@ function escapeHtml(str){
   });
 }
 
+function toggleOtherType(val){
+  document.getElementById('other-type-wrap').classList.toggle('hidden', val !== 'Other');
+  if(val !== 'Other') document.getElementById('f-type-other').value = '';
+}
+
+var REQ_KEYS = ['food','stationery','tv','wifi','chairs','vc','other'];
+
+function toggleReq(key){
+  var cb   = document.getElementById('req-cb-' + key);
+  cb.checked = !cb.checked;
+  var wrap = document.getElementById('req-wrap-' + key);
+  wrap.classList.toggle('hidden', !cb.checked);
+  if(cb.checked){
+    setTimeout(function(){ document.getElementById('req-note-' + key).focus(); }, 50);
+  } else {
+    document.getElementById('req-note-' + key).value = '';
+  }
+}
+
+function getSelectedReqs(){
+  var out = [];
+  REQ_KEYS.forEach(function(key){
+    var cb = document.getElementById('req-cb-' + key);
+    if(cb && cb.checked){
+      var note = (document.getElementById('req-note-' + key).value || '').trim();
+      var label = cb.value;
+      out.push(note ? label + ': ' + note : label);
+    }
+  });
+  return out;
+}
+
+// ─── NEW: Section navigation ──────────────────────────────────────────────────
+
+/**
+ * showSection(which, cardEl)
+ * Activates an action card, shows #content-wrap, and switches to the
+ * correct tab. 'reschedule' reuses the status tab with updated copy.
+ * Only navigation-state changes — no backend or form logic touched.
+ */
+function showSection(which, cardEl) {
+  // Highlight the clicked action card
+  document.querySelectorAll('.action-item').forEach(function(c) {
+    c.classList.remove('ac-active');
+  });
+  if (cardEl) cardEl.classList.add('ac-active');
+
+  // Update the breadcrumb label
+  var labels = { book: 'Booking', status: 'My Booking', reschedule: 'Reschedule' };
+  var crumbEl = document.getElementById('section-crumb');
+  if (crumbEl) crumbEl.textContent = labels[which] || 'Karigar';
+
+  // Reschedule reuses the status tab — update heading/hint text accordingly
+  var tabKey = (which === 'reschedule') ? 'status' : which;
+  var hEl   = document.getElementById('status-heading');
+  var hintEl = document.getElementById('status-hint');
+  if (which === 'reschedule') {
+    if (hEl)   hEl.textContent   = 'Reschedule Your Booking';
+    if (hintEl) hintEl.textContent = 'Enter your email or Booking ID below. Eligible bookings will show a reschedule option once found.';
+  } else if (which === 'status') {
+    if (hEl)   hEl.textContent   = 'Check Booking Status';
+    if (hintEl) hintEl.textContent = 'Enter your email or Booking ID to see your bookings.';
+  }
+
+  // Delegate to the existing switchTab() — tab buttons are hidden but still in DOM
+  var tabBtn = document.querySelector('.tab-btn[data-tab="' + tabKey + '"]');
+  if (tabBtn) switchTab(tabKey, tabBtn);
+
+  // Reveal the content area
+  var cw = document.getElementById('content-wrap');
+  cw.classList.remove('hidden');
+
+  // Smooth scroll to content
+  setTimeout(function() {
+    cw.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
+}
+
+/** Scrolls back to the top shell so the user can choose a different action */
+function goToTop() {
+  document.querySelector('.top-shell').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 updateCalEmbed();
 startAutoRefresh();
 </script>
 </body>
 </html>
-`;
