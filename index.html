@@ -858,7 +858,7 @@ textarea{min-height:96px;resize:vertical}
         <div class="date-box">
           <div class="date-label">Select your booking date</div>
           <input type="date" id="date-picker" class="date-input" onchange="onDatePick(this.value)"/>
-          <div class="date-note">⏳ Bookings must be at least <strong>10 full days in advance</strong>. Sundays are open.</div>
+          <div class="date-note">⏳ Bookings must be at least <strong>5 days in advance</strong>. Sundays are open.</div>
           <div id="date-err" class="msg msg-err hidden"></div>
           <div id="date-ok"  class="msg msg-ok  hidden"></div>
         </div>
@@ -1054,7 +1054,7 @@ const BACKEND_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2bL5FBh3TJ
 const CALENDAR_AUTO_REFRESH_MS = 60000;
 
 function SCRIPT_URL(){return BACKEND_SCRIPT_URL;}
-function minLeadDate(){var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()+10); return d;}
+function minLeadDate(){var d=new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()+5); return d;}
 function isDateBookable(d){var min=minLeadDate(); return d>=min;}
 function getSelectedLabs(){return Array.from(document.querySelectorAll('input[name="f-lab"]:checked')).map(function(el){return el.value;});}
 function clearSelectedLabs(){document.querySelectorAll('input[name="f-lab"]').forEach(function(el){el.checked=false;});}
@@ -1200,7 +1200,7 @@ function onDatePick(val){
   var picked=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
   picked.setHours(0,0,0,0);
   if(!isDateBookable(picked)){
-    showEl(errEl,'⚠️ Bookings must be made at least 10 full days in advance.');
+    showEl(errEl,'⚠️ Bookings must be made at least 5 days in advance.');
     selDate=null; renderDateTiles(); return;
   }
   selDate=picked;
@@ -1509,7 +1509,7 @@ function onRescheduleStartChange(bookingId){
 function rescheduleBlock(booking){
   return '<div class="reschedule-box"><h4>🔄 Need a different time?</h4>'
     +'<div class="reschedule-form">'
-    +'<div class="fg"><label>New Date (must be at least 10 full days from today)</label>'
+    +'<div class="fg"><label>New Date (must be at least 5 days from today)</label>'
     +'<input type="date" class="rs-date" id="rs-date-'+booking.id+'" min="'+rsMinDate()+'" style="border-color:#e8c97a"/></div>'
     +'<div class="fg"><label>Start Time</label>'
     +'<select id="rs-start-'+booking.id+'" onchange="onRescheduleStartChange(\''+booking.id+'\')" style="border-color:#e8c97a">'+renderRescheduleTimeOptions('')+'</select></div>'
@@ -1535,7 +1535,7 @@ async function submitReschedule(bookingId){
   var parts=newDate.split('-');
   var d=new Date(parseInt(parts[0]),parseInt(parts[1])-1,parseInt(parts[2]));
   d.setHours(0,0,0,0);
-  if(!isDateBookable(d)){msgEl.innerHTML='<div class="msg msg-err">Bookings must be made at least 10 full days in advance.</div>';return;}
+  if(!isDateBookable(d)){msgEl.innerHTML='<div class="msg msg-err">Bookings must be made at least 5 days in advance.</div>';return;}
   msgEl.innerHTML='<div class="msg msg-warn">⏳ Submitting reschedule request…</div>';
   var data=await apiPost({action:'reschedule',bookingId:bookingId,newDateKey:newDate,
     newDate:d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),
